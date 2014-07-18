@@ -1,11 +1,8 @@
 OpenPermits::Application.routes.draw do
   resources :app_roles
-
   resources :trusted_apps
 
   resources :consumers
-
-  resources :documents
 
   resources :ratings
 
@@ -18,10 +15,28 @@ OpenPermits::Application.routes.draw do
   resources :permits
 
   resources :people
+  resources :documents
 
   resources :addresses
 
   resources :companies
+
+  #API routes
+  #API has access to all but app_roles and trusted_apps
+  namespace :api, :path => "", :constraints => { :subdomain => "api" }, :defaults => {:format => :json} do 
+    namespace :v1 do
+      resources :consumers
+      resources :ratings
+      resources :services
+      resources :service_types
+      resources :vehicles
+      resources :permits
+      resources :people
+      resources :documents
+      resources :addresses
+      resources :companies
+   end
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
