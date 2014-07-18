@@ -1,0 +1,37 @@
+<h1>Listing permits</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Permit number</th>
+      <th>Permit expiration date</th>
+      <th>Training completion date</th>
+      <th>Status</th>
+      <th>Valid</th>
+      <th>Beacon</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @permits.each do |permit| %>
+      <tr>
+        <td><%= permit.permit_number %></td>
+        <td><%= permit.permit_expiration_date %></td>
+        <td><%= permit.training_completion_date %></td>
+        <td><%= permit.status %></td>
+        <td><%= permit.valid %></td>
+        <td><%= permit.beacon_id %></td>
+        <td><%= link_to 'Show', permit %></td>
+        <td><%= link_to 'Edit', edit_permit_path(permit) %></td>
+        <td><%= link_to 'Destroy', permit, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Permit', new_permit_path %>

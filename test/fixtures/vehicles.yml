@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  make: 
+  model: 
+  color: 
+  year: 
+  inspection_date: 
+  license_plate: MyString
+
+two:
+  make: 
+  model: 
+  color: 
+  year: 
+  inspection_date: 
+  license_plate: MyString

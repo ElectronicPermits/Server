@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  app_name: 
+  description: 
+  sha_hash: MyString
+
+two:
+  app_name: 
+  description: 
+  sha_hash: MyString

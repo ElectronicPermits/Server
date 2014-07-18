@@ -1,0 +1,29 @@
+<%= form_for(@trusted_app) do |f| %>
+  <% if @trusted_app.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@trusted_app.errors.count, "error") %> prohibited this trusted_app from being saved:</h2>
+
+      <ul>
+      <% @trusted_app.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :app_name %><br>
+    <%= f.text_field :app_name %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_field :description %>
+  </div>
+  <div class="field">
+    <%= f.label :sha_hash %><br>
+    <%= f.text_field :sha_hash %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

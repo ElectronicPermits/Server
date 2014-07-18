@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  permit_number: 
+  permit_expiration_date: 
+  training_completion_date: 
+  status: 
+  valid: 
+  beacon_id: MyString
+
+two:
+  permit_number: 
+  permit_expiration_date: 
+  training_completion_date: 
+  status: 
+  valid: 
+  beacon_id: MyString

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: 
+  average_rating: 
+  phone_number: MyString
+
+two:
+  name: 
+  average_rating: 
+  phone_number: MyString

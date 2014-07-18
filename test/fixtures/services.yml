@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  start_coordinates: 
+  end_coordinates: 
+  start_time: 
+  end_time: 
+  estimated_cost: 
+  actual_cost: 9.99
+
+two:
+  start_coordinates: 
+  end_coordinates: 
+  start_time: 
+  end_time: 
+  estimated_cost: 
+  actual_cost: 9.99

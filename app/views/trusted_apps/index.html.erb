@@ -1,0 +1,31 @@
+<h1>Listing trusted_apps</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>App name</th>
+      <th>Description</th>
+      <th>Sha hash</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @trusted_apps.each do |trusted_app| %>
+      <tr>
+        <td><%= trusted_app.app_name %></td>
+        <td><%= trusted_app.description %></td>
+        <td><%= trusted_app.sha_hash %></td>
+        <td><%= link_to 'Show', trusted_app %></td>
+        <td><%= link_to 'Edit', edit_trusted_app_path(trusted_app) %></td>
+        <td><%= link_to 'Destroy', trusted_app, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Trusted app', new_trusted_app_path %>
