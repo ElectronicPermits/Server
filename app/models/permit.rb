@@ -1,4 +1,7 @@
 class Permit < ActiveRecord::Base
-  has_many :documents, :ratings, :services
-  belongs_to :person
+  belongs_to :permitable, polymorphic: true
+  has_many :documents
+  has_many :ratings
+  has_many :services
+  has_many :violations
 end

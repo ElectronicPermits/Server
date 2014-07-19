@@ -1,4 +1,5 @@
 class Consumer < ActiveRecord::Base
   belongs_to :trusted_app
-  has_many :services, :ratings
+  has_many :services
+  has_many :ratings
 end
