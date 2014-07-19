@@ -18,8 +18,8 @@
   <tbody>
     <% @services.each do |service| %>
       <tr>
-        <td><%= service.start_coordinates %></td>
-        <td><%= service.end_coordinates %></td>
+        <td><%= service.start_latitude %>, <%= service.start_longitude %></td>
+        <td><%= service.end_latitude %>, <%= service.end_longitude %></td>
         <td><%= service.start_time %></td>
         <td><%= service.end_time %></td>
         <td><%= service.estimated_cost %></td>

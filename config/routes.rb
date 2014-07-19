@@ -1,4 +1,6 @@
 OpenPermits::Application.routes.draw do
+  resources :violations
+
   resources :app_roles
   resources :trusted_apps
 
