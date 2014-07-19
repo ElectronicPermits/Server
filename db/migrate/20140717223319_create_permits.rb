@@ -8,6 +8,7 @@ class CreatePermits < ActiveRecord::Migration
       t.boolean :valid, :default => true
       t.string :beacon_id
       t.float :average_rating, :default => 0
+      t.references :permitable, polymorphic: true
 
       t.timestamps
     end
