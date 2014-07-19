@@ -1,11 +1,8 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  app_name: 
-  description: 
-  sha_hash: MyString
-
-two:
-  app_name: 
-  description: 
-  sha_hash: MyString
+<% 1000.times do |i| %>
+trusted_app_<%=i%>:
+  app_name: "Test App <%= i %>"
+  description: "Description for the app"
+  sha_hash: "asdfqwper47v7vzx7281"
+<% end %>

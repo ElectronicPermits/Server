@@ -1,17 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  permit_number: 
-  permit_expiration_date: 
-  training_completion_date: 
-  status: 
-  valid: 
-  beacon_id: MyString
-
-two:
-  permit_number: 
-  permit_expiration_date: 
-  training_completion_date: 
-  status: 
-  valid: 
-  beacon_id: MyString
+<% 1000.times do |i| %>
+permit_<%=i%>:
+  permit_number: <%= i %>
+  permit_expiration_date: <%= Time.now %>
+  training_completion_date: <%= Time.now %>
+  status: "Issued"
+  valid: true
+  beacon_id: "1661"
+<% end %>

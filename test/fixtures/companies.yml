@@ -1,11 +1,8 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: 
-  average_rating: 
-  phone_number: MyString
-
-two:
-  name: 
-  average_rating: 
-  phone_number: MyString
+<% 1000.times do |i| %>
+company_<%= i %>:
+  name: "Company #{<%=i %>}"
+  average_rating: 0
+  phone_number: "6154651000"
+<%end%>

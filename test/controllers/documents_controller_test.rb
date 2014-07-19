@@ -2,7 +2,7 @@ require 'test_helper'
 
 class DocumentsControllerTest < ActionController::TestCase
   setup do
-    @document = documents(:one)
+    @document = documents(:document_1)
   end
 
   test "should get index" do

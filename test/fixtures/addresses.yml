@@ -1,15 +1,23 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  line1: 
-  line2: 
-  city: 
-  state: 
-  zipcode: MyString
+  line1: "12820 Kelly Avenue"
+  line2: ""
+  city: "Chaska"
+  state: "MN"
+  zipcode: "55318"
 
 two:
-  line1: 
-  line2: 
-  city: 
-  state: 
-  zipcode: MyString
+  line1: "4404 Waterford Circle"
+  line2: ""
+  city: "Nashville"
+  state: "TN"
+  zipcode: "37221"
+
+one:
+  line1: "1510 Lebanon Pike"
+  line2: ""
+  city: "Nashville"
+  state: "TN"
+  zipcode: "37210"
+

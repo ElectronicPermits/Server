@@ -2,7 +2,7 @@ require 'test_helper'
 
 class TrustedAppsControllerTest < ActionController::TestCase
   setup do
-    @trusted_app = trusted_apps(:one)
+    @trusted_app = trusted_apps(:trusted_app_1)
   end
 
   test "should get index" do

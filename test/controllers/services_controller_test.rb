@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ServicesControllerTest < ActionController::TestCase
   setup do
-    @service = services(:one)
+    @service = services(:service_1)
   end
 
   test "should get index" do
@@ -18,7 +18,7 @@ class ServicesControllerTest < ActionController::TestCase
 
   test "should create service" do
     assert_difference('Service.count') do
-      post :create, service: { actual_cost: @service.actual_cost, end_coordinates: @service.end_coordinates, end_time: @service.end_time, estimated_cost: @service.estimated_cost, start_coordinates: @service.start_coordinates, start_time: @service.start_time }
+      post :create, service: { actual_cost: @service.actual_cost, end_latitude: @service.end_latitude, end_longitude: @service.end_longitude, end_time: @service.end_time, estimated_cost: @service.estimated_cost, start_longitude: @service.start_longitude, start_latitude: @service.start_latitude, start_time: @service.start_time }
     end
 
     assert_redirected_to service_path(assigns(:service))
@@ -35,7 +35,7 @@ class ServicesControllerTest < ActionController::TestCase
   end
 
   test "should update service" do
-    patch :update, id: @service, service: { actual_cost: @service.actual_cost, end_coordinates: @service.end_coordinates, end_time: @service.end_time, estimated_cost: @service.estimated_cost, start_coordinates: @service.start_coordinates, start_time: @service.start_time }
+    patch :update, id: @service, service: { actual_cost: @service.actual_cost, end_longitude: @service.end_longitude, end_latitude: @service.end_latitude, end_time: @service.end_time, estimated_cost: @service.estimated_cost, start_latitude: @service.start_latitude, start_longitude: @service.start_longitude, start_time: @service.start_time }
     assert_redirected_to service_path(assigns(:service))
   end
 

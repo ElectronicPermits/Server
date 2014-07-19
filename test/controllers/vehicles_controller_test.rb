@@ -2,7 +2,7 @@ require 'test_helper'
 
 class VehiclesControllerTest < ActionController::TestCase
   setup do
-    @vehicle = vehicles(:one)
+    @vehicle = vehicles(:vehicle_1)
   end
 
   test "should get index" do

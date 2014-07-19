@@ -1,23 +1,14 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  first_name: 
-  middle_name: 
-  last_name: 
+<% 1000.times do |i| %>
+person_<%= i %>:
+  first_name: "first_name_<%=i %>"
+  middle_name: "middle_<%= i %>"
+  last_name: "last_<%= i %>"
   date_of_birth: 
-  race: 
-  sex: 
-  height: 
-  weight: 
-  phone_number: MyString
-
-two:
-  first_name: 
-  middle_name: 
-  last_name: 
-  date_of_birth: 
-  race: 
-  sex: 
-  height: 
-  weight: 
-  phone_number: MyString
+  race: "Hispanic"
+  sex: <% if rand()>0.5 then "male" else "female" end %>
+  height: 72
+  weight: 150
+  phone_number: "9524652954"
+<%end%>

@@ -1,17 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  make: 
-  model: 
-  color: 
-  year: 
-  inspection_date: 
-  license_plate: MyString
-
-two:
-  make: 
-  model: 
-  color: 
-  year: 
-  inspection_date: 
-  license_plate: MyString
+<% 1000.times do |i| %>
+vehicle_<%=i%>:
+  make: "Ford"
+  model: "Taurus"
+  color: "Green"
+  year: "1991"
+  inspection_date: 2014-4-12
+  license_plate: "900 AME"
+<% end %>

@@ -1,9 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: 
-  description: MyString
+taxi:
+  name: "Taxi"
+  description: "Taxi Driving"
 
-two:
-  name: 
-  description: MyString
+tow_truck:
+  name: "Tow Truck"
+  description: "Towing Vehicles"
+
+pedal_pub:
+  name: "Pedal Tavern"
+  description: "Bicycling with increasing levels of intoxication"
