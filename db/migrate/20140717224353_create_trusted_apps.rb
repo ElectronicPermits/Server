@@ -4,6 +4,7 @@ class CreateTrustedApps < ActiveRecord::Migration
       t.string :app_name
       t.string :description
       t.string :sha_hash
+      t.integer :max_daily_posts, :default => 10
 
       t.timestamps
     end
