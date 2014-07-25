@@ -1,8 +1,7 @@
 OpenPermits::Application.routes.draw do
 
+  # Routes for public access
   resources :violations, only: [:index, :show]
-  #resources :app_roles
-  #resources :trusted_apps
   resources :consumers, only: [:index, :show]
   resources :ratings, only: [:index, :show]
   resources :services, only: [:index, :show]
@@ -10,10 +9,12 @@ OpenPermits::Application.routes.draw do
   resources :vehicles, only: [:index, :show]
   resources :permits, only: [:index, :show]
   resources :people, only: [:index, :show]
-  #resources :documents
   resources :addresses, only: [:index, :show]
   resources :companies, only: [:index, :show]
 
+  #Admin routes
+  #TODO
+  
   #API routes
   #API has access to all but app_roles and trusted_apps
   namespace :api, :path => "", :constraints => { :subdomain => "api" }, :defaults => {:format => :json} do 
@@ -27,7 +28,6 @@ OpenPermits::Application.routes.draw do
       resources :vehicles, only: [:create, :index, :show, :update]
       resources :permits, only: [:create, :index, :show, :update]
       resources :people, only: [:create, :index, :show, :update]
-      #resources :documents
       resources :addresses, only: [:create, :index, :show, :update]
       resources :companies, only: [:create, :index, :show, :update]
 
