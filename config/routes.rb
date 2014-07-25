@@ -1,42 +1,39 @@
 OpenPermits::Application.routes.draw do
-  resources :violations
 
-  resources :app_roles
-  resources :trusted_apps
-
-  resources :consumers
-
-  resources :ratings
-
-  resources :services
-
-  resources :service_types
-
-  resources :vehicles
-
-  resources :permits
-
-  resources :people
-  resources :documents
-
-  resources :addresses
-
-  resources :companies
+  resources :violations, only: [:index, :show]
+  #resources :app_roles
+  #resources :trusted_apps
+  resources :consumers, only: [:index, :show]
+  resources :ratings, only: [:index, :show]
+  resources :services, only: [:index, :show]
+  resources :service_types, only: [:index, :show]
+  resources :vehicles, only: [:index, :show]
+  resources :permits, only: [:index, :show]
+  resources :people, only: [:index, :show]
+  #resources :documents
+  resources :addresses, only: [:index, :show]
+  resources :companies, only: [:index, :show]
 
   #API routes
   #API has access to all but app_roles and trusted_apps
   namespace :api, :path => "", :constraints => { :subdomain => "api" }, :defaults => {:format => :json} do 
     namespace :v1 do
-      resources :consumers
-      resources :ratings
-      resources :services
+      #Create or read
+      resources :consumers, only: [:create, :index, :show]
+      resources :ratings, only: [:create, :index, :show]
+      resources :services, only: [:create, :index, :show]
+
+      #No deleting
+      resources :vehicles, only: [:create, :index, :show, :update]
+      resources :permits, only: [:create, :index, :show, :update]
+      resources :people, only: [:create, :index, :show, :update]
+      #resources :documents
+      resources :addresses, only: [:create, :index, :show, :update]
+      resources :companies, only: [:create, :index, :show, :update]
+
+      #Fully editable
       resources :service_types
-      resources :vehicles
-      resources :permits
-      resources :people
-      resources :documents
-      resources :addresses
-      resources :companies
+
    end
   end
 
