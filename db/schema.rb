@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140719133648) do
+ActiveRecord::Schema.define(version: 20140726150517) do
 
   create_table "addresses", force: true do |t|
     t.string   "line1"
@@ -49,7 +49,10 @@ ActiveRecord::Schema.define(version: 20140719133648) do
     t.string   "unique_user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "trusted_app_id"
   end
+
+  add_index "consumers", ["trusted_app_id"], name: "index_consumers_on_trusted_app_id"
 
   create_table "documents", force: true do |t|
     t.string   "title"
@@ -97,7 +100,12 @@ ActiveRecord::Schema.define(version: 20140719133648) do
     t.string   "comments"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "consumer_id"
+    t.integer  "permit_id"
   end
+
+  add_index "ratings", ["consumer_id"], name: "index_ratings_on_consumer_id"
+  add_index "ratings", ["permit_id"], name: "index_ratings_on_permit_id"
 
   create_table "service_types", force: true do |t|
     t.string   "name"
@@ -117,7 +125,12 @@ ActiveRecord::Schema.define(version: 20140719133648) do
     t.decimal  "actual_cost"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "permit_id"
+    t.integer  "consumer_id"
   end
+
+  add_index "services", ["consumer_id"], name: "index_services_on_consumer_id"
+  add_index "services", ["permit_id"], name: "index_services_on_permit_id"
 
   create_table "trusted_apps", force: true do |t|
     t.string   "app_name"
