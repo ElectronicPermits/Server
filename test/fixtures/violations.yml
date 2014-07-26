@@ -1,8 +1,10 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 <% 1000.times do |i| %>
-rating_<%=i%>:
-  rating: <%=i%5%>
-  comments: "test comment"
-  #permit: permit_<%=i%>
+violation_<%=i%>:
+  name: MyString
+  description: MyString
+  ordinance: MyString
+  issue_date: 2014-07-19
+  closed: false
 <% end %>

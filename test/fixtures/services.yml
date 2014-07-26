@@ -10,4 +10,5 @@ service_<%=i%>:
   end_time: <%= Time.now %>
   estimated_cost: 10.00
   actual_cost: 9.99
+
 <% end %>

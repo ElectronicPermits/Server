@@ -3,4 +3,5 @@
 <% 2000.times do |i| %>
 consumer_<%= i %>:
   unique_user_id: "ANDROID_<%= i %>"
+  #trusted_app: trusted_app_<%= i%500 %>
 <%end%>

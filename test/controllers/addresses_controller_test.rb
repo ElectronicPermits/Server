@@ -11,39 +11,39 @@ class AddressesControllerTest < ActionController::TestCase
     assert_not_nil assigns(:addresses)
   end
 
-  test "should get new" do
-    get :new
-    assert_response :success
-  end
+  #test "should get new" do
+    #get :new
+    #assert_response :success
+  #end
 
-  test "should create address" do
-    assert_difference('Address.count') do
-      post :create, address: { city: @address.city, line1: @address.line1, line2: @address.line2, state: @address.state, zipcode: @address.zipcode }
-    end
+  #test "should create address" do
+    #assert_difference('Address.count') do
+      #post :create, address: { city: @address.city, line1: @address.line1, line2: @address.line2, state: @address.state, zipcode: @address.zipcode }
+    #end
 
-    assert_redirected_to address_path(assigns(:address))
-  end
+    #assert_redirected_to address_path(assigns(:address))
+  #end
 
   test "should show address" do
     get :show, id: @address
     assert_response :success
   end
 
-  test "should get edit" do
-    get :edit, id: @address
-    assert_response :success
-  end
+  #test "should get edit" do
+    #get :edit, id: @address
+    #assert_response :success
+  #end
 
-  test "should update address" do
-    patch :update, id: @address, address: { city: @address.city, line1: @address.line1, line2: @address.line2, state: @address.state, zipcode: @address.zipcode }
-    assert_redirected_to address_path(assigns(:address))
-  end
+  #test "should update address" do
+    #patch :update, id: @address, address: { city: @address.city, line1: @address.line1, line2: @address.line2, state: @address.state, zipcode: @address.zipcode }
+    #assert_redirected_to address_path(assigns(:address))
+  #end
 
-  test "should destroy address" do
-    assert_difference('Address.count', -1) do
-      delete :destroy, id: @address
-    end
+  #test "should destroy address" do
+    #assert_difference('Address.count', -1) do
+      #delete :destroy, id: @address
+    #end
 
-    assert_redirected_to addresses_path
-  end
+    #assert_redirected_to addresses_path
+  #end
 end

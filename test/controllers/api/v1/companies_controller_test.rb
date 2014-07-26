@@ -1,12 +1,12 @@
 require 'test_helper'
 
-class CompaniesControllerTest < ActionController::TestCase
+class API::V1::CompaniesControllerTest < ActionController::TestCase
   setup do
     @company = companies(:company_1)
   end
 
   test "should get index" do
-    get :index
+    get :index, :format => :json
     assert_response :success
     assert_not_nil assigns(:companies)
   end
@@ -16,16 +16,16 @@ class CompaniesControllerTest < ActionController::TestCase
     #assert_response :success
   #end
 
-  #test "should create company" do
-    #assert_difference('Company.count') do
-      #post :create, company: { average_rating: @company.average_rating, name: @company.name, phone_number: @company.phone_number }
-    #end
+  test "should create company" do
+    assert_difference('Company.count') do
+      post :create, company: { average_rating: @company.average_rating, name: @company.name, phone_number: @company.phone_number }
+    end
 
     #assert_redirected_to company_path(assigns(:company))
-  #end
+  end
 
   test "should show company" do
-    get :show, id: @company
+    get :show, :format => :json, id: @company
     assert_response :success
   end
 
@@ -34,10 +34,10 @@ class CompaniesControllerTest < ActionController::TestCase
     #assert_response :success
   #end
 
-  #test "should update company" do
-    #patch :update, id: @company, company: { average_rating: @company.average_rating, name: @company.name, phone_number: @company.phone_number }
+  test "should update company" do
+    patch :update, :format => :json, id: @company, company: { average_rating: @company.average_rating, name: @company.name, phone_number: @company.phone_number }
     #assert_redirected_to company_path(assigns(:company))
-  #end
+  end
 
   #test "should destroy company" do
     #assert_difference('Company.count', -1) do
