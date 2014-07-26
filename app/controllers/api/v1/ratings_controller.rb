@@ -95,30 +95,6 @@ class API::V1::RatingsController < API::V1::FeedbackController
       @rating = Rating.find(params[:id])
     end
 
-    def build_consumer
-      uuid = params[:consumer_id]
-      @consumer = Consumer.where(:unique_user_id => uuid).first
-
-      if @consumer.nil? then
-        #TODO Get the app signature hash!
-        sha_hash = params[:app_signature]
-
-        trusted_app = TrustedApp.where(:sha_hash => sha_hash).first
-        @consumer = Consumer.new(:unique_user_id => uuid)
-        @consumer.trusted_app = trusted_app
-
-        if not @consumer.save then
-          @consumer = nil
-        end
-      end
-
-    end
-
-    def set_permit
-      beacon_id = params[:permit_beacon_id]
-      @permit = Permit.where(:beacon_id => beacon_id).first
-    end
-
     def adjust_permit_average_rating
       # Adjust the given permit's meta data
       @permit.average_rating = (@permit.average_rating * @permit.total_ratings + @rating.rating)/(@permit.total_ratings + 1)

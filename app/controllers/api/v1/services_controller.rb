@@ -1,5 +1,7 @@
-class API::V1::ServicesController < ApplicationController
+class API::V1::ServicesController < API::V1::FeedbackController
   before_action :set_service, only: [:show, :edit, :update, :destroy]
+  before_action :build_consumer, only: [:create]
+  before_action :set_permit, only: [:create]
 
   # GET /services
   # GET /services.json
@@ -25,6 +27,8 @@ class API::V1::ServicesController < ApplicationController
   # POST /services.json
   def create
     @service = Service.new(service_params)
+    @service.permit = @permit
+    @service.consumer = @consumer
 
     respond_to do |format|
       if @service.save
