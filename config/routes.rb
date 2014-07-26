@@ -11,24 +11,30 @@ OpenPermits::Application.routes.draw do
   resources :people, only: [:index, :show]
   resources :addresses, only: [:index, :show]
   resources :companies, only: [:index, :show]
+  resources :trusted_apps, only: [:index]
 
   #Admin routes
   #TODO
+  namespace :manage do
+    resources :trusted_apps
+    resources :app_roles
+  end
   
   #API routes
   #API has access to all but app_roles and trusted_apps
   namespace :api, :path => "", :constraints => { :subdomain => "api" }, :defaults => {:format => :json} do 
     namespace :v1 do
       #Create or read
-      resources :consumers, only: [:create, :index, :show]
       resources :ratings, only: [:create, :index, :show]
       resources :services, only: [:create, :index, :show]
 
       #No deleting
+      resources :consumers, only: [:create, :index, :show, :update]
+      resources :violations, only: [:create, :index, :show, :update]
       resources :vehicles, only: [:create, :index, :show, :update]
       resources :permits, only: [:create, :index, :show, :update]
       resources :people, only: [:create, :index, :show, :update]
-      resources :addresses, only: [:create, :index, :show, :update]
+      resources :addresses, only: [:create, :show, :update]
       resources :companies, only: [:create, :index, :show, :update]
 
       #Fully editable
