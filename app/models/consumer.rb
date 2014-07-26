@@ -4,5 +4,5 @@ class Consumer < ActiveRecord::Base
   has_many :ratings
 
   #required
-  #validates :trusted_app, presence: true
+  validates :trusted_app, presence: true
 end
