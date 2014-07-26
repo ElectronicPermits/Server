@@ -1,5 +1,6 @@
 class API::V1::ConsumersController < ApplicationController
   before_action :set_consumer, only: [:show, :edit, :update, :destroy]
+  before_action :set_trusted_app, only: [:create]
 
   # GET /consumers
   # GET /consumers.json
@@ -25,13 +26,12 @@ class API::V1::ConsumersController < ApplicationController
   # POST /consumers.json
   def create
     @consumer = Consumer.new(consumer_params)
+    @consumer.trusted_app = @trusted_app
 
     respond_to do |format|
       if @consumer.save
-        format.html { redirect_to @consumer, notice: 'Consumer was successfully created.' }
         format.json { render action: 'show', status: :created, location: @consumer }
       else
-        format.html { render action: 'new' }
         format.json { render json: @consumer.errors, status: :unprocessable_entity }
       end
     end
@@ -67,8 +67,18 @@ class API::V1::ConsumersController < ApplicationController
       @consumer = Consumer.find(params[:id])
     end
 
+    def set_trusted_app
+      #Get the hash
+      #TODO
+      sha_hash = params[:app_signature]
+
+      @trusted_app = TrustedApp.where(:sha_hash => sha_hash).first
+
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def consumer_params
       params.require(:consumer).permit(:unique_user_id)
     end
+
 end
