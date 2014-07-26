@@ -11,14 +11,9 @@ class API::V1::RatingsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:ratings)
   end
 
-  #test "should get new" do
-    #get :new
-    #assert_response :success
-  #end
-
   test "should create rating" do
     assert_difference('Rating.count') do
-      post :create, :format => :json, rating: { comments: @rating.comments, rating: @rating.rating, consumer_id: @rating.consumer.unique_user_id}, app_signature: @rating.consumer.trusted_app.sha_hash, permit_beacon_id: @rating.permit.beacon_id
+      post :create, :format => :json, rating: { comments: @rating.comments, rating: @rating.rating}, consumer_id: @rating.consumer.unique_user_id, app_signature: @rating.consumer.trusted_app.sha_hash, permit_beacon_id: @rating.permit.beacon_id
     end
 
   end
@@ -28,26 +23,25 @@ class API::V1::RatingsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  #test "should get edit" do
-    #get :edit, :format => :json, id: @rating
-    #assert_response :success
-  #end
+  #Should NOT's
+  test "should not create rating without permit" do
+    assert_no_difference('Rating.count') do
+      post :create, :format => :json, rating: { comments: @rating.comments, rating: @rating.rating}, consumer_id: @rating.consumer.unique_user_id, app_signature: @rating.consumer.trusted_app.sha_hash
+    end
 
-  #test "should update rating" do
-    #patch :update, :format => :json, id: @rating, rating: { comments: @rating.comments, rating: @rating.rating }
-  #end
+  end
 
-  #test "should destroy rating" do
-    #assert_difference('Rating.count', -1) do
-      #delete :destroy, id: @rating
-    #end
+  test "should not create rating without app signature" do
+    assert_no_difference('Rating.count') do
+      post :create, :format => :json, rating: { comments: @rating.comments, rating: @rating.rating}, consumer_id: @rating.consumer.unique_user_id, permit_beacon_id: @rating.permit.beacon_id
+    end
 
-  #end
+  end
 
-  test "should not create rating without rating" do
-    rating = Rating.new
-    rating.comments = "TEST COMMENT"
-    assert_not rating.save
+  test "should not create rating without consumer" do
+    assert_no_difference('Rating.count') do
+      post :create, :format => :json, rating: { comments: @rating.comments, rating: @rating.rating}, permit_beacon_id: @rating.permit.beacon_id, app_signature: @rating.consumer.trusted_app.sha_hash
+    end
   end
 
   test "should not create rating without permit" do
@@ -69,25 +63,23 @@ class API::V1::RatingsControllerTest < ActionController::TestCase
     #TODO
   end
 
-  #test "cannot spam database with entries" do
-    #rating = ratings(:rating_2)
-    #consumer = rating.consumer
-    #rating_limit = consumer.trusted_app.max_daily_limit
-    #locked_account = false
+  test "cannot spam database with entries" do
+    rating = ratings(:rating_2)
+    consumer = rating.consumer
+    rating_limit = consumer.trusted_app.max_daily_limit
+    locked_account = false
 
-    #(1..rating_limit+1).each do |i|
-      #r = API::V1::Rating.new
-      #r.rating = 3
-      #r.consumer = consumer
+    (1..rating_limit+1).each do |i|
+      r = API::V1::Rating.new
+      r.rating = 3
+      r.consumer = consumer
 
-      #if not r.save then
-        #locked_account = true
-      #end
+      if not r.save then
+        locked_account = true
+      end
 
-      #assert locked_account
-    #end
-
-    ##TODO
-  #end
+      assert locked_account
+    end
+  end
 
 end
