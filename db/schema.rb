@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140726150517) do
+ActiveRecord::Schema.define(version: 20140726214604) do
 
   create_table "addresses", force: true do |t|
     t.string   "line1"
@@ -53,13 +53,6 @@ ActiveRecord::Schema.define(version: 20140726150517) do
   end
 
   add_index "consumers", ["trusted_app_id"], name: "index_consumers_on_trusted_app_id"
-
-  create_table "documents", force: true do |t|
-    t.string   "title"
-    t.string   "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "people", force: true do |t|
     t.string   "first_name"
@@ -160,6 +153,9 @@ ActiveRecord::Schema.define(version: 20140726150517) do
     t.boolean  "closed"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "permit_id"
   end
+
+  add_index "violations", ["permit_id"], name: "index_violations_on_permit_id"
 
 end
