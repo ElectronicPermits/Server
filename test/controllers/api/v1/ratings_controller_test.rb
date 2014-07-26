@@ -44,33 +44,18 @@ class API::V1::RatingsControllerTest < ActionController::TestCase
     end
   end
 
-  test "should not create rating without permit" do
-    rating = Rating.new
-    rating.rating = 3
-    rating.comments = "TEST COMMENT"
-    assert_not rating.save
-  end
-
   test "should update permit rating on CREATE" do
-    #TODO
-  end
-
-  test "should update permit rating on UPDATE" do
-    #TODO
-  end
-
-  test "should update permit rating on DELETE" do
     #TODO
   end
 
   test "cannot spam database with entries" do
     rating = ratings(:rating_2)
     consumer = rating.consumer
-    rating_limit = consumer.trusted_app.max_daily_limit
+    rating_limit = consumer.trusted_app.max_daily_posts
     locked_account = false
 
     (1..rating_limit+1).each do |i|
-      r = API::V1::Rating.new
+      r = Rating.new
       r.rating = 3
       r.consumer = consumer
 
