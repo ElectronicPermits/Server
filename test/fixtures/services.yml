@@ -1,6 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-<% 1000.times do |i| %>
+<% 2000.times do |i| %>
 service_<%=i%>:
   start_latitude: 35
   start_longitude: 85
@@ -10,5 +10,7 @@ service_<%=i%>:
   end_time: <%= Time.now %>
   estimated_cost: 10.00
   actual_cost: 9.99
+  permit: permit_<%= i%1000 %>
+  consumer: consumer_<%= i %>
 
 <% end %>

@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-<% 1000.times do |i| %>
+<% 2000.times do |i| %>
 rating_<%=i%>:
   rating: <%=i%5%>
   comments: "test comment"
-  permit: permit_<%=i%>
+  permit: permit_<%= i%1000 %>
   consumer: consumer_<%=i%>
 <% end %>
