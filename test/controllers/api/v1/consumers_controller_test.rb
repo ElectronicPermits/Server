@@ -18,7 +18,8 @@ class API::V1::ConsumersControllerTest < ActionController::TestCase
 
   test "should create consumer" do
     assert_difference('Consumer.count') do
-      post :create, :format => :json, consumer: { unique_user_id: @consumer.unique_user_id }
+      assert_not @consumer.trusted_app.sha_hash.nil?
+      post :create, :format => :json, consumer: { unique_user_id: @consumer.unique_user_id }, app_signature: @consumer.trusted_app.sha_hash
     end
 
     #assert_redirected_to consumer_path(assigns(:consumer))
