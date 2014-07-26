@@ -16,12 +16,13 @@ class ConsumerTest < ActiveSupport::TestCase
     assert_not consumer.save
   end
 
-  test "should not save without UNIQUE user id" do
-    consumerData = consumers(:consumer_2)
-    consumer = Consumer.new
-    consumer.unique_user_id = consumerData.unique_user_id 
-    consumer.trusted_app = consumerData.trusted_app 
+  #Should this be
+  #test "should not save without UNIQUE user id" do
+    #consumerData = consumers(:consumer_2)
+    #consumer = Consumer.new
+    #consumer.unique_user_id = consumerData.unique_user_id 
+    #consumer.trusted_app = consumerData.trusted_app 
 
-    assert_not consumer.save
-  end
+    #assert_not consumer.save
+  #end
 end
