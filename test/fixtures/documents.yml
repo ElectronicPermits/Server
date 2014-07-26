@@ -1,7 +1,0 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-<% 2000.times do |i| %>
-document_<%= i %>:
-  title: "TestDoc"
-  description: "Test document description"
-<% end %>
