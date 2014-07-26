@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @violation.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @violation.description %>
+</p>
+
+<p>
+  <strong>Ordinance:</strong>
+  <%= @violation.ordinance %>
+</p>
+
+<p>
+  <strong>Issue date:</strong>
+  <%= @violation.issue_date %>
+</p>
+
+<p>
+  <strong>Open:</strong>
+  <%= @violation.closed %>
+</p>
+
+<%= link_to 'Back', violations_path %>

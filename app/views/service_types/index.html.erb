@@ -17,13 +17,9 @@
         <td><%= service_type.name %></td>
         <td><%= service_type.description %></td>
         <td><%= link_to 'Show', service_type %></td>
-        <td><%= link_to 'Edit', edit_service_type_path(service_type) %></td>
-        <td><%= link_to 'Destroy', service_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'New Service type', new_service_type_path %>

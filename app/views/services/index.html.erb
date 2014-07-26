@@ -25,13 +25,9 @@
         <td><%= service.estimated_cost %></td>
         <td><%= service.actual_cost %></td>
         <td><%= link_to 'Show', service %></td>
-        <td><%= link_to 'Edit', edit_service_path(service) %></td>
-        <td><%= link_to 'Destroy', service, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'New Service', new_service_path %>

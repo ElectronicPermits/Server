@@ -24,7 +24,9 @@ class ServicesController < ApplicationController
   # POST /services
   # POST /services.json
   def create
+    consumer = Consumer.where(:unique_user_id => params[:consumer_id]).first
     @service = Service.new(service_params)
+    @service.consumer = consumer
 
     respond_to do |format|
       if @service.save

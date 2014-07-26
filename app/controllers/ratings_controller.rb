@@ -24,7 +24,10 @@ class RatingsController < ApplicationController
   # POST /ratings
   # POST /ratings.json
   def create
+    #puts "params[:consumer_id] #{params[:consumer_id]}"
+    #consumer = Consumer.where(:uuid => params[:consumer_id]).first
     @rating = Rating.new(rating_params)
+    #@rating.consumer = consumer
 
     respond_to do |format|
       if @rating.save
@@ -69,6 +72,6 @@ class RatingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def rating_params
-      params.require(:rating).permit(:rating, :comments)
+      params.require(:rating).permit(:consumer_id, :rating, :comments)
     end
 end

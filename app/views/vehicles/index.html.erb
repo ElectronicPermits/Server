@@ -25,13 +25,9 @@
         <td><%= vehicle.inspection_date %></td>
         <td><%= vehicle.license_plate %></td>
         <td><%= link_to 'Show', vehicle %></td>
-        <td><%= link_to 'Edit', edit_vehicle_path(vehicle) %></td>
-        <td><%= link_to 'Destroy', vehicle, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'New Vehicle', new_vehicle_path %>

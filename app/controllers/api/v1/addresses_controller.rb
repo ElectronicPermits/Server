@@ -28,10 +28,8 @@ class API::V1::AddressesController < ApplicationController
 
     respond_to do |format|
       if @address.save
-        format.html { redirect_to @address, notice: 'Address was successfully created.' }
         format.json { render action: 'show', status: :created, location: @address }
       else
-        format.html { render action: 'new' }
         format.json { render json: @address.errors, status: :unprocessable_entity }
       end
     end
@@ -42,10 +40,8 @@ class API::V1::AddressesController < ApplicationController
   def update
     respond_to do |format|
       if @address.update(address_params)
-        format.html { redirect_to @address, notice: 'Address was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: 'edit' }
         format.json { render json: @address.errors, status: :unprocessable_entity }
       end
     end
@@ -56,7 +52,6 @@ class API::V1::AddressesController < ApplicationController
   def destroy
     @address.destroy
     respond_to do |format|
-      format.html { redirect_to addresses_url }
       format.json { head :no_content }
     end
   end

@@ -1,0 +1,31 @@
+<h1>Listing violations</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Ordinance</th>
+      <th>Issue date</th>
+      <th>Open</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @violations.each do |violation| %>
+      <tr>
+        <td><%= violation.name %></td>
+        <td><%= violation.description %></td>
+        <td><%= violation.ordinance %></td>
+        <td><%= violation.issue_date %></td>
+        <td><%= violation.closed %></td>
+        <td><%= link_to 'Show', violation %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

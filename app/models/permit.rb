@@ -4,4 +4,7 @@ class Permit < ActiveRecord::Base
   has_many :ratings
   has_many :services
   has_many :violations
+
+  #Required attributes
+  validates :permitable, presence: true
 end

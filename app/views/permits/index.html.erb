@@ -25,13 +25,9 @@
         <td><%= permit.valid %></td>
         <td><%= permit.beacon_id %></td>
         <td><%= link_to 'Show', permit %></td>
-        <td><%= link_to 'Edit', edit_permit_path(permit) %></td>
-        <td><%= link_to 'Destroy', permit, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'New Permit', new_permit_path %>

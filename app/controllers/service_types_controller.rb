@@ -26,6 +26,7 @@ class ServiceTypesController < ApplicationController
   def create
     @service_type = ServiceType.new(service_type_params)
 
+
     respond_to do |format|
       if @service_type.save
         format.html { redirect_to @service_type, notice: 'Service type was successfully created.' }
