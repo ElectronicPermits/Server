@@ -38,7 +38,7 @@ OpenPermits::Application.routes.draw do
       resources :companies, only: [:create, :index, :show, :update]
 
       #Fully editable
-      resources :service_types
+      resources :service_types, only: [:create, :index, :show, :update, :destroy]
 
    end
   end
