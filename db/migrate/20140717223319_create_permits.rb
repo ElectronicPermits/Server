@@ -6,7 +6,7 @@ class CreatePermits < ActiveRecord::Migration
       t.date :training_completion_date
       t.string :status
       t.boolean :valid, :default => true
-      t.string :beacon_id
+      t.string :beacon_id, :unique => true
       t.float :average_rating, :default => 0
       t.integer :total_ratings, :default => 0
       t.references :permitable, polymorphic: true
