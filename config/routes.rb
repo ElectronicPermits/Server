@@ -1,4 +1,6 @@
 OpenPermits::Application.routes.draw do
+  # Root
+  root 'service_types#index'
 
   # Routes for public access
   resources :violations, only: [:index, :show]
