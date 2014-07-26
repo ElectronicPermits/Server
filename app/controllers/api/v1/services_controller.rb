@@ -30,15 +30,30 @@ class API::V1::ServicesController < API::V1::FeedbackController
     @service.permit = @permit
     @service.consumer = @consumer
 
-    respond_to do |format|
-      if @service.save
-        format.html { redirect_to @service, notice: 'Service was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @service }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @service.errors, status: :unprocessable_entity }
+    if @consumer.nil? then
+
+      respond_to do |format|
+        format.json { render json: { :error => "Application lacks permissions" }, status: :forbidden }
+      end
+      
+    elsif @consumer.services.where(:created_at => 24.hours.ago..Time.now).to_a.length < @consumer.trusted_app.max_daily_posts
+
+      respond_to do |format|
+        if @service.save
+          #Update the service info
+          adjust_permit_average_service
+
+          format.json { render action: 'show', status: :created, location: @service }
+        else
+          format.json { render json: @service.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      respond_to do |format|
+        format.json { render json: { :error => "Too many recent requests" }, status: :too_many_requests }
       end
     end
+
   end
 
   # PATCH/PUT /services/1

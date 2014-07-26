@@ -33,16 +33,14 @@ class API::V1::RatingsController < API::V1::FeedbackController
     @rating.consumer = @consumer
     @rating.permit = @permit
 
-    # Create the ride if provided
-    #if not ride_params[:start_latitude].nil?
-        #puts "RIDE PARAMS: #{ride_params}"
-        #ride = Ride.new(ride_params)
-        #ride.consumer_id = @consumer.id
-        #ride.save
-    #end
-
     # Check the amount of recent ratings 
-    if @consumer.ratings.where(:created_at => 24.hours.ago..Time.now).to_a.length < @consumer.trusted_app.max_daily_posts
+    if @consumer.nil? then
+
+      respond_to do |format|
+        format.json { render json: { :error => "Application lacks permissions" }, status: :forbidden }
+      end
+      
+    elsif @consumer.ratings.where(:created_at => 24.hours.ago..Time.now).to_a.length < @consumer.trusted_app.max_daily_posts
 
       respond_to do |format|
         if @rating.save
@@ -50,17 +48,13 @@ class API::V1::RatingsController < API::V1::FeedbackController
           adjust_permit_average_rating
 
           format.json { render action: 'show', status: :created, location: @rating }
-          #if not ride.nil?
-            #ride.rating_id = @rating.id
-            #ride.save
-          #end
         else
           format.json { render json: @rating.errors, status: :unprocessable_entity }
         end
       end
     else
       respond_to do |format|
-        format.json { render json: { :error => "Too many recent requests" }, status: :locked }
+        format.json { render json: { :error => "Too many recent requests" }, status: :too_many_requests }
       end
     end
   end
@@ -97,9 +91,22 @@ class API::V1::RatingsController < API::V1::FeedbackController
 
     def adjust_permit_average_rating
       # Adjust the given permit's meta data
-      @permit.average_rating = (@permit.average_rating * @permit.total_ratings + @rating.rating)/(@permit.total_ratings + 1)
-      @permit.total_ratings +=  1
+      if @permit.total_ratings == @permit.ratings.count-1 then
+        @permit.average_rating = (@permit.average_rating * @permit.total_ratings + @rating.rating)/(@permit.total_ratings + 1)
+        @permit.total_ratings += 1
+      elsif #assume corrupted data. Recalculate the permit's rating
+        sum = 0
+        @permit.total_ratings = 0
+
+        @permit.ratings.each do |r|
+          sum += r.rating
+          @permit.total_ratings += 1
+        end
+        @permit.average_rating = sum/@permit.total_ratings
+      end
+
       @permit.save
+
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
