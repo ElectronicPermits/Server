@@ -24,7 +24,7 @@ class API::V1::ViolationsControllerTest < ActionController::TestCase
   end
 
   test "should update violation" do
-    patch :update, :format => :json, id: @violation, violation: { description: @violation.description, issue_date: @violation.issue_date, name: @violation.name, closed: @violation.closed, ordinance: @violation.ordinance }, app_signature: @violation.consumer.trusted_app, app_signature: @violation.consumer.trusted_app.sha_hash
+    patch :update, :format => :json, id: @violation, violation: { description: @violation.description, issue_date: @violation.issue_date, name: @violation.name, closed: @violation.closed, ordinance: @violation.ordinance }#, app_signature: @violation.trusted_app.sha_hash
   end
 
 end
