@@ -1,6 +1,6 @@
-class CreateAppRoles < ActiveRecord::Migration
+class CreatePermissions < ActiveRecord::Migration
   def change
-    create_table :app_roles do |t|
+    create_table :permissions do |t|
       t.string :service_name
       t.string :permission_type
 

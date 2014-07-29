@@ -1,4 +1,5 @@
 class ServiceType < ActiveRecord::Base
+  has_many :permissions
   has_many :companies
   has_many :people, through: :companies
   has_many :permits, through: :people

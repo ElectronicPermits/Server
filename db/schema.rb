@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140726214604) do
+ActiveRecord::Schema.define(version: 20140729221731) do
 
   create_table "addresses", force: true do |t|
     t.string   "line1"
@@ -23,18 +23,6 @@ ActiveRecord::Schema.define(version: 20140726214604) do
     t.string   "addressable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "app_roles", force: true do |t|
-    t.string   "service_name"
-    t.string   "permission_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "app_roles_trusted_apps", id: false, force: true do |t|
-    t.integer "app_role_id"
-    t.integer "trusted_app_id"
   end
 
   create_table "companies", force: true do |t|
@@ -71,6 +59,21 @@ ActiveRecord::Schema.define(version: 20140726214604) do
   create_table "people_vehicles", id: false, force: true do |t|
     t.integer "person_id"
     t.integer "vehicle_id"
+  end
+
+  create_table "permissions", force: true do |t|
+    t.string   "service_name"
+    t.string   "permission_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "service_type_id"
+  end
+
+  add_index "permissions", ["service_type_id"], name: "index_permissions_on_service_type_id"
+
+  create_table "permissions_trusted_apps", id: false, force: true do |t|
+    t.integer "permission_id"
+    t.integer "trusted_app_id"
   end
 
   create_table "permits", force: true do |t|

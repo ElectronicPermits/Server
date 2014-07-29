@@ -1,4 +1,4 @@
-class API::V1::ServiceTypesController < ApplicationController
+class API::V1::ServiceTypesController < API::V1::ServiceTypeMakerController
   before_action :set_service_type, only: [:show, :edit, :update, :destroy]
 
   # GET /service_types
