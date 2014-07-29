@@ -1,8 +1,8 @@
 class CreateAppRoles < ActiveRecord::Migration
   def change
     create_table :app_roles do |t|
-      t.string :name
-      t.string :description
+      t.string :service_name
+      t.string :permission_type
 
       t.timestamps
     end
