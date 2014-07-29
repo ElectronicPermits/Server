@@ -17,8 +17,15 @@ class API::V1::ServiceTypesControllerTest < ActionController::TestCase
   #end
 
   test "should create service_type" do
+    new_name = @service_type.name
+
+    #Get a unique name to avoid uniqueness violation
+    while not ServiceType.where(:name => new_name).first.nil?
+      new_name = new_name + rand(100).to_s
+    end
+
     assert_difference('ServiceType.count') do
-      post :create, :format => :json, service_type: { description: @service_type.description, name: @service_type.name }
+      post :create, :format => :json, service_type: { description: @service_type.description, name: new_name }
     end
 
   end
