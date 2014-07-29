@@ -1,5 +1,6 @@
 class API::V1::ViolationsController < ApplicationController
   before_action :set_violation, only: [:show, :edit, :update, :destroy]
+  before_action :set_permit, only: [:create]
 
   # GET /violations
   # GET /violations.json
@@ -25,6 +26,7 @@ class API::V1::ViolationsController < ApplicationController
   # POST /violations.json
   def create
     @violation = Violation.new(violation_params)
+    @violation.permit = @permit
 
     respond_to do |format|
       if @violation.save
@@ -65,6 +67,10 @@ class API::V1::ViolationsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_violation
       @violation = Violation.find(params[:id])
+    end
+
+    def set_permit
+      @permit = Permit.where(:permit_number => params[:permit_number]).first
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

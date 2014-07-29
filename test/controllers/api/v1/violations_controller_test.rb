@@ -13,7 +13,7 @@ class API::V1::ViolationsControllerTest < ActionController::TestCase
 
   test "should create violation" do
     assert_difference('Violation.count') do
-      post :create, :format => :json, violation: { description: @violation.description, issue_date: @violation.issue_date, name: @violation.name, closed: @violation.closed, ordinance: @violation.ordinance }
+      post :create, :format => :json, violation: { description: @violation.description, issue_date: @violation.issue_date, name: @violation.name, closed: @violation.closed, ordinance: @violation.ordinance }, permit_number: @violation.permit.permit_number
     end
 
   end

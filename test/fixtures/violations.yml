@@ -7,4 +7,5 @@ violation_<%=i%>:
   ordinance: MyString
   issue_date: 2014-07-19
   closed: false
+  permit: permit_<%= i%1000 %>
 <% end %>

@@ -1,7 +1,7 @@
 class CreatePermits < ActiveRecord::Migration
   def change
     create_table :permits do |t|
-      t.string :permit_number
+      t.string :permit_number, :unique => true
       t.date :permit_expiration_date
       t.date :training_completion_date
       t.string :status

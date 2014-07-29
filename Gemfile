@@ -44,3 +44,6 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+# App role authentication
+#gem 'cancan'

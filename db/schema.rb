@@ -26,8 +26,8 @@ ActiveRecord::Schema.define(version: 20140726214604) do
   end
 
   create_table "app_roles", force: true do |t|
-    t.string   "name"
-    t.string   "description"
+    t.string   "service_name"
+    t.string   "permission_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

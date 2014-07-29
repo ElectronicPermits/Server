@@ -1,18 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: "ModifyServiceTypes"
-  description: "App can modify service types"
+  service_name: "taxi"
+  permission_type: "write"
 
 two:
-  name: "ModifyServices"
-  description: "App can modify services"
+  service_name: "limo"
+  permission_type: "write"
 
 three:
-  name: "ModifyPermits"
-  description: "App can modify permits"
-
-four:
-  name: "AddRatings"
-  description: "App add ratings"
-
+  service_name: "all"
+  permission_type: "manage"
