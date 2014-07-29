@@ -1,0 +1,16 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  service_name: "taxi"
+  permission_type: "write"
+  service_type: taxi
+
+two:
+  service_name: "limo"
+  permission_type: "write"
+  service_type: tow_truck
+
+three:
+  service_name: "all"
+  permission_type: "manage"
+  service_type: pedal_pub
