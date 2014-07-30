@@ -40,8 +40,6 @@ class API::V1::ServicesController < API::V1::FeedbackController
 
       respond_to do |format|
         if @service.save
-          #Update the service info
-          adjust_permit_average_service
 
           format.json { render action: 'show', status: :created, location: @service }
         else

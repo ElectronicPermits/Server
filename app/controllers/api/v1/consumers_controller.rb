@@ -1,4 +1,4 @@
-class API::V1::ConsumersController < ApplicationController
+class API::V1::ConsumersController < API::V1::BaseController
   before_action :set_consumer, only: [:show, :edit, :update, :destroy]
   before_action :set_trusted_app, only: [:create]
 

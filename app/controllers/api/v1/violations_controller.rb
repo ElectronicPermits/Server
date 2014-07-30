@@ -1,4 +1,4 @@
-class API::V1::ViolationsController < ApplicationController
+class API::V1::ViolationsController < API::V1::BaseController
   before_action :set_violation, only: [:show, :edit, :update, :destroy]
   before_action :set_permit, only: [:create]
 

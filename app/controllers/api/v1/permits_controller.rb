@@ -1,4 +1,4 @@
-class API::V1::PermitsController < ApplicationController
+class API::V1::PermitsController < API::V1::BaseController
   before_action :set_permit, only: [:show, :edit, :update, :destroy]
 
   # GET /permits

@@ -1,4 +1,4 @@
-class API::V1::VehiclesController < ApplicationController
+class API::V1::VehiclesController < API::V1::BaseController
   before_action :set_vehicle, only: [:show, :edit, :update, :destroy]
 
   # GET /vehicles

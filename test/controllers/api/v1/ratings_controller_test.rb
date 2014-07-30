@@ -12,6 +12,7 @@ class API::V1::RatingsControllerTest < ActionController::TestCase
   end
 
   test "should create rating" do
+    assert_not @rating.consumer.trusted_app.sha_hash.nil?
     assert_difference('Rating.count') do
       post :create, :format => :json, rating: { comments: @rating.comments, rating: @rating.rating}, consumer_id: @rating.consumer.unique_user_id, app_signature: @rating.consumer.trusted_app.sha_hash, permit_beacon_id: @rating.permit.beacon_id
     end
