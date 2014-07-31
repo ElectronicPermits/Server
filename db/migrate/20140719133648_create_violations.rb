@@ -5,7 +5,7 @@ class CreateViolations < ActiveRecord::Migration
       t.string :description
       t.string :ordinance
       t.date :issue_date
-      t.boolean :closed
+      t.boolean :closed, :default => false
 
       t.timestamps
     end

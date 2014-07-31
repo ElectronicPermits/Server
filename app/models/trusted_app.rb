@@ -4,11 +4,13 @@ class TrustedApp < ActiveRecord::Base
 
 
   # Recording who updated the permit info
-  # TODO Uncomment
-  #has_many :people
-  #has_many :permits
-  #has_many :companies
-  #has_many :vehicles
-  #has_many :violations
-  #has_many :service_types
+  has_many :people
+  has_many :permits
+  has_many :companies
+  has_many :vehicles
+  has_many :violations
+  has_many :service_types
+
+  validates :sha_hash, uniqueness: true
+  validates :app_name, presence: true
 end

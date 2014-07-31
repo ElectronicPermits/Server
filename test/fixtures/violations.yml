@@ -1,11 +1,12 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-<% 1000.times do |i| %>
+<% 2000.times do |i| %>
 violation_<%=i%>:
   name: MyString
   description: MyString
   ordinance: MyString
   issue_date: 2014-07-19
   closed: false
-  permit: permit_<%= i%1000 %>
+  permit: permit_<%= i%500 %>
+  trusted_app: trusted_app_<%= i %1000 %>
 <% end %>

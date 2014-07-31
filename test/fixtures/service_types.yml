@@ -1,13 +1,21 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
+service_type_1:
+  name: "Taxi"
+  description: "Taxi Driving"
+  trusted_app: trusted_app_1
+
 taxi:
   name: "Taxi"
   description: "Taxi Driving"
+  trusted_app: trusted_app_2
 
 tow_truck:
   name: "Tow Truck"
   description: "Towing Vehicles"
+  trusted_app: trusted_app_3
 
 pedal_pub:
   name: "Pedal Tavern"
   description: "Bicycling with increasing levels of intoxication"
+  trusted_app: trusted_app_2

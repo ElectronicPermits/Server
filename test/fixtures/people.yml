@@ -11,4 +11,5 @@ person_<%= i %>:
   height: 72
   weight: 150
   phone_number: "9524652954"
+  trusted_app: trusted_app_<%=i%>
 <%end%>

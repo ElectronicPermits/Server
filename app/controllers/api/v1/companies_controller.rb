@@ -1,5 +1,6 @@
 class API::V1::CompaniesController < API::V1::BaseController
   before_action :set_company, only: [:show, :edit, :update, :destroy]
+  before_action :set_current_app, only: [:create, :edit, :update, :destroy]
 
   # GET /companies
   # GET /companies.json
@@ -25,6 +26,7 @@ class API::V1::CompaniesController < API::V1::BaseController
   # POST /companies.json
   def create
     @company = Company.new(company_params)
+    @company.trusted_app = @current_app
 
     respond_to do |format|
       if @company.save

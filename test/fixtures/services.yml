@@ -11,6 +11,6 @@ service_<%=i%>:
   estimated_cost: 10.00
   actual_cost: 9.99
   permit: permit_<%= i%1000 %>
-  consumer: consumer_<%= i %>
+  consumer: consumer_<%= i%1000 %>
 
 <% end %>

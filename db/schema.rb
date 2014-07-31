@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140729221731) do
+ActiveRecord::Schema.define(version: 20140731010202) do
 
   create_table "addresses", force: true do |t|
     t.string   "line1"
@@ -31,7 +31,10 @@ ActiveRecord::Schema.define(version: 20140729221731) do
     t.string   "phone_number"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "trusted_app_id"
   end
+
+  add_index "companies", ["trusted_app_id"], name: "index_companies_on_trusted_app_id"
 
   create_table "consumers", force: true do |t|
     t.string   "unique_user_id"
@@ -54,7 +57,10 @@ ActiveRecord::Schema.define(version: 20140729221731) do
     t.string   "phone_number"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "trusted_app_id"
   end
+
+  add_index "people", ["trusted_app_id"], name: "index_people_on_trusted_app_id"
 
   create_table "people_vehicles", id: false, force: true do |t|
     t.integer "person_id"
@@ -89,7 +95,10 @@ ActiveRecord::Schema.define(version: 20140729221731) do
     t.string   "permitable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "trusted_app_id"
   end
+
+  add_index "permits", ["trusted_app_id"], name: "index_permits_on_trusted_app_id"
 
   create_table "ratings", force: true do |t|
     t.integer  "rating"
@@ -108,7 +117,10 @@ ActiveRecord::Schema.define(version: 20140729221731) do
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "trusted_app_id"
   end
+
+  add_index "service_types", ["trusted_app_id"], name: "index_service_types_on_trusted_app_id"
 
   create_table "services", force: true do |t|
     t.float    "start_latitude"
@@ -146,7 +158,10 @@ ActiveRecord::Schema.define(version: 20140729221731) do
     t.string   "license_plate"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "trusted_app_id"
   end
+
+  add_index "vehicles", ["trusted_app_id"], name: "index_vehicles_on_trusted_app_id"
 
   create_table "violations", force: true do |t|
     t.string   "name"
@@ -157,8 +172,10 @@ ActiveRecord::Schema.define(version: 20140729221731) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "permit_id"
+    t.integer  "trusted_app_id"
   end
 
   add_index "violations", ["permit_id"], name: "index_violations_on_permit_id"
+  add_index "violations", ["trusted_app_id"], name: "index_violations_on_trusted_app_id"
 
 end

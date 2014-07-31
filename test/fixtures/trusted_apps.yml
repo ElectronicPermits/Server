@@ -1,6 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-<% 500.times do |i| %>
+<% 1000.times do |i| %>
 trusted_app_<%=i%>:
   app_name: "Test App <%= i %>"
   description: "Description for the app"

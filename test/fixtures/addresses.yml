@@ -1,11 +1,12 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+address_1:
   line1: "12820 Kelly Avenue"
   line2: ""
   city: "Chaska"
   state: "MN"
   zipcode: "55318"
+  addressable: person_1
 
 two:
   line1: "4404 Waterford Circle"
@@ -13,6 +14,7 @@ two:
   city: "Nashville"
   state: "TN"
   zipcode: "37221"
+  addressable: company_1
 
 one:
   line1: "1510 Lebanon Pike"
@@ -20,4 +22,5 @@ one:
   city: "Nashville"
   state: "TN"
   zipcode: "37210"
+  addressable: company_2
 

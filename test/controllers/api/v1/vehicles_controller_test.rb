@@ -13,7 +13,7 @@ class API::V1::VehiclesControllerTest < ActionController::TestCase
 
   test "should create vehicle" do
     assert_difference('Vehicle.count') do
-      post :create, :format => :json, vehicle: { color: @vehicle.color, inspection_date: @vehicle.inspection_date, license_plate: @vehicle.license_plate, make: @vehicle.make, model: @vehicle.model, year: @vehicle.year }
+      post :create, :format => :json, vehicle: { color: @vehicle.color, inspection_date: @vehicle.inspection_date, license_plate: @vehicle.license_plate, make: @vehicle.make, model: @vehicle.model, year: @vehicle.year }, app_signature: @vehicle.trusted_app.sha_hash
     end
 
   end
@@ -24,7 +24,7 @@ class API::V1::VehiclesControllerTest < ActionController::TestCase
   end
 
   test "should update vehicle" do
-    patch :update, :format => :json, id: @vehicle, vehicle: { color: @vehicle.color, inspection_date: @vehicle.inspection_date, license_plate: @vehicle.license_plate, make: @vehicle.make, model: @vehicle.model, year: @vehicle.year }
+    patch :update, :format => :json, id: @vehicle, vehicle: { color: @vehicle.color, inspection_date: @vehicle.inspection_date, license_plate: @vehicle.license_plate, make: @vehicle.make, model: @vehicle.model, year: @vehicle.year }, app_signature: @vehicle.trusted_app.sha_hash
   end
 
 end

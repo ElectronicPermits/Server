@@ -1,4 +1,6 @@
 class ServiceType < ActiveRecord::Base
+  belongs_to :trusted_app
+
   has_many :permissions
   has_many :companies
   has_many :people, through: :companies
@@ -7,4 +9,5 @@ class ServiceType < ActiveRecord::Base
   has_many :services, through: :permits
 
   validates :name, uniqueness: true
+  validates :trusted_app, presence: true
 end

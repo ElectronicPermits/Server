@@ -8,5 +8,5 @@ permit_<%=i%>:
   status: "Issued"
   valid: true
   beacon_id: "1661"
-  permitable: people_<%=i%>
+  permitable: people_<%= i%1000 %>
 <% end %>

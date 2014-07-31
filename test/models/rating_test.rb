@@ -11,7 +11,6 @@ class RatingTest < ActiveSupport::TestCase
     assert_not rating.save, "Saved rating without rating"
   end
 
-
   test "should not create rating without permit" do
     rating = ratings(:rating_4)
     rating.permit = nil

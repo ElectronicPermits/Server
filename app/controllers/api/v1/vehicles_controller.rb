@@ -1,5 +1,6 @@
 class API::V1::VehiclesController < API::V1::BaseController
   before_action :set_vehicle, only: [:show, :edit, :update, :destroy]
+  before_action :set_current_app, only: [:create, :edit, :update, :destroy]
 
   # GET /vehicles
   # GET /vehicles.json
@@ -25,6 +26,7 @@ class API::V1::VehiclesController < API::V1::BaseController
   # POST /vehicles.json
   def create
     @vehicle = Vehicle.new(vehicle_params)
+    @vehicle.trusted_app = @current_app
 
     respond_to do |format|
       if @vehicle.save

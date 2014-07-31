@@ -5,5 +5,5 @@ rating_<%=i%>:
   rating: <%=i%5%>
   comments: "test comment"
   permit: permit_<%= i%1000 %>
-  consumer: consumer_<%=i%>
+  consumer: consumer_<%= i%1000 %>
 <% end %>

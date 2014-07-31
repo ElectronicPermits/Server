@@ -1,5 +1,6 @@
 class API::V1::PeopleController < API::V1::BaseController
   before_action :set_person, only: [:show, :edit, :update, :destroy]
+  before_action :set_current_app, only: [:create, :edit, :update, :destroy]
 
   # GET /people
   # GET /people.json
@@ -25,6 +26,7 @@ class API::V1::PeopleController < API::V1::BaseController
   # POST /people.json
   def create
     @person = Person.new(person_params)
+    @person.trusted_app = @current_app
 
     respond_to do |format|
       if @person.save

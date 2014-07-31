@@ -1,5 +1,6 @@
 class API::V1::ServiceTypesController < API::V1::BaseController
   before_action :set_service_type, only: [:show, :edit, :update, :destroy]
+  before_action :set_current_app, only: [:create, :edit, :update, :destroy]
 
   # GET /service_types
   # GET /service_types.json
@@ -25,6 +26,7 @@ class API::V1::ServiceTypesController < API::V1::BaseController
   # POST /service_types.json
   def create
     @service_type = ServiceType.new(service_type_params)
+    @service_type.trusted_app = @current_app
 
     respond_to do |format|
       if @service_type.save

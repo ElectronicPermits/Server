@@ -1,8 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-<% 1000.times do |i| %>
+<% 1500.times do |i| %>
 company_<%= i %>:
   name: "Company #{<%=i %>}"
   average_rating: 0
   phone_number: "6154651000"
+  trusted_app: trusted_app_<%= i%1000 %>
 <%end%>

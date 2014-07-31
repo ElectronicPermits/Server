@@ -1,6 +1,7 @@
 class API::V1::ViolationsController < API::V1::BaseController
   before_action :set_violation, only: [:show, :edit, :update, :destroy]
   before_action :set_permit, only: [:create]
+  before_action :set_current_app, only: [:create, :update, :edit, :destroy]
 
   # GET /violations
   # GET /violations.json
@@ -27,6 +28,11 @@ class API::V1::ViolationsController < API::V1::BaseController
   def create
     @violation = Violation.new(violation_params)
     @violation.permit = @permit
+    @violation.trusted_app = @current_app
+
+    if @current_app.nil?
+      current_app_is_nil false
+    end
 
     respond_to do |format|
       if @violation.save

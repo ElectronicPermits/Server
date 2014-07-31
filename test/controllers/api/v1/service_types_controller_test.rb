@@ -2,7 +2,7 @@ require 'test_helper'
 
 class API::V1::ServiceTypesControllerTest < ActionController::TestCase
   setup do
-    @service_type = service_types(:taxi)
+    @service_type = service_types(:service_type_1)
   end
 
   test "should get index" do
@@ -20,7 +20,7 @@ class API::V1::ServiceTypesControllerTest < ActionController::TestCase
     end
 
     assert_difference('ServiceType.count') do
-      post :create, :format => :json, service_type: { description: @service_type.description, name: new_name }
+      post :create, :format => :json, service_type: { description: @service_type.description, name: new_name }, app_signature: @service_type.trusted_app.sha_hash
     end
 
   end
@@ -31,12 +31,12 @@ class API::V1::ServiceTypesControllerTest < ActionController::TestCase
   end
 
   test "should update service_type" do
-    patch :update, :format => :json, id: @service_type, service_type: { description: @service_type.description, name: @service_type.name }
+    patch :update, :format => :json, id: @service_type, service_type: { description: @service_type.description, name: @service_type.name }, app_signature: @service_type.trusted_app.sha_hash
   end
 
   test "should destroy service_type" do
     assert_difference('ServiceType.count', -1) do
-      delete :destroy, :format => :json, id: @service_type
+      delete :destroy, :format => :json, id: @service_type, app_signature: @service_type.trusted_app.sha_hash
     end
   end
 

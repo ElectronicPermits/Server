@@ -8,4 +8,5 @@ vehicle_<%=i%>:
   year: "1991"
   inspection_date: 2014-4-12
   license_plate: "900 AME"
+  trusted_app: trusted_app_<%= i %>
 <% end %>

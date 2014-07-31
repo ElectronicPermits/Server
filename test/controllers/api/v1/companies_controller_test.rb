@@ -18,7 +18,7 @@ class API::V1::CompaniesControllerTest < ActionController::TestCase
 
   test "should create company" do
     assert_difference('Company.count') do
-      post :create, company: { average_rating: @company.average_rating, name: @company.name, phone_number: @company.phone_number }
+      post :create, :format => :json, company: { average_rating: @company.average_rating, name: @company.name, phone_number: @company.phone_number }, app_signature: @company.trusted_app.sha_hash
     end
 
     #assert_redirected_to company_path(assigns(:company))
@@ -35,7 +35,7 @@ class API::V1::CompaniesControllerTest < ActionController::TestCase
   #end
 
   test "should update company" do
-    patch :update, :format => :json, id: @company, company: { average_rating: @company.average_rating, name: @company.name, phone_number: @company.phone_number }
+    patch :update, :format => :json, id: @company, company: { average_rating: @company.average_rating, name: @company.name, phone_number: @company.phone_number }, app_signature: @company.trusted_app.sha_hash
     #assert_redirected_to company_path(assigns(:company))
   end
 
