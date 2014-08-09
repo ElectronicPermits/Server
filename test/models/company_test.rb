@@ -1,9 +1,6 @@
 require 'test_helper'
 
 class CompanyTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
   
   test "should not save company without trusted_app" do
     company = companies(:company_1)

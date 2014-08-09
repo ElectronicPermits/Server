@@ -1,9 +1,6 @@
 require 'test_helper'
 
 class PermissionTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
 
   test "should not save permission without service type" do
     permission = permissions(:permission_1)

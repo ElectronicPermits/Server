@@ -1,10 +1,7 @@
 require 'test_helper'
 
 class ConsumerTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
-  #
+
   test "should not save without trusted app" do
     consumer = consumers(:consumer_2)
     consumer.trusted_app = nil
@@ -17,13 +14,4 @@ class ConsumerTest < ActiveSupport::TestCase
     assert_not consumer.save
   end
 
-  #Should this be
-  #test "should not save without UNIQUE user id" do
-    #consumerData = consumers(:consumer_2)
-    #consumer = Consumer.new
-    #consumer.unique_user_id = consumerData.unique_user_id 
-    #consumer.trusted_app = consumerData.trusted_app 
-
-    #assert_not consumer.save
-  #end
 end

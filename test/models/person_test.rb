@@ -1,9 +1,6 @@
 require 'test_helper'
 
 class PersonTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
 
   test "should not save person without trusted app" do
     person = people(:person_1)

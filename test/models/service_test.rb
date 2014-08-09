@@ -1,9 +1,6 @@
 require 'test_helper'
 
 class ServiceTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
 
   setup do
     @service = services(:service_1)

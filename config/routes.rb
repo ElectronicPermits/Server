@@ -18,12 +18,12 @@ OpenPermits::Application.routes.draw do
   #Admin routes
   #TODO
   namespace :manage do
+    root 'trusted_apps#index'
     resources :trusted_apps
-    resources :app_roles
   end
   
   #API routes
-  #API has access to all but app_roles and trusted_apps
+  #API has access to all but permissions and trusted_apps
   namespace :api, :path => "", :constraints => { :subdomain => "api" }, :defaults => {:format => :json} do 
     namespace :v1 do
       #Create or read

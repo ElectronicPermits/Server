@@ -1,9 +1,6 @@
 require 'test_helper'
 
 class RatingTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
   
   test "should not create rating without rating" do
     rating = ratings(:rating_4)

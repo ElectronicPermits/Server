@@ -1,9 +1,6 @@
 require 'test_helper'
 
 class VehicleTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
   
   test "should not save vehicle without trusted_app" do
     vehicle = vehicles(:vehicle_1)
