@@ -6,6 +6,7 @@ class ServiceTypeTest < ActiveSupport::TestCase
     service_type_copy = service_types(:service_type_1)
     service_type = ServiceType.new
     service_type.trusted_app = service_type_copy.trusted_app
+    service_type.name = service_type_copy.name
     assert_not service_type.save
   end
 
