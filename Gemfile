@@ -47,3 +47,6 @@ end
 
 # App role authentication
 gem 'cancan'
+
+# User authentication
+gem 'devise', '~> 3.0'

@@ -1,4 +1,5 @@
 OpenPermits::Application.routes.draw do
+  devise_for :users
   # Root
   root 'service_types#index'
 

@@ -28,6 +28,22 @@ class API::V1::ServiceTypesController < API::V1::BaseController
     @service_type = ServiceType.new(service_type_params)
     @service_type.trusted_app = @current_app
 
+    #TODO Create associated permissions
+    #For each element in PERMISSION_TYPES
+      #Create a permission bound to the given service type
+    #Should I add a method that does this for me in the model? 
+    #Should this functionality be put somewhere else?
+    #
+    #For now I may require the service types to be explicitly created
+    # (alternatively, they could be made on the fly)
+    #permission_types = Permission::PERMISSION_TYPES
+    #permission_types.each do |permission_type|
+      #permission = Permission.new
+      #permission.service_type = @service_type
+      #permission.permission_type = @permission_type
+      #permission.save
+    #end
+
     respond_to do |format|
       if @service_type.save
         format.html { redirect_to @service_type, notice: 'Service type was successfully created.' }
