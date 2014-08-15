@@ -2,6 +2,7 @@ require 'test_helper'
 
 class API::V1::RatingsControllerTest < ActionController::TestCase
   setup do
+    request.env['HTTPS'] = 'on'
     @rating = ratings(:rating_1)
   end
 

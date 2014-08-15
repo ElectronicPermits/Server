@@ -17,7 +17,6 @@ OpenPermits::Application.routes.draw do
   resources :trusted_apps, only: [:index]
 
   #Admin routes
-  #TODO
   namespace :manage do
     root 'trusted_apps#index'
     resources :trusted_apps

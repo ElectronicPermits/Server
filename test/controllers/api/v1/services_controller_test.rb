@@ -2,6 +2,7 @@ require 'test_helper'
 
 class API::V1::ServicesControllerTest < ActionController::TestCase
   setup do
+    request.env['HTTPS'] = 'on'
     @service = services(:service_1)
   end
 

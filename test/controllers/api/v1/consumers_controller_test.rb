@@ -2,6 +2,7 @@ require 'test_helper'
 
 class API::V1::ConsumersControllerTest < ActionController::TestCase
   setup do
+    request.env['HTTPS'] = 'on'
     @consumer = consumers(:consumer_1)
   end
 

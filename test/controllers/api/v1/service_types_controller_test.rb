@@ -2,6 +2,7 @@ require 'test_helper'
 
 class API::V1::ServiceTypesControllerTest < ActionController::TestCase
   setup do
+    request.env['HTTPS'] = 'on'
     @service_type = service_types(:service_type_1)
   end
 

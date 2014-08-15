@@ -2,6 +2,7 @@ require 'test_helper'
 
 class API::V1::ViolationsControllerTest < ActionController::TestCase
   setup do
+    request.env['HTTPS'] = 'on'
     @violation = violations(:violation_1)
   end
 

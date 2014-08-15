@@ -2,6 +2,7 @@ require 'test_helper'
 
 class API::V1::PeopleControllerTest < ActionController::TestCase
   setup do
+    request.env['HTTPS'] = 'on'
     @person = people(:person_1)
   end
 

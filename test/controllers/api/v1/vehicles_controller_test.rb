@@ -2,6 +2,7 @@ require 'test_helper'
 
 class API::V1::VehiclesControllerTest < ActionController::TestCase
   setup do
+    request.env['HTTPS'] = 'on'
     @vehicle = vehicles(:vehicle_1)
   end
 

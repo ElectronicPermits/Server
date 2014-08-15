@@ -2,6 +2,7 @@ require 'test_helper'
 
 class API::V1::PermitsControllerTest < ActionController::TestCase
   setup do
+    request.env['HTTPS'] = 'on'
     @permit = permits(:permit_1)
   end
 
