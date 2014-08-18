@@ -4,5 +4,5 @@
 trusted_app_<%=i%>:
   app_name: "Test App <%= i %>"
   description: "Description for the app"
-  sha_hash: "asdfqwper47v7vzx7281"
+  sha_hash: <%= Digest::SHA1.hexdigest("Test App #{i}") %>
 <% end %>

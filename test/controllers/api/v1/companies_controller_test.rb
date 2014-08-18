@@ -4,6 +4,7 @@ class API::V1::CompaniesControllerTest < ActionController::TestCase
   setup do
     request.env['HTTPS'] = 'on'
     @company = companies(:company_1)
+    @app_signature = @company.trusted_app.app_name
   end
 
   test "should get index" do
@@ -19,7 +20,7 @@ class API::V1::CompaniesControllerTest < ActionController::TestCase
 
   test "should create company" do
     assert_difference('Company.count') do
-      post :create, :format => :json, company: { average_rating: @company.average_rating, name: @company.name, phone_number: @company.phone_number }, app_signature: @company.trusted_app.sha_hash
+      post :create, :format => :json, company: { average_rating: @company.average_rating, name: @company.name, phone_number: @company.phone_number }, app_signature: @app_signature
     end
 
     #assert_redirected_to company_path(assigns(:company))

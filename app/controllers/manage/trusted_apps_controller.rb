@@ -43,11 +43,9 @@ class Manage::TrustedAppsController < ApplicationController
   def update
     respond_to do |format|
       if @trusted_app.update(trusted_app_params)
-        assert updated
         format.html { redirect_to manage_trusted_app_path(@trusted_app), notice: 'Trusted app was successfully updated.' }
         format.json { head :no_content }
       else
-        assert not_updated
         format.html { render action: 'edit' }
         format.json { render json: @trusted_app.errors, status: :unprocessable_entity }
       end

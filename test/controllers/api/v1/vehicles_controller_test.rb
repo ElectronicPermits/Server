@@ -4,6 +4,7 @@ class API::V1::VehiclesControllerTest < ActionController::TestCase
   setup do
     request.env['HTTPS'] = 'on'
     @vehicle = vehicles(:vehicle_1)
+    @app_signature = @vehicle.trusted_app.app_name
   end
 
   test "should get index" do
@@ -14,7 +15,7 @@ class API::V1::VehiclesControllerTest < ActionController::TestCase
 
   test "should create vehicle" do
     assert_difference('Vehicle.count') do
-      post :create, :format => :json, vehicle: { color: @vehicle.color, inspection_date: @vehicle.inspection_date, license_plate: @vehicle.license_plate, make: @vehicle.make, model: @vehicle.model, year: @vehicle.year }, app_signature: @vehicle.trusted_app.sha_hash
+      post :create, :format => :json, vehicle: { color: @vehicle.color, inspection_date: @vehicle.inspection_date, license_plate: @vehicle.license_plate, make: @vehicle.make, model: @vehicle.model, year: @vehicle.year }, app_signature: @app_signature
     end
 
   end
@@ -25,7 +26,7 @@ class API::V1::VehiclesControllerTest < ActionController::TestCase
   end
 
   test "should update vehicle" do
-    patch :update, :format => :json, id: @vehicle, vehicle: { color: @vehicle.color, inspection_date: @vehicle.inspection_date, license_plate: @vehicle.license_plate, make: @vehicle.make, model: @vehicle.model, year: @vehicle.year }, app_signature: @vehicle.trusted_app.sha_hash
+    patch :update, :format => :json, id: @vehicle, vehicle: { color: @vehicle.color, inspection_date: @vehicle.inspection_date, license_plate: @vehicle.license_plate, make: @vehicle.make, model: @vehicle.model, year: @vehicle.year }, app_signature: @app_signature
   end
 
 end

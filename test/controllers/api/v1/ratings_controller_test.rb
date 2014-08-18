@@ -4,6 +4,7 @@ class API::V1::RatingsControllerTest < ActionController::TestCase
   setup do
     request.env['HTTPS'] = 'on'
     @rating = ratings(:rating_1)
+    @app_signature = @rating.consumer.trusted_app.app_name
   end
 
   test "should get index" do
@@ -15,7 +16,7 @@ class API::V1::RatingsControllerTest < ActionController::TestCase
   test "should create rating" do
     assert_not @rating.consumer.trusted_app.sha_hash.nil?
     assert_difference('Rating.count') do
-      post :create, :format => :json, rating: { comments: @rating.comments, rating: @rating.rating}, consumer_id: @rating.consumer.unique_user_id, app_signature: @rating.consumer.trusted_app.sha_hash, permit_beacon_id: @rating.permit.beacon_id
+      post :create, :format => :json, rating: { comments: @rating.comments, rating: @rating.rating}, consumer_id: @rating.consumer.unique_user_id, app_signature: @app_signature, permit_beacon_id: @rating.permit.beacon_id
     end
 
   end
@@ -28,7 +29,7 @@ class API::V1::RatingsControllerTest < ActionController::TestCase
   #Should NOT's
   test "should not create rating without permit" do
     assert_no_difference('Rating.count') do
-      post :create, :format => :json, rating: { comments: @rating.comments, rating: @rating.rating}, consumer_id: @rating.consumer.unique_user_id, app_signature: @rating.consumer.trusted_app.sha_hash
+      post :create, :format => :json, rating: { comments: @rating.comments, rating: @rating.rating}, consumer_id: @rating.consumer.unique_user_id, app_signature: @app_signature
     end
 
   end
@@ -42,7 +43,7 @@ class API::V1::RatingsControllerTest < ActionController::TestCase
 
   test "should not create rating without consumer" do
     assert_no_difference('Rating.count') do
-      post :create, :format => :json, rating: { comments: @rating.comments, rating: @rating.rating}, permit_beacon_id: @rating.permit.beacon_id, app_signature: @rating.consumer.trusted_app.sha_hash
+      post :create, :format => :json, rating: { comments: @rating.comments, rating: @rating.rating}, permit_beacon_id: @rating.permit.beacon_id, app_signature: @app_signature
     end
   end
 

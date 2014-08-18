@@ -13,9 +13,10 @@ class ApplicationController < ActionController::Base
     if not class_name.index("::").nil? then #it is a namespace
       module_name = self.class.to_s.split("::").first.downcase
       return module_name == "manage" || module_name == "api" 
+    else
+      return false
     end
 
-    return false
   end
 
   def namespace_name

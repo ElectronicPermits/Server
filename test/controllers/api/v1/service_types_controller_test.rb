@@ -4,6 +4,7 @@ class API::V1::ServiceTypesControllerTest < ActionController::TestCase
   setup do
     request.env['HTTPS'] = 'on'
     @service_type = service_types(:service_type_1)
+    @app_signature = @service_type.trusted_app.app_name
   end
 
   test "should get index" do
@@ -21,7 +22,7 @@ class API::V1::ServiceTypesControllerTest < ActionController::TestCase
     end
 
     assert_difference('ServiceType.count') do
-      post :create, :format => :json, service_type: { description: @service_type.description, name: new_name }, app_signature: @service_type.trusted_app.sha_hash
+      post :create, :format => :json, service_type: { description: @service_type.description, name: new_name }, app_signature: @app_signature
     end
 
   end
@@ -32,12 +33,12 @@ class API::V1::ServiceTypesControllerTest < ActionController::TestCase
   end
 
   test "should update service_type" do
-    patch :update, :format => :json, id: @service_type, service_type: { description: @service_type.description, name: @service_type.name }, app_signature: @service_type.trusted_app.sha_hash
+    patch :update, :format => :json, id: @service_type, service_type: { description: @service_type.description, name: @service_type.name }, app_signature: @app_signature
   end
 
   test "should destroy service_type" do
     assert_difference('ServiceType.count', -1) do
-      delete :destroy, :format => :json, id: @service_type, app_signature: @service_type.trusted_app.sha_hash
+      delete :destroy, :format => :json, id: @service_type, app_signature: @app_signature
     end
   end
 

@@ -3,10 +3,9 @@ class API::V1::BaseController < ApplicationController
   #contains app authentication
   def set_current_app
     signature = params[:app_signature]
-    # TODO decrypt
-    sha_hash = signature
-    @current_app = TrustedApp.where(:sha_hash => sha_hash).first
-
-    # add authentication
+    if not signature.nil?
+      sha_hash = Digest::SHA1.hexdigest(signature)
+      @current_app = TrustedApp.where(:sha_hash => sha_hash).first
+    end
   end
 end
