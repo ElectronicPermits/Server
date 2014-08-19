@@ -36,13 +36,18 @@ class API::V1::ServiceTypesController < API::V1::BaseController
     #
     #For now I may require the service types to be explicitly created
     # (alternatively, they could be made on the fly)
-    #permission_types = Permission::PERMISSION_TYPES
-    #permission_types.each do |permission_type|
-      #permission = Permission.new
-      #permission.service_type = @service_type
-      #permission.permission_type = @permission_type
-      #permission.save
-    #end
+    permission_types = Permission::PERMISSION_TYPES
+    total_saved_permissions = 0
+
+    permission_types.each do |permission_type|
+    #@service_type.build_permission(:permission_type => permission_type)
+      permission = Permission.new
+      permission.service_type = @service_type
+      permission.permission_type = permission_type
+      if permission.save
+        total_saved_permissions += 1
+      end
+    end
 
     respond_to do |format|
       if @service_type.save
@@ -72,6 +77,14 @@ class API::V1::ServiceTypesController < API::V1::BaseController
   # DELETE /service_types/1
   # DELETE /service_types/1.json
   def destroy
+    # First, remove all associated permission types
+    if not @service_type.nil?
+      permissions = @service_type.permissions
+      permissions.each do |p|
+        p.destroy
+      end
+    end
+
     @service_type.destroy
     respond_to do |format|
       format.html { redirect_to service_types_url }

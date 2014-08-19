@@ -42,8 +42,23 @@ class API::V1::ServiceTypesControllerTest < ActionController::TestCase
     end
   end
 
-  test "should create respective permissions" do
-    # TODO
+  test "should create and remove respective permissions" do
+    new_name = @service_type.name
+
+    #Get a unique name to avoid uniqueness violation
+    while not ServiceType.where(:name => new_name).first.nil?
+      new_name = new_name + rand(100).to_s
+    end
+
+    permission_count = Permission::PERMISSION_TYPES.length
+    assert_difference('Permission.count', permission_count) do
+      post :create, :format => :json, service_type: { description: @service_type.description, name: new_name }, app_signature: @app_signature
+    end
+
+    service_type = ServiceType.where(:name => new_name).first
+    assert_difference('Permission.count', (-1 * permission_count)) do
+      delete :destroy, :format => :json, id: service_type, app_signature: @app_signature
+    end
   end
 
 end

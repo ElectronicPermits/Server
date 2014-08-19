@@ -27,6 +27,9 @@ class Manage::TrustedAppsController < ApplicationController
   def create
     @trusted_app = TrustedApp.new(trusted_app_params)
 
+    #hash the passphrase
+    trusted_app_params[:sha_hash] = Digest::SHA1.hexdigest(trusted_app_params[:sha_hash])
+
     respond_to do |format|
       if @trusted_app.save
         format.html { redirect_to manage_trusted_app_path(@trusted_app), notice: 'Trusted app was successfully created.' }
@@ -41,6 +44,7 @@ class Manage::TrustedAppsController < ApplicationController
   # PATCH/PUT /trusted_apps/1
   # PATCH/PUT /trusted_apps/1.json
   def update
+    trusted_app_params[:sha_hash] = Digest::SHA1.hexdigest(trusted_app_params[:sha_hash])
     respond_to do |format|
       if @trusted_app.update(trusted_app_params)
         format.html { redirect_to manage_trusted_app_path(@trusted_app), notice: 'Trusted app was successfully updated.' }
