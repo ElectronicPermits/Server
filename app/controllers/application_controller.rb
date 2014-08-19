@@ -8,6 +8,10 @@ class ApplicationController < ActionController::Base
 
   def ssl_required?
     #ssl is forced for specific modules
+    if Rails.env.development? then
+      return false
+    end
+
     class_name = self.class.to_s
 
     if not class_name.index("::").nil? then #it is a namespace
