@@ -1,4 +1,8 @@
 class API::V1::BaseController < ApplicationController
+  #Add app access control logic
+  #May need to go in a different file...
+  #TODO
+  
   #Base api controller
   #contains app authentication
   def set_current_app

@@ -50,3 +50,9 @@ gem 'cancan'
 
 # User authentication
 gem 'devise', '~> 3.0'
+
+#Testing 
+group :test do
+  gem 'capybara'
+  #gem 'rspec'
+end

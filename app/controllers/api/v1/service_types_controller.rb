@@ -28,7 +28,7 @@ class API::V1::ServiceTypesController < API::V1::BaseController
     @service_type = ServiceType.new(service_type_params)
     @service_type.trusted_app = @current_app
 
-    #TODO Create associated permissions
+    #Create associated permissions
     #For each element in PERMISSION_TYPES
       #Create a permission bound to the given service type
     #Should I add a method that does this for me in the model? 

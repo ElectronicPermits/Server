@@ -1,5 +1,4 @@
 class Manage::TrustedAppsController < ApplicationController
-  before_action :authenticate_user!
   before_action :set_trusted_app, only: [:show, :edit, :update, :destroy]
 
   # GET /trusted_apps

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140809133554) do
+ActiveRecord::Schema.define(version: 20140819215644) do
 
   create_table "addresses", force: true do |t|
     t.string   "line1"
@@ -145,6 +145,13 @@ ActiveRecord::Schema.define(version: 20140809133554) do
     t.string   "description"
     t.string   "sha_hash"
     t.integer  "max_daily_posts", default: 10
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "user_permissions", force: true do |t|
+    t.string   "action"
+    t.string   "target"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

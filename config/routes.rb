@@ -1,10 +1,7 @@
 OpenPermits::Application.routes.draw do
-  devise_for :users, :skip => [:registrations]
-
-  as :user do
-    get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'
-    put 'users' => 'devise/registrations#update', :as => 'user_registration'
-  end
+  devise_for :users, :skip => [:registrations], 
+    :controllers => { :registrations => "manage/users", 
+                      :sessions => "manage/sessions" }
 
   # Root
   root 'service_types#index'
@@ -26,6 +23,19 @@ OpenPermits::Application.routes.draw do
   namespace :manage do
     root 'trusted_apps#index'
     resources :trusted_apps
+    as :user do
+      resources :users
+    end
+
+    # user creation endpoints
+    #as :user do
+      #get 'users/new' => 'users#new', :as => 'new_user'
+      #post 'users' => 'users#create', :as => 'user'
+
+      #get 'users/edit/:id' => 'users#edit', :as => 'edit_user'
+      #get 'users' => 'users#index'
+    #end
+
   end
   
   #API routes
