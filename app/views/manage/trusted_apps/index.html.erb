@@ -18,6 +18,9 @@
         <td><%= trusted_app.app_name %></td>
         <td><%= trusted_app.description %></td>
         <td><%= trusted_app.sha_hash %></td>
+        <td><%= link_to "Show", manage_trusted_app_path(trusted_app.id), id: "show_#{trusted_app.id}"%></td>
+        <td><%= link_to "Edit", edit_manage_trusted_app_path(trusted_app.id), id: "edit_#{trusted_app.id}"%></td>
+        <td><%= link_to 'Destroy', manage_trusted_app_path(trusted_app), id: "delete_trusted_app_#{trusted_app.id.to_s}", method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

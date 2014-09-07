@@ -12,8 +12,8 @@ class UserFlowsTest < ActionDispatch::IntegrationTest
   end
 
   test "view users index" do
-    visit '/manage/users'
-    assert page.status_code == 200
+    visit manage_users_path
+    assert page_should_be(manage_users_path)
   end
 
   test "can create users" do
