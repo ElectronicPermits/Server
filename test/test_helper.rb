@@ -39,7 +39,6 @@ def log_in_with_password user, password
   log_out
   https!
   visit new_user_session_path
-  puts "new_user_session_path: #{new_user_session_path}"
   within("#new_user") do
     fill_in "user_email",    with: user.email
     fill_in "user_password", with: password

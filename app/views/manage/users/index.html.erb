@@ -1,0 +1,29 @@
+<h1>Listing users</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Last Sign In</th>
+      <th>Last Sign In IP</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.email %></td>
+        <td><%= user.last_sign_in_at %></td>
+        <td><%= user.last_sign_in_ip %></td>
+        <td><%= link_to "Edit", edit_manage_user_path(user.id)%></td>
+        <td><%= link_to 'Destroy', manage_user_path(user), id: "delete_user_" + user.id.to_s, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to "New", new_manage_user_path %>
+<%= link_to "Back", :back %>
+<br>

@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+
+<p>
+  <strong>Last Sign in:</strong>
+  <%= if @user.last_sign_in_at.nil? then "N/A" else @user.last_sign_in_at end%>
+</p>
+
+<p>
+  <strong>Last Sign in IP:</strong>
+  <%= if @user.last_sign_in_ip.nil? then "N/A" else @user.last_sign_in_ip end%>
+</p>
+
+<%= link_to 'Edit', edit_manage_user_path(@user) %> |
+<%= link_to 'Back', manage_users_path %>

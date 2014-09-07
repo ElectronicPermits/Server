@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+<% UserPermission::ACTION_TYPES.each do |action| %>
+users_<%= action %>:
+  action: <%= action %>
+  target: UserPermission::TARGET_TYPES::USERS
+
+trusted_apps_<%= action %>:
+  action: <%= action %>
+  target: UserPermission::TARGET_TYPES::TRUSTED_APPS
+<% end %>
