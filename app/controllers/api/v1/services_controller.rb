@@ -86,6 +86,6 @@ class API::V1::ServicesController < API::V1::FeedbackController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def service_params
-      params.require(:service).permit(:start_coordinates, :end_coordinates, :start_time, :end_time, :estimated_cost, :actual_cost)
+      params.require(:service).permit(:start_latitude, :end_latitude, :start_longitude, :end_longitude, :start_time, :end_time, :estimated_cost, :actual_cost)
     end
 end
