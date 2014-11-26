@@ -1,7 +1,58 @@
 class Ability
   include CanCan::Ability
 
-  def initialize(user)
+  def initialize(user, controller_namespace)
+    case controller_namespace
+    when 'manage'
+      #TODO
+      can :read, User if user_can(UserPermission.ACTION_TYPES.READ, 
+                                  UserPermission.TARGET_TYPES.USERS)
+
+      can :create, User if user_can(UserPermission.ACTION_TYPES.CREATE, 
+                                    UserPermission.TARGET_TYPES.USERS)
+
+      can :update, User if user_can(UserPermission.ACTION_TYPES.MODIFY, 
+                                    UserPermission.TARGET_TYPES.USERS)
+
+      can :destroy, User if user_can(UserPermission.ACTION_TYPES.DELETE, 
+                                     UserPermission.TARGET_TYPES.USERS)
+
+      can :manage, :all if user.has_role? 'admin'
+    else
+      #Permit ma
+      can :destroy, User if user_can(UserPermission.ACTION_TYPES.DELETE, 
+                                     UserPermission.TARGET_TYPES.USERS)
+      # rules for non-admin controllers here
+    end
+  end
+
+  private
+
+  def user_can(action, target)
+    user.user_permissions.each do |permission|
+      if permission.target == target then
+        if permission.action == action or 
+          permission.action == UserPermission.ACTION_TYPES.ALL then
+          return true
+        end
+      end
+    end
+
+    return false
+  end
+
+  def trusted_app_can(action, service_type)
+    @current_app.permissions.each do |permission|
+      if permission.permission_type == action then
+        if permission.service_type == service_type then
+          return true
+        end
+      end
+    end
+
+    return false
+  end
+
     # Define abilities for the passed in user here. For example:
     #
     #   user ||= User.new # guest user (not logged in)

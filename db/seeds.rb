@@ -26,7 +26,10 @@ super_permissions.each do |perm|
 end
 
 #Trusted App for self
+myself = TrustedApp.create({ app_name: "Web Interface" })
 
 #Default Service Type
-# Taxis
+# Taxis FIXME
+taxi = ServiceType.new({ name: "Taxis" })
+taxi.trusted_app = myself
 #TODO

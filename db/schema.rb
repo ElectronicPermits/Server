@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140819215644) do
+ActiveRecord::Schema.define(version: 20141104025614) do
 
   create_table "addresses", force: true do |t|
     t.string   "line1"
@@ -27,7 +27,8 @@ ActiveRecord::Schema.define(version: 20140819215644) do
 
   create_table "companies", force: true do |t|
     t.string   "name"
-    t.float    "average_rating"
+    t.float    "average_rating", default: 0.0
+    t.float    "total_ratings",  default: 0.0
     t.string   "phone_number"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -156,6 +157,11 @@ ActiveRecord::Schema.define(version: 20140819215644) do
     t.datetime "updated_at"
   end
 
+  create_table "user_permissions_users", id: false, force: true do |t|
+    t.integer "user_permission_id"
+    t.integer "user_id"
+  end
+
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -193,7 +199,7 @@ ActiveRecord::Schema.define(version: 20140819215644) do
     t.string   "description"
     t.string   "ordinance"
     t.date     "issue_date"
-    t.boolean  "closed"
+    t.boolean  "closed",         default: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "permit_id"

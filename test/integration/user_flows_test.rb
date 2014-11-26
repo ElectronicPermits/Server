@@ -1,3 +1,5 @@
+# This contains the tests for using the 
+# web interface as an admin
 require 'test_helper'
 
 class UserFlowsTest < ActionDispatch::IntegrationTest

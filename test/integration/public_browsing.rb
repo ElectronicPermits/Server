@@ -1,3 +1,4 @@
+# This contains general public browsing tests
 require 'test_helper'
 
 # Testing public user browsing the site

@@ -23,13 +23,10 @@ class Manage::UsersController < Devise::RegistrationsController
 
   #Overriding user creation
   def create
-    puts "creating user"
     build_resource(sign_up_params)
     if resource.save
-      puts "Saving user"
       redirect_to manage_users_path
     else
-      puts "could not save user"
       clean_up_passwords resource
       respond_with resource
     end

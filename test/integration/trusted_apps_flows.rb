@@ -1,3 +1,6 @@
+# This contains the tests for editing 
+# trusted apps from web interface
+#
 require 'test_helper'
 
 class TrustedAppsFlowsTest < ActionDispatch::IntegrationTest
