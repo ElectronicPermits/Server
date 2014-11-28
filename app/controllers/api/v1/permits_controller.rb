@@ -50,6 +50,7 @@ class API::V1::PermitsController < API::V1::BaseController
   # PATCH/PUT /permits/1
   # PATCH/PUT /permits/1.json
   def update
+    @permit.permitable = permitable 
     respond_to do |format|
       if @permit.update(permit_params)
         format.html { redirect_to @permit, notice: 'Permit was successfully updated.' }
@@ -79,6 +80,9 @@ class API::V1::PermitsController < API::V1::BaseController
       else
         @permit = Permit.find(params[:id])
       end
+
+      # Set service_type for authentication via API
+      @service_type = @permit.service_type
     end
 
     # This is required for access control when creating a new permit
@@ -89,7 +93,8 @@ class API::V1::PermitsController < API::V1::BaseController
         if @service_type.nil? then
             # Cannot create a permit without a service type. Return error
             respond_to do |format|
-                format.json { render json: { :error => "Bad Service Type" }, :status => :bad_request }
+                format.json { render json: { :error => "Invalid Service Type" }, 
+                              :status => :unprocessable_entity }
             end
         end
     end

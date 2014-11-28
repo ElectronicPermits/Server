@@ -11,5 +11,5 @@ class Permit < ActiveRecord::Base
 
   validates :beacon_id, presence: true, uniqueness: true
   validates :valid, presence: true
-  validates :permit_number, presence: true
+  validates :permit_number, presence: true, uniqueness: true
 end

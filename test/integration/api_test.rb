@@ -187,11 +187,26 @@ class ApiTest < ActionDispatch::IntegrationTest
   end
 
   test "app can update permits with correct perms" do
-      #flunk
+    add_permission(Permission.MANAGE_PERMITS)
+    permit = Permit.last
+
+    vehicle = Vehicle.first
+    msg = { service_type: @service_type.name, vehicle: vehicle.license_plate }
+    msg[:permit] = { permit_number: 12999100094, beacon_id: 10010010101010101, status: "good" }
+    submit_patch("/permits/#{permit.id}", msg)
+
+    assert(@response.code[0] == "2", "Did not updated violation (#{@response.body.inspect})")
   end
 
   test "app can't update permits without correct perms" do
-      #flunk
+    permit = Permit.last
+
+    vehicle = Vehicle.first
+    msg = { service_type: @service_type.name, vehicle: vehicle.license_plate }
+    msg[:permit] = { permit_number: 12999100094, beacon_id: 10010010101010108, status: "good" }
+    submit_patch("/permits/#{permit.id}", msg)
+
+    assert(@response.code == "403", "Updated violation without permissions! (#{@response.code})")
   end
 
   test "app can create permits with correct perms" do
@@ -207,7 +222,7 @@ class ApiTest < ActionDispatch::IntegrationTest
 
     permitables.each do |key, value|
       msg = { service_type: @service_type.name }
-      msg[:permit] = { permit_number: 12999100091, beacon_id: beacon_id, status: "good" }
+      msg[:permit] = { permit_number: 12999100+beacon_id, beacon_id: beacon_id, status: "good" }
       msg[key] = value
 
       submit_post("/permits", msg)
