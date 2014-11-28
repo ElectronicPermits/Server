@@ -1,16 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-permission_1:
-  service_name: "taxi"
-  permission_type: "create"
+<% i = 0 %>
+<% Permission.permission_types.each do |name, action| %>
+permission_<%= ++i %>:
+  permission_type: <%= action %>
   service_type: taxi
 
-two:
-  service_name: "limo"
-  permission_type: "manage"
+permission_<%= ++i %>:
+  permission_type: <%= action %>
   service_type: tow_truck
 
-three:
-  service_name: "all"
-  permission_type: "delete"
+permission_<%= ++i %>:
+  permission_type: <%= action %>
   service_type: pedal_pub
+
+<% end %>

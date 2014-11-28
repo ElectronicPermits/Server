@@ -30,6 +30,13 @@ class API::V1::ServicesController < API::V1::FeedbackController
     @service.permit = @permit
     @service.consumer = @consumer
 
+    if not trusted_app_can(Permission.permission_types[:RECORD_SERVICE], @permit) then
+      respond_to do |format|
+        format.json { render json: { :error => "Access Denied" }, status: :forbidden }
+      end
+      return
+     end
+
     if @consumer.nil? then
 
       respond_to do |format|
