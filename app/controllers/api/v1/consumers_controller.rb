@@ -1,6 +1,6 @@
 class API::V1::ConsumersController < API::V1::BaseController
   before_action :set_consumer, only: [:show, :edit, :update, :destroy]
-  before_action :set_trusted_app, only: [:create]
+  before_action :set_current_app, only: [:create]
 
   # GET /consumers
   # GET /consumers.json
@@ -65,15 +65,6 @@ class API::V1::ConsumersController < API::V1::BaseController
     # Use callbacks to share common setup or constraints between actions.
     def set_consumer
       @consumer = Consumer.find(params[:id])
-    end
-
-    def set_trusted_app
-      #Get the hash
-      #TODO
-      sha_hash = params[:app_signature]
-
-      @trusted_app = TrustedApp.where(:sha_hash => sha_hash).first
-
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

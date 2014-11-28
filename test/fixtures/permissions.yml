@@ -2,15 +2,15 @@
 
 <% i = 0 %>
 <% Permission.permission_types.each do |name, action| %>
-permission_<%= ++i %>:
+permission_<%= i=i+1 %>:
   permission_type: <%= action %>
   service_type: taxi
 
-permission_<%= ++i %>:
+permission_<%= i=i+1 %>:
   permission_type: <%= action %>
   service_type: tow_truck
 
-permission_<%= ++i %>:
+permission_<%= i=i+1 %>:
   permission_type: <%= action %>
   service_type: pedal_pub
 

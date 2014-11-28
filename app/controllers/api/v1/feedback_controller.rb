@@ -23,17 +23,12 @@ class API::V1::FeedbackController < API::V1::BaseController
         end
       end
 
-    end
-
-    def set_permit
-      beacon_id = params[:permit_beacon_id]
-      permit_number = params[:permit_number]
-      if not beacon_id.nil? then
-        @permit = Permit.where(:beacon_id => beacon_id).first
-      elsif not permit_number.nil? then
-        @permit = Permit.where(:permit_number => permit_number).first
+      if @consumer.nil? then
+        respond_to do |format|
+        format.json { render json: { :error => "Application lacks permissions" }, status: :forbidden }
+        end
       end
-    end
 
+    end
 
 end

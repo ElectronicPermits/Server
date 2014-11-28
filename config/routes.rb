@@ -51,13 +51,12 @@ OpenPermits::Application.routes.draw do
       resources :violations, only: [:create, :index, :show, :update]
       resources :vehicles, only: [:create, :index, :show, :update]
       resources :permits, only: [:create, :index, :update]
-      # Look up permits by beacon id!
-      get 'permits/:beacon_id' => 'permits#show', as: 'permit_by_beacon'
-
       resources :people, only: [:create, :index, :show, :update]
-      resources :addresses, only: [:create, :show, :update]
       resources :companies, only: [:create, :index, :show, :update]
       resources :service_types, only: [:create, :index, :show, :update]
+
+      # Look up permits by beacon id!
+      get 'permits/:beacon_id' => 'permits#show', as: 'permit_by_beacon'
 
    end
   end

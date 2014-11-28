@@ -42,8 +42,7 @@ class ApplicationController < ActionController::Base
   end
 
   # Permissions
-  def trusted_app_can(action, permit)
-    service_type_id = permit.service_type_id
+  def trusted_app_can(action, service_type_id)
     @current_app.permissions.each do |permission|
       action_name = permission.permission_type
       if Permission.permission_types[action_name] == action then

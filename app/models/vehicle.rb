@@ -8,5 +8,5 @@ class Vehicle < ActiveRecord::Base
 
   validates :make, presence: true
   validates :model, presence: true
-  validates :license_plate, presence: true
+  validates :license_plate, presence: true, uniqueness: true
 end

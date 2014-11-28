@@ -2,6 +2,10 @@ class API::V1::RatingsController < API::V1::FeedbackController
   before_action :set_rating, only: [:show, :edit, :update, :destroy]
   before_action :build_consumer, only: [:create]
   before_action :set_permit, only: [:create] 
+  before_action only: [:create] do
+      authenticate_current_app(Permission.permission_types[:RATE])
+  end
+
   # GET /ratings
   # GET /ratings.json
   def index
@@ -30,22 +34,8 @@ class API::V1::RatingsController < API::V1::FeedbackController
     @rating.consumer = @consumer
     @rating.permit = @permit
 
-    #Authenticate app (make sure it is a trusted app with correct permissions)
-    if not trusted_app_can(Permission.permission_types[:RATE], @permit) then
-      respond_to do |format|
-        format.json { render json: { :error => "Access Denied" }, status: :forbidden }
-      end
-      return
-    end
-
     # Check the amount of recent ratings 
-    if @consumer.nil? then
-
-      respond_to do |format|
-        format.json { render json: { :error => "Invalid consumer" }, status: :forbidden }
-      end
-      
-    elsif @consumer.ratings.where(:created_at => 24.hours.ago..Time.now).to_a.length < @consumer.trusted_app.max_daily_posts
+    if @consumer.ratings.where(:created_at => 24.hours.ago..Time.now).to_a.length < @consumer.trusted_app.max_daily_posts
 
       respond_to do |format|
         if @rating.save

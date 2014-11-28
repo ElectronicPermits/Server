@@ -1,7 +1,14 @@
 class API::V1::ViolationsController < API::V1::BaseController
   before_action :set_violation, only: [:show, :edit, :update, :destroy]
-  before_action :set_permit, only: [:create]
+  before_action only: [:update] do
+      # Retrieve the permit number from violation
+      params[:permit_number] = @violation.permit.permit_number
+  end
+  before_action :set_permit, only: [:create, :update]
   before_action :set_current_app, only: [:create, :update, :edit, :destroy]
+  before_action only: [:create, :update, :edit] do
+      authenticate_current_app(Permission.permission_types[:MANAGE_VIOLATIONS])
+  end
 
   # GET /violations
   # GET /violations.json
@@ -29,10 +36,6 @@ class API::V1::ViolationsController < API::V1::BaseController
     @violation = Violation.new(violation_params)
     @violation.permit = @permit
     @violation.trusted_app = @current_app
-
-    if @current_app.nil?
-      current_app_is_nil false
-    end
 
     respond_to do |format|
       if @violation.save
@@ -73,10 +76,6 @@ class API::V1::ViolationsController < API::V1::BaseController
     # Use callbacks to share common setup or constraints between actions.
     def set_violation
       @violation = Violation.find(params[:id])
-    end
-
-    def set_permit
-      @permit = Permit.where(:permit_number => params[:permit_number]).first
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -2,6 +2,9 @@ class API::V1::ServicesController < API::V1::FeedbackController
   before_action :set_service, only: [:show, :edit, :update, :destroy]
   before_action :build_consumer, only: [:create]
   before_action :set_permit, only: [:create]
+  before_action only: [:create] do
+      authenticate_current_app(Permission.permission_types[:RECORD_SERVICE])
+  end
 
   # GET /services
   # GET /services.json
@@ -30,20 +33,7 @@ class API::V1::ServicesController < API::V1::FeedbackController
     @service.permit = @permit
     @service.consumer = @consumer
 
-    if not trusted_app_can(Permission.permission_types[:RECORD_SERVICE], @permit) then
-      respond_to do |format|
-        format.json { render json: { :error => "Access Denied" }, status: :forbidden }
-      end
-      return
-     end
-
-    if @consumer.nil? then
-
-      respond_to do |format|
-        format.json { render json: { :error => "Application lacks permissions" }, status: :forbidden }
-      end
-      
-    elsif @consumer.services.where(:created_at => 24.hours.ago..Time.now).to_a.length < @consumer.trusted_app.max_daily_posts
+    if @consumer.services.where(:created_at => 24.hours.ago..Time.now).to_a.length < @consumer.trusted_app.max_daily_posts
 
       respond_to do |format|
         if @service.save

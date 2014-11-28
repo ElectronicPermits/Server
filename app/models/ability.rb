@@ -3,12 +3,6 @@ class Ability
 
   def initialize(user, controller_namespace)
     # Permissions for Trusted Apps
-    #if user.kind_of? TrustedApp
-      #can :create, Rating if trusted_app_can(Permission::PERMISSION_TYPES.RATE,
-                                             #:permit_id)
-      #can :create, Service if trusted_app_can(Permission::PERMISSION_TYPES.RECORD_SERVICE,
-                                              #:permit_id)
-    #else
       case controller_namespace
         when 'manage'
           #TODO
@@ -37,7 +31,6 @@ class Ability
           # rules for non-admin controllers here
 
       end
-    #end
   end
 
   private
@@ -54,17 +47,6 @@ class Ability
 
     return false
   end
-
-  def trusted_app_can(action, permit_id)
-    service_type_id = Permit.find(permit_id).service_type_id
-    puts "Checking permissions of trusted app (#{action})..."
-    @current_app.permissions.each do |permission|
-      if permission.permission_type == action then
-        if permission.service_type_id == service_type_id then
-          return true
-        end
-      end
-    end
 
     return false
   end
