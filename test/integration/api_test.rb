@@ -9,42 +9,77 @@ require 'test_helper'
 class ApiTest < ActionDispatch::IntegrationTest
   setup do 
     https!
-    # Create {,not} allowed app
+    host! "api.vcap.me"
 
+    @signature = "APP"
     @app = TrustedApp.create(app_name: "APP", 
-                             sha_hash: Digest::SHA1.hexdigest("APP"))
+                             sha_hash: Digest::SHA1.hexdigest(@signature))
+
+    @service_type = ServiceType.first
+    @permit = @service_type.permits.first
+
+    # Create permissions
+    permission = Permission.create(:permission_type => Permission.permission_types['RATE'], 
+                                   :service_type_id => @service_type.id)
+    permission.save
+
   end
 
-  test "app can retrieve permit info" do # TODO change the id to beacon id
+  test "app can retrieve permit info" do
     # This should be done with a GET request to 
     # the necessary endpoint
     permit = Permit.first
-    get permit_path permit.id, subdomain: :api, namespace: :v1, format: :json
+    get api_v1_permit_path permit.beacon_id
 
     assert_equal permit[:id], json_response["id"]
   end
 
   test "app can retrieve company info" do
     company = Company.first
-    get company_path company.id, subdomain: :api, namespace: :v1, format: :json
+    get api_v1_company_path company.id
 
     assert_equal company.id, json_response["id"]
   end
 
   # Creation permissions
   test "app can't rate without perms" do
-    host! "api.vcap.me"
-    post "/v1/ratings", rating: { rating: 4 }, app_signature: @app.sha_hash
+    permit = Permit.last
+    permit_beacon_id = permit.beacon_id
+    post "/v1/ratings", rating: { rating: 4 }, consumer_id: "BRIANBROLL",
+                        permit_beacon_id: permit_beacon_id, app_signature: @signature
     assert_response(403)
   end
 
   test "app can't record service without perms" do
-    # post '/services', subdomain: :api, namespace: :v1, format: :json, rating: { rating: 4 }, app_signature: @app.sha_hash
-    host! "api.vcap.me"
     post '/v1/services', service: { start_latitude: 4, end_latitude:5, 
                                     start_longitude: 1, end_longitude: 1 }, 
-                                    app_signature: @app.sha_hash
+                                    app_signature: @signature
     assert_response(403)
+  end
+
+  # Deletion permissions?
+  test "app can rate with correct perms" do
+    # Add a permission to @app
+    assert Permission.all.count > 0, "No permissions in DB!"
+    permissions = Permission.RATE
+
+    assert permissions.count > 0, "No permissions!"
+
+    permission = permissions.where(:service_type_id => @service_type.id).first
+    assert_not_nil permission, "Permission is nil!"
+
+    @app.permissions << permission # Add the given permission
+    @app.save
+
+    # Get the permit to rate
+    permit = Permit.where(:service_type_id => @service_type.id).last
+    permit_beacon_id = permit.beacon_id
+
+    post "/v1/ratings", rating: { rating: 4 }, consumer_id: "BRIANBROLL",
+                        permit_beacon_id: permit_beacon_id, app_signature: @signature
+
+    assert(@response.code == "201", "Unable to create rating (#{@response.code})")
+
   end
 
   def json_response

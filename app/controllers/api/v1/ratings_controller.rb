@@ -1,8 +1,7 @@
 class API::V1::RatingsController < API::V1::FeedbackController
   before_action :set_rating, only: [:show, :edit, :update, :destroy]
   before_action :build_consumer, only: [:create]
-  before_action :set_permit, only: [:create]
-
+  before_action :set_permit, only: [:create] 
   # GET /ratings
   # GET /ratings.json
   def index
@@ -26,18 +25,24 @@ class API::V1::RatingsController < API::V1::FeedbackController
   # POST /ratings
   # POST /ratings.json
   def create
-    #Add authentication of app (make sure it is a trusted app with correct permissions)
-    #TODO
     @rating = Rating.new(rating_params)
 
     @rating.consumer = @consumer
     @rating.permit = @permit
 
+    #Authenticate app (make sure it is a trusted app with correct permissions)
+    if not trusted_app_can(Permission.permission_types[:RATE], @permit) then
+      respond_to do |format|
+        format.json { render json: { :error => "Access Denied" }, status: :forbidden }
+      end
+      return
+    end
+
     # Check the amount of recent ratings 
     if @consumer.nil? then
 
       respond_to do |format|
-        format.json { render json: { :error => "Application lacks permissions" }, status: :forbidden }
+        format.json { render json: { :error => "Invalid consumer" }, status: :forbidden }
       end
       
     elsif @consumer.ratings.where(:created_at => 24.hours.ago..Time.now).to_a.length < @consumer.trusted_app.max_daily_posts
@@ -94,7 +99,7 @@ class API::V1::RatingsController < API::V1::FeedbackController
       if @permit.total_ratings == @permit.ratings.count-1 then
         @permit.average_rating = (@permit.average_rating * @permit.total_ratings + @rating.rating)/(@permit.total_ratings + 1)
         @permit.total_ratings += 1
-      elsif #assume corrupted data. Recalculate the permit's rating
+      else #assume corrupted data. Recalculate the permit's rating
         sum = 0
         @permit.total_ratings = 0
 

@@ -1,7 +1,5 @@
 class API::V1::BaseController < ApplicationController
   #Add app access control logic
-  #May need to go in a different file...
-  #TODO
   
   #Base api controller
   #contains app authentication
@@ -12,4 +10,5 @@ class API::V1::BaseController < ApplicationController
       @current_app = TrustedApp.where(:sha_hash => sha_hash).first
     end
   end
+
 end

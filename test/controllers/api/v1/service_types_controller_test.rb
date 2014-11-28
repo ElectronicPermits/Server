@@ -59,6 +59,29 @@ class API::V1::ServiceTypesControllerTest < ActionController::TestCase
     assert_difference('Permission.count', (-1 * permission_count)) do
       delete :destroy, :format => :json, id: service_type, app_signature: @app_signature
     end
+
+    s_types = ServiceType.all.to_a
+    s_types.each do |service_type|
+      delete :destroy, :format => :json, id: service_type, app_signature: @app_signature
+    end
+
+    # Clean the database
+    # Make some extra service types. 
+    # This will let us know that the correct perms exist
+    [1..10].each do |name|
+      new_name = @service_type.name
+
+      #Get a unique name to avoid uniqueness violation
+      while not ServiceType.where(:name => new_name).first.nil?
+        new_name = new_name + rand(100).to_s
+      end
+
+      permission_count = Permission::PERMISSION_TYPES.length
+      assert_difference('Permission.count', permission_count) do
+        post :create, :format => :json, service_type: { description: @service_type.description, name: new_name }, app_signature: @app_signature
+      end
+    end
+
   end
 
 end

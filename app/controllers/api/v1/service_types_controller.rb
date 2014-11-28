@@ -77,7 +77,9 @@ class API::V1::ServiceTypesController < API::V1::BaseController
   # DELETE /service_types/1
   # DELETE /service_types/1.json
   def destroy
-    # First, remove all associated permission types
+    # First, see if the current app has the correct permissions
+
+    # Next, remove all associated permission types
     if not @service_type.nil?
       permissions = @service_type.permissions
       permissions.each do |p|

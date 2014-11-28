@@ -64,8 +64,12 @@ class API::V1::PermitsController < API::V1::BaseController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_permit
-      @permit = Permit.find(params[:id])
+    def set_permit # Use beacon id if we have one
+      if params[:id].nil?
+        @permit = Permit.where(:beacon_id => params[:beacon_id]).first
+      else
+        @permit = Permit.find(params[:id])
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

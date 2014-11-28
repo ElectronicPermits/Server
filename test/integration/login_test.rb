@@ -4,9 +4,6 @@ require 'test_helper'
 class LoginTest < ActionDispatch::IntegrationTest
   setup do
     @user = users(:user_1)
-    #@user = User.new(:email => "test@test.org", 
-                     #:password => "password" , 
-                     #:password_confirmation => "password");
   end
 
   test "should redirect to https" do

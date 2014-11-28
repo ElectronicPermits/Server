@@ -2,37 +2,51 @@ class Ability
   include CanCan::Ability
 
   def initialize(user, controller_namespace)
-    case controller_namespace
-    when 'manage'
-      #TODO
-      can :read, User if user_can(UserPermission.ACTION_TYPES.READ, 
-                                  UserPermission.TARGET_TYPES.USERS)
+    # Permissions for Trusted Apps
+    #if user.kind_of? TrustedApp
+      #can :create, Rating if trusted_app_can(Permission::PERMISSION_TYPES.RATE,
+                                             #:permit_id)
+      #can :create, Service if trusted_app_can(Permission::PERMISSION_TYPES.RECORD_SERVICE,
+                                              #:permit_id)
+    #else
+      case controller_namespace
+        when 'manage'
+          #TODO
+          can :read, User if user_can(user, 
+                                      UserPermission.READ, 
+                                      UserPermission.USERS)
 
-      can :create, User if user_can(UserPermission.ACTION_TYPES.CREATE, 
-                                    UserPermission.TARGET_TYPES.USERS)
+          can :create, User if user_can(user, 
+                                        UserPermission.CREATE, 
+                                        UserPermission.USERS)
 
-      can :update, User if user_can(UserPermission.ACTION_TYPES.MODIFY, 
-                                    UserPermission.TARGET_TYPES.USERS)
+          can :update, User if user_can(user,
+                                        UserPermission.MODIFY, 
+                                        UserPermission.USERS)
 
-      can :destroy, User if user_can(UserPermission.ACTION_TYPES.DELETE, 
-                                     UserPermission.TARGET_TYPES.USERS)
+          can :destroy, User if user_can(user,
+                                         UserPermission.DELETE, 
+                                         UserPermission.USERS)
 
-      can :manage, :all if user.has_role? 'admin'
-    else
-      #Permit ma
-      can :destroy, User if user_can(UserPermission.ACTION_TYPES.DELETE, 
-                                     UserPermission.TARGET_TYPES.USERS)
-      # rules for non-admin controllers here
-    end
+          can :manage, :all if user.has_role? 'admin'
+        else
+          #Permit ma
+          can :destroy, User if user_can(user,
+                                         UserPermission.DELETE, 
+                                         UserPermission.USERS)
+          # rules for non-admin controllers here
+
+      end
+    #end
   end
 
   private
 
-  def user_can(action, target)
+  def user_can(user, action, target)
     user.user_permissions.each do |permission|
       if permission.target == target then
         if permission.action == action or 
-          permission.action == UserPermission.ACTION_TYPES.ALL then
+          permission.action == UserPermission.ALL then
           return true
         end
       end
@@ -41,10 +55,12 @@ class Ability
     return false
   end
 
-  def trusted_app_can(action, service_type)
+  def trusted_app_can(action, permit_id)
+    service_type_id = Permit.find(permit_id).service_type_id
+    puts "Checking permissions of trusted app (#{action})..."
     @current_app.permissions.each do |permission|
       if permission.permission_type == action then
-        if permission.service_type == service_type then
+        if permission.service_type_id == service_type_id then
           return true
         end
       end
@@ -79,5 +95,4 @@ class Ability
     #
     # See the wiki for details:
     # https://github.com/ryanb/cancan/wiki/Defining-Abilities
-  end
 end

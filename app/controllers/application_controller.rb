@@ -41,16 +41,31 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  #CanCan stuff
-private
+  # Permissions
+  def trusted_app_can(action, permit)
+    service_type_id = permit.service_type_id
+    @current_app.permissions.each do |permission|
+      action_name = permission.permission_type
+      if Permission.permission_types[action_name] == action then
+        if permission.service_type_id == service_type_id then
+          return true
+        end
+      end
+    end
 
-def current_ability
-  #I am sure there is a slicker way to capture the controller namespace
-  controller_name_segments = params[:controller].split('/')
-  controller_name_segments.pop
-  controller_namespace = controller_name_segments.join('/').camelize
-  Ability.new(current_user, controller_namespace)
-end
+    return false
+  end
+
+  private
+
+  #CanCan stuff
+  def current_ability
+    #I am sure there is a slicker way to capture the controller namespace
+    controller_name_segments = params[:controller].split('/')
+    controller_name_segments.pop
+    controller_namespace = controller_name_segments.join('/').camelize
+    Ability.new(@current_user, controller_namespace)
+  end
 
 
 end
