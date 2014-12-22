@@ -4,7 +4,6 @@ class Vehicle < ActiveRecord::Base
   has_and_belongs_to_many :people
 
   validates :trusted_app, presence: true
-  #validates :people, presence: true
 
   validates :make, presence: true
   validates :model, presence: true

@@ -9,7 +9,8 @@ require 'test_helper'
 class ApiTest < ActionDispatch::IntegrationTest
   setup do 
     https!
-    host! "api.vcap.me"
+    assert https?
+    host! "api.vcap.me"  # Reflects back to localhost
 
     @signature = "APP"
     @app = TrustedApp.create(app_name: "APP", 
@@ -41,7 +42,7 @@ class ApiTest < ActionDispatch::IntegrationTest
     assert_equal company.id, json_response["id"]
   end
 
-  # Creation permissions
+  # Feedback creation permissions
   test "app can't rate without perms" do
     permit = Permit.last
     msg = { rating: { rating: 4 }, permit_beacon_id: permit.beacon_id }
@@ -68,10 +69,13 @@ class ApiTest < ActionDispatch::IntegrationTest
     permit = Permit.where(:service_type_id => @service_type.id).last
     permit_beacon_id = permit.beacon_id
 
+    # Also check that the consumer is created
+    assert Consumer.where(:unique_user_id => "BRIANBROLL").first.nil?
     post "/v1/ratings", rating: { rating: 4 }, consumer_id: "BRIANBROLL",
                         permit_beacon_id: permit_beacon_id, app_signature: @signature
 
     assert(@response.code == "201", "Unable to create rating (#{@response.code})")
+    assert_not Consumer.where(:unique_user_id => "BRIANBROLL").first.nil?
   end
 
   test "can't rate without consumer id" do
@@ -186,14 +190,16 @@ class ApiTest < ActionDispatch::IntegrationTest
     assert(@response.code[0] == "2", "Did not updated violation (#{@response.code})")
   end
 
+  # Static Permission tests
   test "app can update permits with correct perms" do
     add_permission(Permission.MANAGE_PERMITS)
     permit = Permit.last
 
     vehicle = Vehicle.first
-    msg = { service_type: @service_type.name, vehicle: vehicle.license_plate }
+    msg = { service_type: @service_type.name, 
+            vehicle: {license_plate: vehicle.license_plate} }
     msg[:permit] = { permit_number: 12999100094, beacon_id: 10010010101010101, status: "good" }
-    submit_patch("/permits/#{permit.id}", msg)
+    submit_patch("/permits/#{permit.beacon_id}", msg)
 
     assert(@response.code[0] == "2", "Did not updated violation (#{@response.body.inspect})")
   end
@@ -202,9 +208,10 @@ class ApiTest < ActionDispatch::IntegrationTest
     permit = Permit.last
 
     vehicle = Vehicle.first
-    msg = { service_type: @service_type.name, vehicle: vehicle.license_plate }
+    msg = { service_type: @service_type.name, 
+            vehicle: {license_plate: vehicle.license_plate} }
     msg[:permit] = { permit_number: 12999100094, beacon_id: 10010010101010108, status: "good" }
-    submit_patch("/permits/#{permit.id}", msg)
+    submit_patch("/permits/#{permit.beacon_id}", msg)
 
     assert(@response.code == "403", "Updated violation without permissions! (#{@response.code})")
   end
@@ -217,7 +224,9 @@ class ApiTest < ActionDispatch::IntegrationTest
     person = Person.first
     vehicle = Vehicle.first
 
-    permitables = {company: company.name, person: person.id, vehicle: vehicle.license_plate}
+    permitables = {company: {name: company.name}, 
+                   person: {id: person.id}, 
+                   vehicle: {license_plate: vehicle.license_plate}}
     beacon_id = 19999292993
 
     permitables.each do |key, value|
@@ -243,12 +252,21 @@ class ApiTest < ActionDispatch::IntegrationTest
     assert(@response.code == "403", "Error code: #{@response.code}")
   end
 
+  test "app can update vehicles with correct perms" do
+      # flunk
+  end
+
+  test "app can't update vehicles without correct perms" do
+      # flunk
+  end
+
   test "app can create vehicles with correct perms" do
-      #flunk
+      add_static_permission(:CREATE, :VEHICLE)
   end
 
   test "app can't create vehicles without correct perms" do
-      #flunk
+      # TODO
+      # flunk
   end
 
   def json_response
@@ -275,6 +293,18 @@ class ApiTest < ActionDispatch::IntegrationTest
     assert_not_nil permission, "Permission is nil!"
 
     @app.permissions << permission # Add the given permission
+    @app.save
+  end
+
+  def add_static_permission (action, target)
+    action = StaticPermission.permission_types[action]
+    target = StaticPermission.targets[target]
+    permission = StaticPermission.where(:target => target)
+                    .where(:permission_type => action).first
+    assert_not_nil permission, 
+      "Permission (action: #{action}, target: #{target}) is nil!"
+
+    @app.static_permissions << permission # Add the given permission
     @app.save
   end
 

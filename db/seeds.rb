@@ -6,12 +6,19 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+# Create Static Permissions
+StaticPermission.targets.each do |target, target_value|
+  StaticPermission.permission_types.each do |perm_type, perm_type_value|
+    StaticPermission.create({ target: target_value, permission_type: perm_type_value })
+  end
+end
+
 #User Permissions
 super_permissions = []
-UserPermission::ACTION_TYPES.each do |action|
-  UserPermission::TARGET_TYPES.each do |target|
+UserPermission.actions.each do |key, action|
+  UserPermission.targets.each do |key2, target|
     permission = UserPermission.create({ action: action, target: target })
-    if permission.action == UserPermission::ALL then
+    if permission.action == UserPermission.actions["ALL"] then
       super_permissions.push(permission)
     end
   end
@@ -29,7 +36,5 @@ end
 myself = TrustedApp.create({ app_name: "Web Interface" })
 
 #Default Service Type
-# Taxis FIXME
-taxi = ServiceType.new({ name: "Taxis" })
+taxi = ServiceType.new({ name: "Taxi" })
 taxi.trusted_app = myself
-#TODO

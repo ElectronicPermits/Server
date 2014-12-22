@@ -5,16 +5,16 @@ class UserPermissionTest < ActiveSupport::TestCase
   #   assert true
   # end
   test 'shouldn\'t save with custom action' do
-    user_permission = user_permissions(:users_create)
-    user_permission.action = "asdfasdfasdfasdf"
-    assert_not user_permission.save, 
-      "saved user with action not in enum"
+    user_permission = user_permissions(:users_CREATE)
+    assert_raises(ArgumentError) {
+        user_permission.action = "asdfasdfasdfasdf"
+    }
   end
 
   test 'shouldn\'t save with custom target' do
-    user_permission = user_permissions(:users_create)
-    user_permission.target = "asdfasdfasdfasdf"
-    assert_not user_permission.save,
-      "saved user with target not in enum"
+    user_permission = user_permissions(:users_CREATE)
+    assert_raises(ArgumentError) {
+        user_permission.target = "asdfasdfasdfasdf"
+    }
   end
 end

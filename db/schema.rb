@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141126190124) do
+ActiveRecord::Schema.define(version: 20141217011406) do
 
   create_table "addresses", force: true do |t|
     t.string   "line1"
@@ -69,7 +69,6 @@ ActiveRecord::Schema.define(version: 20141126190124) do
   end
 
   create_table "permissions", force: true do |t|
-    t.string   "service_name"
     t.integer  "permission_type"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -141,6 +140,18 @@ ActiveRecord::Schema.define(version: 20141126190124) do
 
   add_index "services", ["consumer_id"], name: "index_services_on_consumer_id"
   add_index "services", ["permit_id"], name: "index_services_on_permit_id"
+
+  create_table "static_permissions", force: true do |t|
+    t.integer  "permission_type"
+    t.integer  "target"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "static_permissions_trusted_apps", id: false, force: true do |t|
+    t.integer "static_permission_id"
+    t.integer "trusted_app_id"
+  end
 
   create_table "trusted_apps", force: true do |t|
     t.string   "app_name"

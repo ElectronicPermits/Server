@@ -16,8 +16,9 @@ class PermissionTest < ActiveSupport::TestCase
 
   test "should not save permission without ENUM permission type" do
     permission = permissions(:permission_1)
-    permission.permission_type = "random string"
-    assert_not permission.save
+    assert_raises(ArgumentError) {
+        permission.permission_type = "random string"
+    }
   end
 
 end

@@ -42,11 +42,26 @@ class ApplicationController < ActionController::Base
   end
 
   # Permissions
+  # Service Type Dependent
   def trusted_app_can(action, service_type_id)
     @current_app.permissions.each do |permission|
       action_name = permission.permission_type
       if Permission.permission_types[action_name] == action then
         if permission.service_type_id == service_type_id then
+          return true
+        end
+      end
+    end
+
+    return false
+  end
+
+  # Static Permissions
+  def trusted_app_can_static(action, target_id)
+    @current_app.static_permissions.each do |permission|
+      action_name = permission.permission_type
+      if StaticPermission.permission_types[action_name] == action then
+        if permission.target_id == target_id then
           return true
         end
       end

@@ -21,8 +21,23 @@ class API::V1::BaseController < ApplicationController
     end
 
     # set service type
-    @service_type = @permit.service_type
+    if @permit.nil? then
+      respond_to do |format|
+        format.json { render json: { :error => "Permit Not Found" }, status: :unprocessable_entity }
+      end
+    else
+      @service_type = @permit.service_type
+    end
 
+  end
+
+  def authenticate_current_app_static(action, target)
+    if not trusted_app_can_static(action, target) then
+      respond_to do |format|
+        format.json { render json: { :error => "Access Denied" }, status: :forbidden }
+      end
+      return
+    end
   end
 
   def authenticate_current_app(action)

@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+<% StaticPermission.targets.each do |target, t_value| %>
+<% StaticPermission.permission_types.each do |action, a_value| %>
+<%= action %>_<%= target %>:
+    permission_type: <%= a_value %>
+    target: <%= t_value %>
+<% end %>
+<% end %>

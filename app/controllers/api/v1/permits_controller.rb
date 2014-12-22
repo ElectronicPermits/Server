@@ -75,11 +75,7 @@ class API::V1::PermitsController < API::V1::BaseController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_permit # Use beacon id if we have one
-      if params[:id].nil?
-        @permit = Permit.where(:beacon_id => params[:beacon_id]).first
-      else
-        @permit = Permit.find(params[:id])
-      end
+      @permit = Permit.where(:beacon_id => params[:id]).first
 
       # Set service_type for authentication via API
       @service_type = @permit.service_type
@@ -107,15 +103,49 @@ class API::V1::PermitsController < API::V1::BaseController
     # Get the permitable item when creating permit
     def permitable
         result = nil
+        perm = nil
 
         if not params[:company].nil? then # company name
-          result = Company.where(name: params[:company]).first
+          result = Company.where(name: params[:company][:name]).first
+
+          if result.nil? then
+            perm = Company.new(company_params)
+          end
+
         elsif not params[:person].nil? then # id
-          result = Person.where(id: params[:person]).first
+          result = Person.where(id: params[:person][:id]).first
+
+          if result.nil? then
+            perm = Person.new(person_params)
+          end
+
         elsif not params[:vehicle].nil? then # license_plate
-          result = Vehicle.where(license_plate: params[:vehicle]).first
+          result = Vehicle.where(license_plate: params[:vehicle][:license_plate]).first
+
+          if result.nil? then
+            perm = Vehicle.new(vehicle_params)
+          end
         end
 
-        return result
+        if perm.nil? or perm.save then
+            return result || perm
+        else
+          respond_to do |format|
+            format.json { render json: perm.errors, status: :unprocessable_entity }
+          end
+        end
+    end
+
+    # Permitable types filter
+    def company_params
+      params.require(:company).permit(:name, :average_rating, :phone_number)
+    end
+
+    def person_params
+      params.require(:person).permit(:first_name, :middle_name, :last_name, :date_of_birth, :race, :sex, :height, :weight, :phone_number)
+    end
+
+    def vehicle_params
+      params.require(:vehicle).permit(:make, :model, :color, :year, :inspection_date, :license_plate)
     end
 end

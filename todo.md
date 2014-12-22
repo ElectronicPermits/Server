@@ -22,7 +22,6 @@
             + Only needed for feedback -> can be "inherited" from ratings/services
 
         + violations
-        + vehicles
         + permits
             + creation
                 + How should I designate the "recipient" of the permit?
@@ -37,20 +36,54 @@
                         + vehicle: license_plate
         + people
         + companies
+        + vehicles
+            + How should I handle permissions for creating people, companies, vehicles?
+                + Should these be service_type specific?
+                    + Doesn't really make sense for them to be service_type specific...
+
+            + BUILDER
+                + The best way to do this is probably with a builder... This way, permissions 
+                  will at least make sense.
+
+            + NO BUILDER
+                + Updating will be more straight forward
+                + Permissions will be a challenge...
+                    + Currently, permissions are service_type specific (rating, recording services)
+                    + However, vehicles, people and companies don't have an inherent service_type...
+
+                + Solutions:
+                    + Let the client set the service_type
+                        + bad -> don't like the honesty policy
+                          as the vehicles they are adding may or may not be for the service_type
+
+                        + this means that we could basically ignore the service_type for 
+                          these permissions
+                            + bad -> creates excess entries in the database 
+
+
+
+
 
         How should I group the permissions?
             + violations should be it's own thing
                 + MANAGE_VIOLATIONS
             + companies, vehicles, people all depend on permits
                 (technically, the other way around)
-
-                + MANAGE_PERMITS
+                + Static permissions for these types
+                    + Static Permissions for these consist of 2 things:
+                        + Target
+                            + companies
+                            + vehicles
+                            + person
+                        + Action
+                            + create, update, delete, all
 
         May not need the following
         + service_types ?
 
         Consider moving authentication of trusted apps to common method in base_controller
         Then use before_action
+            DONE
 
 + Seeds for db
     + Admin user

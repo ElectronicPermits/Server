@@ -1,0 +1,27 @@
+<h1>Listing static_permissions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Permission type</th>
+      <th>Target</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @static_permissions.each do |static_permission| %>
+      <tr>
+        <td><%= static_permission.permission_type %></td>
+        <td><%= static_permission.target %></td>
+        <td><%= link_to 'Show', static_permission %></td>
+        <td><%= link_to 'Edit', edit_static_permission_path(static_permission) %></td>
+        <td><%= link_to 'Destroy', static_permission, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Static permission', new_static_permission_path %>

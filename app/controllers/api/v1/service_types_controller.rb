@@ -36,10 +36,9 @@ class API::V1::ServiceTypesController < API::V1::BaseController
     #
     #For now I may require the service types to be explicitly created
     # (alternatively, they could be made on the fly)
-    permission_types = Permission::PERMISSION_TYPES
     total_saved_permissions = 0
 
-    permission_types.each do |permission_type|
+    Permission.permission_types.each do |perm_key, permission_type|
     #@service_type.build_permission(:permission_type => permission_type)
       permission = Permission.new
       permission.service_type = @service_type

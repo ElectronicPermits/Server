@@ -1,4 +1,6 @@
 OpenPermits::Application.routes.draw do
+  resources :static_permissions
+
   devise_for :users, :skip => [:registrations], 
     :controllers => { :registrations => "manage/users", 
                       :sessions => "manage/sessions" }
@@ -50,10 +52,10 @@ OpenPermits::Application.routes.draw do
       resources :consumers, only: [:create, :index, :show, :update]
       resources :violations, only: [:create, :index, :show, :update]
       resources :vehicles, only: [:create, :index, :show, :update]
-      resources :permits, only: [:create, :index, :update]
+      resources :permits, only: [:create, :index, :show, :update]
       resources :people, only: [:create, :index, :show, :update]
       resources :companies, only: [:create, :index, :show, :update]
-      resources :service_types, only: [:create, :index, :show, :update]
+      resources :service_types
 
       # Look up permits by beacon id!
       get 'permits/:beacon_id' => 'permits#show', as: 'permit_by_beacon'

@@ -1,7 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-<% UserPermission.targets.each do |target| %>
-<% UserPermission.actions.each do |action| %>
+<% UserPermission.targets.each do |target, t_value| %>
+<% UserPermission.actions.each do |action, a_value| %>
 users_<%= action %>:
     action: <%= action %>
     target: <%= target %>

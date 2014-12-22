@@ -13,18 +13,13 @@ class API::V1::CompaniesControllerTest < ActionController::TestCase
     assert_not_nil assigns(:companies)
   end
 
-  #test "should get new" do
-    #get :new
-    #assert_response :success
+  #test "should create company" do
+    #name = "THIS IS A RANDOM, UNUSED Name"
+    #post :create, :format => :json, company: { average_rating: @company.average_rating, name: name, phone_number: @company.phone_number }, app_signature: @app_signature
+    #assert(@response.code === "403", "Error code: #{@response.code}")
+
+    ##assert_redirected_to company_path(assigns(:company))
   #end
-
-  test "should create company" do
-    assert_difference('Company.count') do
-      post :create, :format => :json, company: { average_rating: @company.average_rating, name: @company.name, phone_number: @company.phone_number }, app_signature: @app_signature
-    end
-
-    #assert_redirected_to company_path(assigns(:company))
-  end
 
   test "should show company" do
     get :show, :format => :json, id: @company

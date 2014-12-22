@@ -50,7 +50,7 @@ class API::V1::ServiceTypesControllerTest < ActionController::TestCase
       new_name = new_name + rand(100).to_s
     end
 
-    permission_count = Permission::PERMISSION_TYPES.length
+    permission_count = Permission.permission_types.length
     assert_difference('Permission.count', permission_count) do
       post :create, :format => :json, service_type: { description: @service_type.description, name: new_name }, app_signature: @app_signature
     end
@@ -76,7 +76,7 @@ class API::V1::ServiceTypesControllerTest < ActionController::TestCase
         new_name = new_name + rand(100).to_s
       end
 
-      permission_count = Permission::PERMISSION_TYPES.length
+      permission_count = Permission.permission_types.length
       assert_difference('Permission.count', permission_count) do
         post :create, :format => :json, service_type: { description: @service_type.description, name: new_name }, app_signature: @app_signature
       end

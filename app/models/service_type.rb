@@ -3,7 +3,7 @@ class ServiceType < ActiveRecord::Base
 
   has_many :permissions
   has_many :permits
-  has_many :companies
+  #has_many :companies
   has_many :people, through: :companies
   # more than just people can have permits
 

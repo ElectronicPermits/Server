@@ -27,7 +27,7 @@ class API::V1::PermitsControllerTest < ActionController::TestCase
   #end
 
   test "should show permit" do
-    get :show, :format => :json, id: @permit
+    get :show, :format => :json, id: @permit.beacon_id
     assert_response :success
   end
 
@@ -36,9 +36,7 @@ class API::V1::PermitsControllerTest < ActionController::TestCase
     #assert_response :success
   #end
 
-  test "should update permit" do
-    patch :update, :format => :json, id: @permit, permit: { beacon_id: @permit.beacon_id, permit_expiration_date: @permit.permit_expiration_date, permit_number: @permit.permit_number, status: @permit.status, training_completion_date: @permit.training_completion_date, valid: @permit.valid }
-  end
+  # Updating permits has been moved to integration testing
 
   #test "should destroy permit" do
     #assert_difference('Permit.count', -1) do

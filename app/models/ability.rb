@@ -3,6 +3,12 @@ class Ability
 
   def initialize(user, controller_namespace)
     # Permissions for Trusted Apps
+    #if user.kind_of? TrustedApp
+      #can :create, Rating if trusted_app_can(Permission::PERMISSION_TYPES.RATE,
+                                             #:permit_id)
+      #can :create, Service if trusted_app_can(Permission::PERMISSION_TYPES.RECORD_SERVICE,
+                                              #:permit_id)
+    #else
       case controller_namespace
         when 'manage'
           #TODO
@@ -31,6 +37,7 @@ class Ability
           # rules for non-admin controllers here
 
       end
+    #end
   end
 
   private
@@ -44,9 +51,6 @@ class Ability
         end
       end
     end
-
-    return false
-  end
 
     return false
   end

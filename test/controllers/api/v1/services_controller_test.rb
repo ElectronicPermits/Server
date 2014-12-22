@@ -13,12 +13,8 @@ class API::V1::ServicesControllerTest < ActionController::TestCase
     assert_not_nil assigns(:services)
   end
 
-  test "should create service" do
-    assert_difference('Service.count') do
-      post :create, :format => :json, service: { actual_cost: @service.actual_cost, end_latitude: @service.end_latitude, end_longitude: @service.end_longitude, end_time: @service.end_time, estimated_cost: @service.estimated_cost, start_longitude: @service.start_longitude, start_latitude: @service.start_latitude, start_time: @service.start_time }, consumer_id: @service.consumer.unique_user_id, app_signature: @app_signature, permit_beacon_id: @service.permit.beacon_id
-    end
-
-  end
+  # Creation tests have been moved to integration tests 
+  # as the authentication needs to be tested as well
 
   test "should show service" do
     get :show, :format => :json, id: @service

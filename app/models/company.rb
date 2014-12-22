@@ -2,7 +2,7 @@ class Company < ActiveRecord::Base
   belongs_to :trusted_app
   has_one :address, as: :addressable
   has_many :permit, as: :permitable
-  has_one :service_type
+  # has_one :service_type
   has_many :people
 
   validates :trusted_app, presence: true
