@@ -10,10 +10,12 @@ class API::V1::BaseController < ApplicationController
       @current_app = TrustedApp.where(:sha_hash => sha_hash).first
     end
 
-    respond_to do |format|
-      if signature.nil?
+    if signature.nil?
+      respond_to do |format|
         format.json { render json: { :error => "App Signature Required" }, status: :unprocessable_entity }
-      elsif @current_app.nil?
+      end
+    elsif @current_app.nil?
+      respond_to do |format|
         format.json { render json: { :error => "App Not Recognized" }, status: :unprocessable_entity }
       end
     end
