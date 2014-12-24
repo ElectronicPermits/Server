@@ -1,5 +1,5 @@
 class API::V1::BaseController < ApplicationController
-  #Add app access control logic
+  skip_before_filter :verify_authenticity_token
   
   #Base api controller
   #contains app authentication
