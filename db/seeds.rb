@@ -31,10 +31,13 @@ admin = User.create({ email: "admin@admin.com", password: "password",
 super_permissions.each do |perm|
   admin.user_permissions << perm
 end
+admin.save
 
 #Trusted App for self
 myself = TrustedApp.create({ app_name: "Web Interface" })
+myself.save
 
-#Default Service Type
+# Default Service Type
 taxi = ServiceType.new({ name: "Taxi" })
 taxi.trusted_app = myself
+taxi.save
