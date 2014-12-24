@@ -9,6 +9,14 @@ class API::V1::BaseController < ApplicationController
       sha_hash = Digest::SHA1.hexdigest(signature)
       @current_app = TrustedApp.where(:sha_hash => sha_hash).first
     end
+
+    respond_to do |format|
+      if signature.nil?
+        format.json { render json: { :error => "App Signature Required" }, status: :unprocessable_entity }
+      elsif @current_app.nil?
+        format.json { render json: { :error => "App Not Recognized" }, status: :unprocessable_entity }
+      end
+    end
   end
 
   def set_permit
