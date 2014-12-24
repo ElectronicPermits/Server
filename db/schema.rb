@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141217011406) do
+ActiveRecord::Schema.define(version: 20141223234611) do
 
   create_table "addresses", force: true do |t|
     t.string   "line1"
@@ -59,8 +59,10 @@ ActiveRecord::Schema.define(version: 20141217011406) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "trusted_app_id"
+    t.integer  "company_id"
   end
 
+  add_index "people", ["company_id"], name: "index_people_on_company_id"
   add_index "people", ["trusted_app_id"], name: "index_people_on_trusted_app_id"
 
   create_table "people_vehicles", id: false, force: true do |t|

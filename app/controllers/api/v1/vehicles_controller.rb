@@ -1,7 +1,9 @@
 class API::V1::VehiclesController < API::V1::BaseController
   before_action :set_vehicle, only: [:show, :edit, :update, :destroy]
   before_action :set_current_app, only: [:create, :edit, :update, :destroy]
-  before_action only: [:create, :update, :edit] do
+  before_action except: [:show, :index] do
+        action = params[:action].upcase
+        authenticate_current_app_static(action, "VEHICLE")
   end
 
   # GET /vehicles
@@ -27,7 +29,6 @@ class API::V1::VehiclesController < API::V1::BaseController
   # POST /vehicles
   # POST /vehicles.json
   def create
-    authenticate_app(StaticPermission.permission_types[:CREATE])
     @vehicle = Vehicle.new(vehicle_params)
     @vehicle.trusted_app = @current_app
 
@@ -45,7 +46,6 @@ class API::V1::VehiclesController < API::V1::BaseController
   # PATCH/PUT /vehicles/1
   # PATCH/PUT /vehicles/1.json
   def update
-    authenticate_app(StaticPermission.permission_types[:UPDATE])
     respond_to do |format|
       if @vehicle.update(vehicle_params)
         format.html { redirect_to @vehicle, notice: 'Vehicle was successfully updated.' }
@@ -60,7 +60,7 @@ class API::V1::VehiclesController < API::V1::BaseController
   # DELETE /vehicles/1
   # DELETE /vehicles/1.json
   def destroy
-    authenticate_app(StaticPermission.permission_types[:DELETE])
+    puts "DELETE? #{params[:action]}"
     @vehicle.destroy
     respond_to do |format|
       format.html { redirect_to vehicles_url }
@@ -71,7 +71,8 @@ class API::V1::VehiclesController < API::V1::BaseController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_vehicle
-      @vehicle = Vehicle.find(params[:id])
+      # Vehicles are looked up by license plate number
+      @vehicle = Vehicle.where(license_plate: params[:id]).first
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
@@ -79,7 +80,4 @@ class API::V1::VehiclesController < API::V1::BaseController
       params.require(:vehicle).permit(:make, :model, :color, :year, :inspection_date, :license_plate)
     end
 
-    def authenticate_app(action)
-        authenticate_current_app_static(action, StaticPermission.targets[:VEHICLE])
-    end
 end

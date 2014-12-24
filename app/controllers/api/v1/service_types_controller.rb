@@ -1,6 +1,10 @@
 class API::V1::ServiceTypesController < API::V1::BaseController
   before_action :set_service_type, only: [:show, :edit, :update, :destroy]
   before_action :set_current_app, only: [:create, :edit, :update, :destroy]
+  before_action except: [:show, :index] do
+        action = params[:action].upcase
+        authenticate_current_app_static(action, "SERVICE_TYPE")
+  end
 
   # GET /service_types
   # GET /service_types.json
@@ -96,7 +100,7 @@ class API::V1::ServiceTypesController < API::V1::BaseController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_service_type
-      @service_type = ServiceType.find(params[:id])
+      @service_type = ServiceType.where(name: params[:id]).first
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

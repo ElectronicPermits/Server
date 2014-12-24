@@ -36,7 +36,6 @@ class API::V1::BaseController < ApplicationController
       respond_to do |format|
         format.json { render json: { :error => "Access Denied" }, status: :forbidden }
       end
-      return
     end
   end
 
@@ -45,7 +44,6 @@ class API::V1::BaseController < ApplicationController
       respond_to do |format|
         format.json { render json: { :error => "Access Denied" }, status: :forbidden }
       end
-      return
     end
   end
 

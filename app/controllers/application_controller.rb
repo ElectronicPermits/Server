@@ -57,13 +57,11 @@ class ApplicationController < ActionController::Base
   end
 
   # Static Permissions
-  def trusted_app_can_static(action, target_id)
+  def trusted_app_can_static(action, target)
     @current_app.static_permissions.each do |permission|
-      action_name = permission.permission_type
-      if StaticPermission.permission_types[action_name] == action then
-        if permission.target_id == target_id then
+      if (permission.permission_type == action or permission.permission_type == "ALL") and 
+         permission.target == target then
           return true
-        end
       end
     end
 

@@ -2,7 +2,7 @@ class StaticPermission < ActiveRecord::Base
   has_and_belongs_to_many :trusted_apps
   enum permission_type: [ :CREATE, 
                           :UPDATE, 
-                          :DELETE,
+                          :DESTROY,
                           :ALL
                         ]
   # Things that can be created by trusted app
@@ -10,8 +10,7 @@ class StaticPermission < ActiveRecord::Base
                  :COMPANY, 
                  :PERSON, 
                  :SERVICE_TYPE, 
-                 :VEHICLE, 
-                 :PERMIT
+                 :VEHICLE
                ]
 
   validates :target, presence: true
