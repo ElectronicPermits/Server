@@ -1,0 +1,20 @@
+<div class="col-lg-4">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <%= trusted_app.app_name %>
+        </div>
+        <div class="panel-body">
+            <p><%= trusted_app.description %></p>
+            <!-- TODO Populate this -->
+        </div>
+        <div class="panel-footer clearfix">
+            <div class="pull-right">
+                <%= link_to "Show", manage_trusted_app_path(trusted_app.id), id: "show_#{trusted_app.id}", class: "btn btn-default" %>
+                <%= link_to "Edit", edit_manage_trusted_app_path(trusted_app.id), id: "edit_#{trusted_app.id}", class: "btn btn-default" %>
+                <%= link_to 'Destroy', manage_trusted_app_path(trusted_app), id: "delete_trusted_app_#{trusted_app.id.to_s}", method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default" %>
+            </div>
+        </div>
+    </div>
+</div>
+
+

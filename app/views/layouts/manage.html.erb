@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+   <title>OpenPermits</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta name="author" content="Brian Broll">
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <!-- Custom styles for this template -->
+  <link href="assets/css/main.css" rel="stylesheet">
+
+  <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
+
+  <script src="assets/js/smoothscroll.js"></script>
+
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<div id="navigation" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <b><%= link_to 'E-Permits', manage_root_path, class: "navbar-brand" %></b>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><%= link_to 'Home', root_path, class: 'smothscroll' %></li>
+                <li <%= if controller.class.name.split("::").second=="TrustedAppsController" then "class=active" end%>>
+                    <a href="<%= manage_trusted_apps_path %>" class="smothscroll">Apps</a></li>
+                <li <%= if controller.class.name.split("::").second=="UsersController" then "class=active" end%>><a href="<%= manage_users_path %>" class="smothscroll">Users</a></li>
+                <li><%= link_to 'Sign out', destroy_user_session_path, :id => 'sign_out', :method => :delete, class: 'smothscroll' %></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</div>
+
+
+    <%= yield %>
+
+    <!-- Need to guarantee this is at the bottom of the screen -->
+    <%= render partial: "shared/footer" %>
+</body>
+</html>

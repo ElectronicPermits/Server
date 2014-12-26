@@ -1,4 +1,6 @@
-<p id="notice"><%= notice %></p>
+<%= render partial: "shared/title", locals: {title: @trusted_app.app_name, 
+                                             subtitle: "Settings for #{@trusted_app.app_name}"} %>
+<!--<p id="notice"><%= notice %></p>-->
 
 <p>
   <strong>App name:</strong>
@@ -8,11 +10,6 @@
 <p>
   <strong>Description:</strong>
   <%= @trusted_app.description %>
-</p>
-
-<p>
-  <strong>Sha hash:</strong>
-  <%= @trusted_app.sha_hash %>
 </p>
 
 <%= link_to 'Edit', edit_manage_trusted_app_path(@trusted_app) %> |

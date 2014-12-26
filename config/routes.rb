@@ -9,16 +9,8 @@ OpenPermits::Application.routes.draw do
   root 'service_types#index'
 
   # Routes for public access
-  resources :violations, only: [:index, :show]
-  resources :consumers, only: [:index, :show]
-  resources :ratings, only: [:index, :show]
-  resources :services, only: [:index, :show]
   resources :service_types, only: [:index, :show]
   resources :vehicles, only: [:index, :show]
-  resources :permits, only: [:index, :show]
-  resources :people, only: [:index, :show]
-  resources :addresses, only: [:index, :show]
-  resources :companies, only: [:index, :show]
   resources :trusted_apps, only: [:index]
 
   #Admin routes

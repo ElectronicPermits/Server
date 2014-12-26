@@ -1,28 +1,35 @@
-<h1>Listing users</h1>
+<section id="home" name="home"></section>
+	<div id="headerwrap">
+	    <div class="container">
+	    	<div class="row centered">
+	    		<div class="col-lg-12">
+					<h1>Users</h1>
+					<h3>Users for App Management</h3>
+					<br>
+	    		</div>
+	    		
+	    	</div>
+	    </div> <!--/ .container -->
+	</div><!--/ #headerwrap -->
 
-<table>
-  <thead>
-    <tr>
-      <th>Email</th>
-      <th>Last Sign In</th>
-      <th>Last Sign In IP</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @users.each do |user| %>
-      <tr>
-        <td><%= user.email %></td>
-        <td><%= user.last_sign_in_at %></td>
-        <td><%= user.last_sign_in_ip %></td>
-        <td><%= link_to "Edit", edit_manage_user_path(user.id)%></td>
-        <td><%= link_to 'Destroy', manage_user_path(user), id: "delete_user_" + user.id.to_s, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+<% rowLength = 4 %>
+<% itemNumber = 0 %>
+<% totalItemCount = @users.length %>
+<div class="panel-container">
+<% @users.each do |user| %>
+    <% if itemNumber % rowLength == 0 then %>
+        <div class="row">
     <% end %>
-  </tbody>
-</table>
+
+    <%= render partial: "panel", locals: {user: user} %>
+
+    <% if itemNumber % rowLength == 3 or itemNumber+1 == totalItemCount then %>
+        </div>
+    <% end %>
+    <% itemNumber += 1 %>
+
+<% end %>
+</div>
 
 <%= link_to "New", new_manage_user_path %>
 <%= link_to "Back", :back %>

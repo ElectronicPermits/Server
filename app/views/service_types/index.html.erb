@@ -1,25 +1,111 @@
-<h1>Listing service_types</h1>
+<section id="home" name="home"></section>
+<div id="headerwrap">
+    <div class="container">
+        <div class="row centered">
+            <div class="col-lg-12">
+                <h1>Welcome To <b>E-Permits</b></h1>
+                <h3>Take control of your city services</h3>
+                <br>
+            </div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+        </div>
+    </div> <!--/ .container -->
+</div><!--/ #headerwrap -->
 
-  <tbody>
-    <% @service_types.each do |service_type| %>
-      <tr>
-        <td><%= service_type.name %></td>
-        <td><%= service_type.description %></td>
-        <td><%= link_to 'Show', service_type %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
-<br>
+<section id="desc" name="desc"></section>
+<!-- INTRO WRAP -->
+<div id="intro">
+    <div class="container">
+        <div class="row centered">
+            <h1>Get Started!</h1>
+            <br>
+            <br>
+            <div class="col-lg-4">
+                <img src="assets/img/intro01.png" alt="">
+                <h3>Learn</h3>
+                <p>Browse the <a href="#data">Data</a> section to learn about the services in your city. Who is good? Who is bad?</p>
+            </div>
+            <div class="col-lg-4">
+                <img src="assets/img/intro02.png" alt="">
+                <h3>Rate</h3>
+                <p>Use local apps to rate your services and inform your fellow citizens!</p>
+            </div>
+            <div class="col-lg-4">
+                <img src="assets/img/intro03.png" alt="">
+                <h3>Develop</h3>
+                <p>Have a good idea for a civic app? Read the <a href="https://github.com/ElectronicPermits/Server/wiki">Documentation</a> for information on how to use the data from E-Permits!</p>
+            </div>
+        </div>
+        <br>
+        <hr>
+    </div> <!--/ .container -->
+</div><!--/ #introwrap -->
+
+<!-- FEATURES WRAP -->
+<div id="features">
+    <div class="container">
+        <div class="row">
+            <h1 class="centered">What is E-Permits?</h1>
+            <p>E-Permits empowers citizens by providing a feedback platform on government regulated services such as taxi or limo services. However, E-Permits does more than review; E-Permits also provides an API to developers to create their own civic apps. That is, developers can create custom apps for the rating, recording and contacting of government regulated services.</p>
+        </div>
+    </div><!--/ .container -->
+</div><!--/ #features -->
+
+
+    <section id="data" name="showcase"></section>
+    <div id="showcase">
+        <div class="container">
+            <div class="row centered">
+                <h1>E-Permit Data</h1>
+                <br>
+                <br>
+                <% @service_types.each do |service_type| %>
+                    <div class="col-lg-4">
+                        <h3><b><%= link_to service_type.name.pluralize, service_type %></b></h3>
+                        <p><%= service_type.description %></p>
+                    </div>
+                <% end %>
+            </div>
+            <br>
+            <hr>
+        </div> <!--/ .container -->
+
+    </div>	
+
+
+    <section id="contact" name="contact"></section>
+    <div id="footerwrap">
+        <div class="container">
+            <div class="col-lg-5">
+                <h3>Address</h3>
+                <p>
+                Av. Greenville 987,<br/>
+                New York,<br/>
+                90873<br/>
+                United States
+                </p>
+            </div>
+
+            <div class="col-lg-7">
+                <h3>Drop Us A Line</h3>
+                <br>
+                <form role="form" action="#" method="post" enctype="plain"> 
+                    <div class="form-group">
+                        <label for="name1">Your Name</label>
+                        <input type="name" name="Name" class="form-control" id="name1" placeholder="Your Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email1">Email address</label>
+                        <input type="email" name="Mail" class="form-control" id="email1" placeholder="Enter email">
+                    </div>
+                    <div class="form-group">
+                        <label>Your Text</label>
+                        <textarea class="form-control" name="Message" rows="3"></textarea>
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-large btn-success">SUBMIT</button>
+                </form>
+            </div>
+        </div>
+    </div>

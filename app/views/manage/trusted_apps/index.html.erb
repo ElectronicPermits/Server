@@ -1,30 +1,34 @@
-<h1>Listing trusted_apps</h1>
+<section id="home" name="home"></section>
+<div id="headerwrap">
+    <div class="container">
+        <div class="row centered">
+            <div class="col-lg-12">
+                <h1>Trusted Apps</h1>
+                <h3>Rating and Recording Enabled Apps</h3>
+                <br>
+            </div>
 
-<table>
-  <thead>
-    <tr>
-      <th>App name</th>
-      <th>Description</th>
-      <th>Sha hash</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+        </div>
+    </div> <!--/ .container -->
+</div><!--/ #headerwrap -->
 
-  <tbody>
-    <% @trusted_apps.each do |trusted_app| %>
-      <tr>
-        <td><%= trusted_app.app_name %></td>
-        <td><%= trusted_app.description %></td>
-        <td><%= trusted_app.sha_hash %></td>
-        <td><%= link_to "Show", manage_trusted_app_path(trusted_app.id), id: "show_#{trusted_app.id}"%></td>
-        <td><%= link_to "Edit", edit_manage_trusted_app_path(trusted_app.id), id: "edit_#{trusted_app.id}"%></td>
-        <td><%= link_to 'Destroy', manage_trusted_app_path(trusted_app), id: "delete_trusted_app_#{trusted_app.id.to_s}", method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+<% rowLength = 4 %>
+<% itemNumber = 0 %>
+<% totalItemCount = @trusted_apps.length %>
+<div class="panel-container">
+<% @trusted_apps.each do |trusted_app| %>
+    <% if itemNumber % rowLength == 0 then %>
+        <div class="row">
     <% end %>
-  </tbody>
-</table>
 
-<%= link_to 'Sign out', destroy_user_session_path, :id => 'sign_out', :method => :delete %>
+    <%= render partial: "panel", locals: {trusted_app: trusted_app} %>
+
+    <% if itemNumber % rowLength == 3 or itemNumber+1 == totalItemCount then %>
+        </div>
+    <% end %>
+    <% itemNumber += 1 %>
+
+<% end %>
+</div>
+
 <br>

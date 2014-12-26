@@ -88,3 +88,24 @@
 + Seeds for db
     + Admin user
     + Taxi service type
+    DONE
+
++ Additional things
+    + Trusted App should probably have contact information for lead dev (in case of problem)
+        + email
+        + URL
+    + Trusted App should probably be showcased on the main page (non essential)
+
+    + Manage namespace
+        + Consider adding a side panel (drawer) in the admin view
+        + Consider adding a landing stats page for the admin view
+    + Add images for drivers/companies
+    + Create nice manage permits ui
+
+    + Company
+        + URL
+        + Phone number
+        + Picture? If so, can probably use one from their website
+
+    + TESTING
+        + modify permissions (capybara)

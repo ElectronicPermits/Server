@@ -1,13 +1,89 @@
-<p id="notice"><%= notice %></p>
+<%= render partial: "shared/nav_bar", 
+    locals: {navItems: {Description: "#desc", 
+                        Data: "#data", 
+                        Develop: "#contact", 
+                        Documentation: "https://github.com/ElectronicPermits/Server/wiki"}} %>
 
-<p>
-  <strong>Name:</strong>
-  <%= @service_type.name %>
-</p>
+	<section id="home" name="home"></section>
+	<div id="headerwrap">
+	    <div class="container">
+	    	<div class="row centered">
+	    		<div class="col-lg-12">
+                    <h1><b><%= @service_type.name.pluralize %></b></h1>
+                    <h3><%= @service_type.description %></h3>
+					<br>
+	    		</div>
+	    	</div>
+	    </div> <!--/ .container -->
+	</div><!--/ #headerwrap -->
 
-<p>
-  <strong>Description:</strong>
-  <%= @service_type.description %>
-</p>
 
-<%= link_to 'Back', service_types_path %>
+	<section id="companies" name="companies"></section>
+	<!-- INTRO WRAP -->
+	<div id="intro">
+		<div class="container">
+			<div class="row centered">
+                <!-- TODO Add a map of services in the region --> 
+				<h1>Companies</h1>
+                <% if @service_type.companies.length == 0 %>
+                    <h3>Coming Soon!</h3>
+                <% else %>
+                    <ul>
+                        <% @service_type.companies.each do |company| %>
+                            <li>i<%= company.name %></li>
+                        <% end %>
+                    </ul>
+                <% end %>
+                <!-- TODO Optionally Customize this by type -->
+                <br>
+                <br>
+	    </div> <!--/ .container -->
+	</div><!--/ #introwrap -->
+	
+	<section id="services" name="services"></section>
+	<div id="showcase">
+		<div class="container">
+			<div class="row centered">
+				<h1>Services</h1>
+                <% if @service_type.services.length == 0 %>
+                    <h3>Coming Soon!</h3>
+                <% else %>
+                    <% #TODO %>
+                <% end %>
+			</div>
+	    </div> <!--/ .container -->
+
+	</div>	
+
+	<section id="leaderboard" name="leaderboard"></section>
+	<!-- INTRO WRAP -->
+	<div id="intro">
+		<div class="container">
+			<div class="row centered">
+				<h1>Leaderboard</h1>
+                <% if @service_type.permits.length == 0 %>
+                    <h3>Coming Soon!</h3>
+                <% else %>
+                <!-- TODO Add a map of services in the region --> 
+                <!-- TODO Optionally Customize this by type -->
+                    <% #TODO %>
+                <% end %>
+                <br>
+                <br>
+	    </div> <!--/ .container -->
+	</div><!--/ #introwrap -->
+	
+	<div id="c">
+		<div class="container">
+			<p>Created by <a href="http://www.blacktie.co">BLACKTIE.CO</a></p>
+		
+		</div>
+	</div>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="assets/js/bootstrap.js"></script>
+  </body>
+</html>

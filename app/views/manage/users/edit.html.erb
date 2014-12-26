@@ -1,6 +1,4 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
-
+<%= render partial: "shared/title", locals: {title: @user.email, 
+                                             subtitle: "Modify Settings for #{@user.email}"} %>
 <%= render 'form' %>
-<h3>Cancel account</h3>
-
 <%= link_to "Back", :back %>
