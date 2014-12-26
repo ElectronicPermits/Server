@@ -14,6 +14,22 @@
                         <td><%= trusted_app.description %></td>
                         <% end %>
                     </tr>
+                    <tr>
+                        <td>Contact Name</td>
+                        <% if trusted_app.contact_name.nil? then %>
+                            <td><i>None Provided</i></td>
+                        <% else %>
+                        <td><%= trusted_app.contact_name %></td>
+                        <% end %>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <% if trusted_app.contact_email.nil? then %>
+                            <td><i>None Provided</i></td>
+                        <% else %>
+                        <td><%= trusted_app.contact_email %></td>
+                        <% end %>
+                    </tr>
                 </tbody>
             </table>
 

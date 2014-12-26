@@ -35,7 +35,7 @@ end
 admin.save
 
 #Trusted App for self
-myself = TrustedApp.create({ app_name: "Web Interface" })
+myself = TrustedApp.create({ app_name: "Web Interface"})
 myself.save
 
 # Default Service Type
@@ -47,7 +47,11 @@ taxi.save
 if Rails.env == 'development'
   signature = 'DEV_APP'
   hash = Digest::SHA1.hexdigest(signature)
-  dev_app = TrustedApp.create({app_name: "Development App", sha_hash: hash})
+  dev_app = TrustedApp.create({app_name: "Development App", 
+                               description: "Demo App used for testing.",
+                               contact_name: "Brian Broll",
+                               contact_email: "brian.broll@gmail.com",
+                               sha_hash: hash})
   dev_app.save
 
   # Add permissions
