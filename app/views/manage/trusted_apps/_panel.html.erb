@@ -4,14 +4,26 @@
             <%= trusted_app.app_name %>
         </div>
         <div class="panel-body">
-            <p><%= trusted_app.description %></p>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>Description</td>
+                        <% if trusted_app.description.nil? then %>
+                            <td><i>None Provided</i></td>
+                        <% else %>
+                        <td><%= trusted_app.description %></td>
+                        <% end %>
+                    </tr>
+                </tbody>
+            </table>
+
             <!-- TODO Populate this -->
         </div>
         <div class="panel-footer clearfix">
             <div class="pull-right">
                 <%= link_to "Show", manage_trusted_app_path(trusted_app.id), id: "show_#{trusted_app.id}", class: "btn btn-default" %>
                 <%= link_to "Edit", edit_manage_trusted_app_path(trusted_app.id), id: "edit_#{trusted_app.id}", class: "btn btn-default" %>
-                <%= link_to 'Destroy', manage_trusted_app_path(trusted_app), id: "delete_trusted_app_#{trusted_app.id.to_s}", method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default" %>
+                <%= link_to 'Remove', manage_trusted_app_path(trusted_app), id: "delete_trusted_app_#{trusted_app.id.to_s}", method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default" %>
             </div>
         </div>
     </div>

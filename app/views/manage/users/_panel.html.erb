@@ -8,11 +8,15 @@
             <table class="table">
                 <tbody>
                     <tr>
-                        <td>Last Sign In IP</td>
-                        <td><%= user.last_sign_in_ip %></td>
+                        <td>Created On</td>
+                        <td><%= user.created_at %></td>
                     </tr>
                     <tr>
                         <td>Last Sign in</td>
+                        <td><%= user.last_sign_in_at %></td>
+                    </tr>
+                    <tr> <!-- Permissions TODO-->
+                        <td>Permissions</td>
                         <td><%= user.last_sign_in_at %></td>
                     </tr>
                 </tbody>

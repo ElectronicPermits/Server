@@ -31,6 +31,8 @@
 <% end %>
 </div>
 
-<%= link_to "New", new_manage_user_path %>
-<%= link_to "Back", :back %>
+<div class="text-center">
+    <%= link_to "Back", :back, class: "btn btn-default" %>
+    <%= link_to "Add User", new_manage_user_path, id: "add_new_user", class: "btn btn-success" %>
+</div>
 <br>
