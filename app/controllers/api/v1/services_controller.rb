@@ -38,7 +38,7 @@ class API::V1::ServicesController < API::V1::FeedbackController
       respond_to do |format|
         if @service.save
 
-          format.json { render action: 'show', status: :created, location: @service }
+          format.json { render action: 'show', status: :created, location: api_v1_service_url(@service) }
         else
           format.json { render json: @service.errors, status: :unprocessable_entity }
         end
@@ -56,10 +56,8 @@ class API::V1::ServicesController < API::V1::FeedbackController
   def update
     respond_to do |format|
       if @service.update(service_params)
-        format.html { redirect_to @service, notice: 'Service was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: 'edit' }
         format.json { render json: @service.errors, status: :unprocessable_entity }
       end
     end
@@ -70,7 +68,6 @@ class API::V1::ServicesController < API::V1::FeedbackController
   def destroy
     @service.destroy
     respond_to do |format|
-      format.html { redirect_to services_url }
       format.json { head :no_content }
     end
   end

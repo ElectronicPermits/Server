@@ -37,14 +37,11 @@ class API::V1::PeopleController < API::V1::AddressableController
         noAddress = params[:address].nil?
 
         if noAddress || (address = @person.build_address(address_params)).save
-          format.html { redirect_to @person, notice: 'Person was successfully created.' }
-          format.json { render action: 'show', status: :created, location: @person }
+          format.json { render action: 'show', status: :created, location: api_v1_person_url(@person) }
         else
-          format.html { render action: 'new' }
           format.json { render json: address.errors, status: :unprocessable_entity }
         end
       else
-        format.html { render action: 'new' }
         format.json { render json: @person.errors, status: :unprocessable_entity }
       end
     end
@@ -60,11 +57,9 @@ class API::V1::PeopleController < API::V1::AddressableController
         # Create a new one
         if @person.address.nil?
           if not @person.build_address(address_params).save
-            format.html { render action: 'edit' }
             format.json { render json: @person.address.errors, status: :unprocessable_entity }
           end
         elsif not @person.address.update(address_params) # or edit the existing
-          format.html { render action: 'edit' }
           format.json { render json: @person.address.errors, status: :unprocessable_entity }
         end
       end
@@ -78,16 +73,13 @@ class API::V1::PeopleController < API::V1::AddressableController
           elsif action == 'remove'
             @person.vehicles.delete(@vehicle)
           else
-            format.html { render action: 'edit' }
             format.json { render json: { :error => "Invalid Action" }, status: :unprocessable_entity }
           end
       end
 
       if params[:person].nil? || @person.update(person_params)
-        format.html { redirect_to @person, notice: 'Person was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: 'edit' }
         format.json { render json: @person.errors, status: :unprocessable_entity }
       end
     end
@@ -102,7 +94,6 @@ class API::V1::PeopleController < API::V1::AddressableController
 
     @person.destroy
     respond_to do |format|
-      format.html { redirect_to people_url }
       format.json { head :no_content }
     end
   end

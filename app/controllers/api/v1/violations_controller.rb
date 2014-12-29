@@ -39,10 +39,8 @@ class API::V1::ViolationsController < API::V1::BaseController
 
     respond_to do |format|
       if @violation.save
-        format.html { redirect_to @violation, notice: 'Violation was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @violation }
+        format.json { render action: 'show', status: :created, location: api_v1_violation_url(@violation) }
       else
-        format.html { render action: 'new' }
         format.json { render json: @violation.errors, status: :unprocessable_entity }
       end
     end
@@ -53,10 +51,8 @@ class API::V1::ViolationsController < API::V1::BaseController
   def update
     respond_to do |format|
       if @violation.update(violation_params)
-        format.html { redirect_to @violation, notice: 'Violation was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: 'edit' }
         format.json { render json: @violation.errors, status: :unprocessable_entity }
       end
     end
@@ -67,7 +63,6 @@ class API::V1::ViolationsController < API::V1::BaseController
   def destroy
     @violation.destroy
     respond_to do |format|
-      format.html { redirect_to violations_url }
       format.json { head :no_content }
     end
   end

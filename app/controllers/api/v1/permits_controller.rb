@@ -38,10 +38,8 @@ class API::V1::PermitsController < API::V1::BaseController
 
     respond_to do |format|
       if @permit.save
-        format.html { redirect_to @permit, notice: 'Permit was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @permit }
+        format.json { render action: 'show', status: :created, location: api_v1_permit_url(@permit) }
       else
-        format.html { render action: 'new' }
         format.json { render json: @permit.errors, status: :unprocessable_entity }
       end
     end
@@ -53,10 +51,8 @@ class API::V1::PermitsController < API::V1::BaseController
     @permit.permitable = permitable 
     respond_to do |format|
       if @permit.update(permit_params)
-        format.html { redirect_to @permit, notice: 'Permit was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: 'edit' }
         format.json { render json: @permit.errors, status: :unprocessable_entity }
       end
     end
@@ -67,7 +63,6 @@ class API::V1::PermitsController < API::V1::BaseController
   def destroy
     @permit.destroy
     respond_to do |format|
-      format.html { redirect_to permits_url }
       format.json { head :no_content }
     end
   end

@@ -36,10 +36,8 @@ class API::V1::CompaniesController < API::V1::AddressableController
 
     respond_to do |format|
       if @company.save
-        format.html { redirect_to @company, notice: 'Company was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @company }
+        format.json { render action: 'show', status: :created, location: api_v1_company_url(@company) }
       else
-        format.html { render action: 'new' }
         format.json { render json: @company.errors, status: :unprocessable_entity }
       end
     end
@@ -54,11 +52,9 @@ class API::V1::CompaniesController < API::V1::AddressableController
       if not params[:address].nil?
         if @company.address.nil?
           if not @company.build_address(address_params).save # Try to create a new one
-            format.html { render action: 'edit' }
             format.json { render json: @company.address.errors, status: :unprocessable_entity }
           end
         elsif not @company.address.update(address_params) # Try to edit the existing
-          format.html { render action: 'edit' }
           format.json { render json: @company.address.errors, status: :unprocessable_entity }
         end
       end
@@ -72,16 +68,13 @@ class API::V1::CompaniesController < API::V1::AddressableController
           elsif action == 'remove'
             @company.people.delete(@person)
           else
-            format.html { render action: 'edit' }
             format.json { render json: { :error => "Invalid Action" }, status: :unprocessable_entity }
           end
       end
 
       if params[:company].nil? || @company.update(company_params)
-        format.html { redirect_to @company, notice: 'Company was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: 'edit' }
         format.json { render json: @company.errors, status: :unprocessable_entity }
       end
     end
@@ -96,7 +89,6 @@ class API::V1::CompaniesController < API::V1::AddressableController
 
     @company.destroy
     respond_to do |format|
-      format.html { redirect_to companies_url }
       format.json { head :no_content }
     end
   end

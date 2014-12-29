@@ -54,10 +54,8 @@ class API::V1::ServiceTypesController < API::V1::BaseController
 
     respond_to do |format|
       if @service_type.save
-        format.html { redirect_to @service_type, notice: 'Service type was successfully created.' }
         format.json { render action: 'show', status: :created, location: @service_type }
       else
-        format.html { render action: 'new' }
         format.json { render json: @service_type.errors, status: :unprocessable_entity }
       end
     end
@@ -68,10 +66,8 @@ class API::V1::ServiceTypesController < API::V1::BaseController
   def update
     respond_to do |format|
       if @service_type.update(service_type_params)
-        format.html { redirect_to @service_type, notice: 'Service type was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: 'edit' }
         format.json { render json: @service_type.errors, status: :unprocessable_entity }
       end
     end
@@ -92,7 +88,6 @@ class API::V1::ServiceTypesController < API::V1::BaseController
 
     @service_type.destroy
     respond_to do |format|
-      format.html { redirect_to service_types_url }
       format.json { head :no_content }
     end
   end

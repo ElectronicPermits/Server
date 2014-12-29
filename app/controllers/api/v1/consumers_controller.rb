@@ -30,7 +30,7 @@ class API::V1::ConsumersController < API::V1::BaseController
 
     respond_to do |format|
       if @consumer.save
-        format.json { render action: 'show', status: :created, location: @consumer }
+        format.json { render action: 'show', status: :created, location: api_v1_consumer_url(@consumer) }
       else
         format.json { render json: @consumer.errors, status: :unprocessable_entity }
       end
@@ -42,10 +42,8 @@ class API::V1::ConsumersController < API::V1::BaseController
   def update
     respond_to do |format|
       if @consumer.update(consumer_params)
-        format.html { redirect_to @consumer, notice: 'Consumer was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: 'edit' }
         format.json { render json: @consumer.errors, status: :unprocessable_entity }
       end
     end
@@ -56,7 +54,6 @@ class API::V1::ConsumersController < API::V1::BaseController
   def destroy
     @consumer.destroy
     respond_to do |format|
-      format.html { redirect_to consumers_url }
       format.json { head :no_content }
     end
   end

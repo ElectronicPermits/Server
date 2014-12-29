@@ -42,7 +42,7 @@ class API::V1::RatingsController < API::V1::FeedbackController
           #Update the rating info
           adjust_permit_average_rating
 
-          format.json { render action: 'show', status: :created, location: @rating }
+          format.json { render action: 'show', status: :created, location: api_v1_rating_url(@rating) }
         else
           format.json { render json: @rating.errors, status: :unprocessable_entity }
         end
@@ -59,10 +59,8 @@ class API::V1::RatingsController < API::V1::FeedbackController
   def update
     respond_to do |format|
       if @rating.update(rating_params)
-        format.html { redirect_to @rating, notice: 'Rating was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: 'edit' }
         format.json { render json: @rating.errors, status: :unprocessable_entity }
       end
     end
@@ -73,7 +71,6 @@ class API::V1::RatingsController < API::V1::FeedbackController
   def destroy
     @rating.destroy
     respond_to do |format|
-      format.html { redirect_to ratings_url }
       format.json { head :no_content }
     end
   end

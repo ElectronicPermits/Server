@@ -34,10 +34,8 @@ class API::V1::VehiclesController < API::V1::BaseController
 
     respond_to do |format|
       if @vehicle.save
-        format.html { redirect_to @vehicle, notice: 'Vehicle was successfully created.' }
         format.json { render action: 'show', status: :created, location: @vehicle }
       else
-        format.html { render action: 'new' }
         format.json { render json: @vehicle.errors, status: :unprocessable_entity }
       end
     end
@@ -48,10 +46,8 @@ class API::V1::VehiclesController < API::V1::BaseController
   def update
     respond_to do |format|
       if @vehicle.update(vehicle_params)
-        format.html { redirect_to @vehicle, notice: 'Vehicle was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: 'edit' }
         format.json { render json: @vehicle.errors, status: :unprocessable_entity }
       end
     end
@@ -63,7 +59,6 @@ class API::V1::VehiclesController < API::V1::BaseController
     puts "DELETE? #{params[:action]}"
     @vehicle.destroy
     respond_to do |format|
-      format.html { redirect_to vehicles_url }
       format.json { head :no_content }
     end
   end
