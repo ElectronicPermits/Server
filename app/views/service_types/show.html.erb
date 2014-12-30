@@ -1,89 +1,94 @@
-<%= render partial: "shared/nav_bar", 
-    locals: {navItems: {Description: "#desc", 
-                        Data: "#data", 
-                        Develop: "#contact", 
-                        Documentation: "https://github.com/ElectronicPermits/Server/wiki"}} %>
-
-	<section id="home" name="home"></section>
-	<div id="headerwrap">
-	    <div class="container">
-	    	<div class="row centered">
-	    		<div class="col-lg-12">
-                    <h1><b><%= @service_type.name.pluralize %></b></h1>
-                    <h3><%= @service_type.description %></h3>
-					<br>
-	    		</div>
-	    	</div>
-	    </div> <!--/ .container -->
-	</div><!--/ #headerwrap -->
+<section id="home" name="home"></section>
+<div id="headerwrap">
+    <div class="container">
+        <div class="row centered">
+            <div class="col-lg-12">
+                <h1><b><%= @service_type.name.pluralize %></b></h1>
+                <h3><%= @service_type.description %></h3>
+                <br>
+            </div>
+        </div>
+    </div> <!--/ .container -->
+</div><!--/ #headerwrap -->
 
 
-	<section id="companies" name="companies"></section>
-	<!-- INTRO WRAP -->
-	<div id="intro">
-		<div class="container">
-			<div class="row centered">
-                <!-- TODO Add a map of services in the region --> 
-				<h1>Companies</h1>
-                <% if @service_type.companies.length == 0 %>
-                    <h3>Coming Soon!</h3>
-                <% else %>
-                    <ul>
+<section id="companies" name="companies"></section>
+<!-- INTRO WRAP -->
+<div id="intro">
+    <div class="container">
+        <div class="row centered">
+            <h1>Companies</h1>
+            <% if @service_type.companies.length == 0 %>
+                <h3>Coming Soon!</h3>
+            <% else %>
+                <div class="panel-container">
+                    <div class="row">
                         <% @service_type.companies.each do |company| %>
-                            <li>i<%= company.name %></li>
+                            <%= render partial: "companies/panel", locals: {company: company} %>
                         <% end %>
-                    </ul>
-                <% end %>
-                <!-- TODO Optionally Customize this by type -->
-                <br>
-                <br>
-	    </div> <!--/ .container -->
-	</div><!--/ #introwrap -->
-	
-	<section id="services" name="services"></section>
-	<div id="showcase">
-		<div class="container">
-			<div class="row centered">
-				<h1>Services</h1>
+                    </div>
+                </div>
+            <% end %>
+            <br>
+            <br>
+        </div> <!--/ .container -->
+    </div><!--/ #introwrap -->
+
+    <section id="services" name="services"></section>
+    <div id="showcase">
+        <div class="container">
+            <div class="row centered">
+            <!-- TODO Add a map of services in the region --> 
+                <h1>Services</h1>
                 <% if @service_type.services.length == 0 %>
                     <h3>Coming Soon!</h3>
                 <% else %>
                     <% #TODO %>
+                    <!-- TODO Add a map of services in the region --> 
                 <% end %>
-			</div>
-	    </div> <!--/ .container -->
+            </div>
+        </div> <!--/ .container -->
 
-	</div>	
+    </div>	
 
-	<section id="leaderboard" name="leaderboard"></section>
-	<!-- INTRO WRAP -->
-	<div id="intro">
-		<div class="container">
-			<div class="row centered">
-				<h1>Leaderboard</h1>
+    <section id="leaderboard" name="leaderboard"></section>
+    <!-- INTRO WRAP -->
+    <div id="intro">
+        <div class="container">
+            <div class="row centered">
+                <h1>Leaderboard</h1>
                 <% if @service_type.permits.length == 0 %>
                     <h3>Coming Soon!</h3>
                 <% else %>
-                <!-- TODO Add a map of services in the region --> 
-                <!-- TODO Optionally Customize this by type -->
-                    <% #TODO %>
+                    <% tables = {'Vehicle'=> [], 'Company'=> [], 'Person'=> []} %>
+                    <% permits = @service_type.permits.to_a %>
+                    <% permits.sort!{ |x, y| if x.average_rating < y.average_rating then 1 else -1 end}%>
+                    <% permitables = [] %>
+                    <% permits.each do |x| %>
+                        <% result = x.permitable.attributes %>
+                        <% result['average_rating'] = x.average_rating %> 
+                        <% result[:class_name] = x.permitable.class.name %> 
+                        <% permitables << result %>
+                    <% end %>
+
+                    <% permitables.each do |thing| %>
+                        <% type = thing[:class_name] %>
+                        <% puts "type is #{type}"%>
+                        <% tables[type] << thing %>
+                    <% end %>
+                    <% tables.each do |type, elements| %>
+                            <% puts "tables[#{type}]: #{elements.count}" %>
+                        <% if elements.length > 0 %>
+                            <% formattedName = type.downcase.pluralize %>
+                            <% locals = {items: elements} %>
+                            <% puts "locals: #{locals.inspect}" %>
+                            <%= render partial: "#{formattedName}/table", locals: locals %>
+                        <% end %>
+                    <% end %>
+                    <!-- TODO Optionally Customize this by type -->
+                    <!-- Show the leaders in all categories: companies, people/vehicles -->
                 <% end %>
                 <br>
                 <br>
-	    </div> <!--/ .container -->
-	</div><!--/ #introwrap -->
-	
-	<div id="c">
-		<div class="container">
-			<p>Created by <a href="http://www.blacktie.co">BLACKTIE.CO</a></p>
-		
-		</div>
-	</div>
-
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="assets/js/bootstrap.js"></script>
-  </body>
-</html>
+            </div> <!--/ .container -->
+        </div><!--/ #introwrap -->

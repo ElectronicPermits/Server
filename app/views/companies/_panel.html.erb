@@ -1,0 +1,39 @@
+<div class="col-lg-4">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <%= company.name %>
+        </div>
+        <div class="panel-body">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>Average Rating</td>
+                        <% if company.average_rating.nil? then %>
+                            <td><i>None Provided</i></td>
+                        <% else %>
+                        <td><%= company.average_rating.round(2) %></td>
+                        <% end %>
+                    </tr>
+                    <tr>
+                        <td>Website</td>
+                        <% if company.url.nil? then %>
+                            <td><i>None Provided</i></td>
+                        <% else %>
+                            <td><a href="http://<%= company.url %>"><%= company.url %></a></td>
+                        <% end %>
+                    </tr>
+                    <tr>
+                        <td>Phone Number</td>
+                        <% if company.phone_number.nil? then %>
+                            <td><i>None Provided</i></td>
+                        <% else %>
+                        <td><%= company.phone_number %></td>
+                        <% end %>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+

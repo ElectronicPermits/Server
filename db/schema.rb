@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20141226192338) do
 
   create_table "companies", force: true do |t|
     t.string   "name"
+    t.string   "url"
     t.float    "average_rating", default: 0.0
     t.float    "total_ratings",  default: 0.0
     t.string   "phone_number"
@@ -101,6 +102,7 @@ ActiveRecord::Schema.define(version: 20141226192338) do
     t.integer  "service_type_id"
   end
 
+  add_index "permits", ["permitable_id", "permitable_type"], name: "index_permits_on_permitable_id_and_permitable_type"
   add_index "permits", ["trusted_app_id"], name: "index_permits_on_trusted_app_id"
 
   create_table "ratings", force: true do |t|

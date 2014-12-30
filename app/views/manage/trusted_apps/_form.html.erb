@@ -11,19 +11,19 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :app_name %><br>
-    <%= f.text_field :app_name, id: "name" %>
+  <div class="form-group col-sm-3">
+      <%= f.label :app_name %><br>
+      <%= f.text_field :app_name, id: "name", class: "form-control" %>
   </div>
-  <div class="field">
+  <div class="form-group col-sm-3">
     <%= f.label :description %><br>
-    <%= f.text_field :description, id: "description" %>
+    <%= f.text_field :description, id: "description", class: "form-control" %>
   </div>
-  <div class="field">
+  <div class="form-group col-sm-3">
     <%= f.label :sha_hash %><br>
-    <%= f.text_field :sha_hash, id: "description" %>
+    <%= f.text_field :sha_hash, id: "description", class: "form-control" %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Submit", class: "btn btn-primary" %>
   </div>
 <% end %>
