@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20141226192338) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "addresses", force: true do |t|
     t.string   "line1"
     t.string   "line2"
@@ -36,7 +39,7 @@ ActiveRecord::Schema.define(version: 20141226192338) do
     t.integer  "trusted_app_id"
   end
 
-  add_index "companies", ["trusted_app_id"], name: "index_companies_on_trusted_app_id"
+  add_index "companies", ["trusted_app_id"], name: "index_companies_on_trusted_app_id", using: :btree
 
   create_table "consumers", force: true do |t|
     t.string   "unique_user_id"
@@ -45,7 +48,7 @@ ActiveRecord::Schema.define(version: 20141226192338) do
     t.integer  "trusted_app_id"
   end
 
-  add_index "consumers", ["trusted_app_id"], name: "index_consumers_on_trusted_app_id"
+  add_index "consumers", ["trusted_app_id"], name: "index_consumers_on_trusted_app_id", using: :btree
 
   create_table "people", force: true do |t|
     t.string   "first_name"
@@ -63,8 +66,8 @@ ActiveRecord::Schema.define(version: 20141226192338) do
     t.integer  "company_id"
   end
 
-  add_index "people", ["company_id"], name: "index_people_on_company_id"
-  add_index "people", ["trusted_app_id"], name: "index_people_on_trusted_app_id"
+  add_index "people", ["company_id"], name: "index_people_on_company_id", using: :btree
+  add_index "people", ["trusted_app_id"], name: "index_people_on_trusted_app_id", using: :btree
 
   create_table "people_vehicles", id: false, force: true do |t|
     t.integer "person_id"
@@ -78,7 +81,7 @@ ActiveRecord::Schema.define(version: 20141226192338) do
     t.integer  "service_type_id"
   end
 
-  add_index "permissions", ["service_type_id"], name: "index_permissions_on_service_type_id"
+  add_index "permissions", ["service_type_id"], name: "index_permissions_on_service_type_id", using: :btree
 
   create_table "permissions_trusted_apps", id: false, force: true do |t|
     t.integer "permission_id"
@@ -102,8 +105,8 @@ ActiveRecord::Schema.define(version: 20141226192338) do
     t.integer  "service_type_id"
   end
 
-  add_index "permits", ["permitable_id", "permitable_type"], name: "index_permits_on_permitable_id_and_permitable_type"
-  add_index "permits", ["trusted_app_id"], name: "index_permits_on_trusted_app_id"
+  add_index "permits", ["permitable_id", "permitable_type"], name: "index_permits_on_permitable_id_and_permitable_type", using: :btree
+  add_index "permits", ["trusted_app_id"], name: "index_permits_on_trusted_app_id", using: :btree
 
   create_table "ratings", force: true do |t|
     t.integer  "rating"
@@ -114,8 +117,8 @@ ActiveRecord::Schema.define(version: 20141226192338) do
     t.integer  "permit_id"
   end
 
-  add_index "ratings", ["consumer_id"], name: "index_ratings_on_consumer_id"
-  add_index "ratings", ["permit_id"], name: "index_ratings_on_permit_id"
+  add_index "ratings", ["consumer_id"], name: "index_ratings_on_consumer_id", using: :btree
+  add_index "ratings", ["permit_id"], name: "index_ratings_on_permit_id", using: :btree
 
   create_table "service_types", force: true do |t|
     t.string   "name"
@@ -125,7 +128,7 @@ ActiveRecord::Schema.define(version: 20141226192338) do
     t.integer  "trusted_app_id"
   end
 
-  add_index "service_types", ["trusted_app_id"], name: "index_service_types_on_trusted_app_id"
+  add_index "service_types", ["trusted_app_id"], name: "index_service_types_on_trusted_app_id", using: :btree
 
   create_table "services", force: true do |t|
     t.float    "start_latitude"
@@ -142,8 +145,8 @@ ActiveRecord::Schema.define(version: 20141226192338) do
     t.integer  "consumer_id"
   end
 
-  add_index "services", ["consumer_id"], name: "index_services_on_consumer_id"
-  add_index "services", ["permit_id"], name: "index_services_on_permit_id"
+  add_index "services", ["consumer_id"], name: "index_services_on_consumer_id", using: :btree
+  add_index "services", ["permit_id"], name: "index_services_on_permit_id", using: :btree
 
   create_table "static_permissions", force: true do |t|
     t.integer  "permission_type"
@@ -195,8 +198,8 @@ ActiveRecord::Schema.define(version: 20141226192338) do
     t.datetime "updated_at"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "vehicles", force: true do |t|
     t.string   "make"
@@ -210,7 +213,7 @@ ActiveRecord::Schema.define(version: 20141226192338) do
     t.integer  "trusted_app_id"
   end
 
-  add_index "vehicles", ["trusted_app_id"], name: "index_vehicles_on_trusted_app_id"
+  add_index "vehicles", ["trusted_app_id"], name: "index_vehicles_on_trusted_app_id", using: :btree
 
   create_table "violations", force: true do |t|
     t.string   "name"
@@ -224,7 +227,7 @@ ActiveRecord::Schema.define(version: 20141226192338) do
     t.integer  "trusted_app_id"
   end
 
-  add_index "violations", ["permit_id"], name: "index_violations_on_permit_id"
-  add_index "violations", ["trusted_app_id"], name: "index_violations_on_trusted_app_id"
+  add_index "violations", ["permit_id"], name: "index_violations_on_permit_id", using: :btree
+  add_index "violations", ["trusted_app_id"], name: "index_violations_on_trusted_app_id", using: :btree
 
 end
