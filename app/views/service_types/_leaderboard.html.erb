@@ -1,0 +1,36 @@
+<div class="container">
+<div class="row centered">
+    <h1>Leaderboard</h1>
+    <% if permits.length == 0 %>
+        <h3>Coming Soon!</h3>
+    <% else %>
+        <% tables = {'Vehicle'=> [], 'Company'=> [], 'Person'=> []} %>
+        <% permits.sort!{ |x, y| if x.average_rating < y.average_rating then 1 else -1 end}%>
+        <% permitables = [] %>
+        <% permits.each do |x| %>
+            <% result = {permitable: x.permitable, rating: x.average_rating} %>
+            <% permitables << result %>
+        <% end %>
+
+        <% permitables.each do |item| %>
+            <% type = item[:permitable].class.name %>
+            <% if not tables[type].nil? # This case happens during testing%>
+                <% tables[type] << item %>
+            <% end %>
+        <% end %>
+        <div class="row">
+            <% tables.each do |type, elements| %>
+                <% if elements.length > 0 %>
+                    <% formattedName = type.downcase.pluralize %>
+                    <% locals = {items: elements, title: "Top #{type.pluralize}"} %>
+                    <div class="col-md-4">
+                        <%= render partial: "#{formattedName}/table", locals: locals %>
+                    </div>
+                <% end %>
+            <% end %>
+        </div>
+        <!-- TODO Optionally Customize this by type -->
+        <!-- Show the leaders in all categories: companies, people/vehicles -->
+    <% end %>
+</div> <!--/ .row -->
+</div> <!--/ .container -->

@@ -23,6 +23,7 @@ class LoginTest < ActionDispatch::IntegrationTest
   end
 
   test "can't log in bad credentials" do
+    log_out
     visit new_user_session_path
     within("#new_user") do
       fill_in "Email", with: @user.email
