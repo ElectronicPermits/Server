@@ -3,8 +3,7 @@ cache: bundler
 rvm:
 - 2.1.5
 env: RAILS_ENV=test SECRET_KEY_BASE="$(bundle exec rake secret)"
-script: bundle exec rake db:create && bundle exec rake db:setup && bundle exec rake
-  test
+script: bundle exec rake test
 notifications:
   email:
   - brian.broll@gmail.com
