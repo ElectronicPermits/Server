@@ -2,10 +2,15 @@ language: ruby
 cache: bundler
 rvm:
 - 2.1.5
-env: 
-    - RAILS_ENV=test 
-    - SECRET_KEY_BASE="$(bundle exec rake secret)"
+env: RAILS_ENV=test SECRET_KEY_BASE="$(bundle exec rake secret)"
 script: bundle exec rake db:create && bundle exec rake db:setup && bundle exec rake test
 notifications:
   email:
   - brian.broll@gmail.com
+deploy:
+  provider: heroku
+  api_key:
+    secure: JmPPVfo8N2r4au9xKademRJQe2wnrIvnjWoVaF/sq6LUwmWHb+wRFhEwNerFppeFzI2vW7TqzvCm6iZms0iWLeD2SMbt7jBnF3pYmdBUzi/ilvNoB7cfvTbsszwwrYpzp8+C2+1Aqun/1hmJ+ONffUyclTDyXqRvEzyghf66tsU=
+  app: electronic-permits
+  on:
+    repo: ElectronicPermits/Server
