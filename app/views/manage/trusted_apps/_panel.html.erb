@@ -30,19 +30,31 @@
                         <td><%= trusted_app.contact_email %></td>
                         <% end %>
                     </tr>
-                </tbody>
-            </table>
+                    <tr>
+                        <td>Permissions</td>
+                        <td>
+                        <% @permissions.each do |permission| %>
+                            <% label_style = "label-default" %>
+                            <% label_text = permission.permission_type.gsub('_', ' ').capitalize %>
+                            <% if trusted_app.permissions.include? permission %>
+                                <% label_style = "label-info" %>
+                            <% end %>
+                            <span class="label <%= label_style %>"><%= label_text %></span>
+                        <% end %>
+                    </td>
 
-            <!-- TODO Populate this -->
-        </div>
-        <div class="panel-footer clearfix">
-            <div class="pull-right">
-                <%= link_to "Show", manage_trusted_app_path(trusted_app.id), id: "show_#{trusted_app.id}", class: "btn btn-default" %>
-                <%= link_to "Edit", edit_manage_trusted_app_path(trusted_app.id), id: "edit_#{trusted_app.id}", class: "btn btn-default" %>
-                <%= link_to 'Remove', manage_trusted_app_path(trusted_app), id: "delete_trusted_app_#{trusted_app.id.to_s}", method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default" %>
-            </div>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <div class="panel-footer clearfix">
+        <div class="pull-right">
+            <%= link_to "Edit", edit_manage_trusted_app_path(trusted_app.id), id: "edit_#{trusted_app.id}", class: "btn btn-default" %>
+            <%= link_to 'Remove', manage_trusted_app_path(trusted_app), id: "delete_trusted_app_#{trusted_app.id.to_s}", method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default" %>
         </div>
     </div>
+</div>
 </div>
 
 
