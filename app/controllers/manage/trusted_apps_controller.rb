@@ -1,6 +1,7 @@
 class Manage::TrustedAppsController < ApplicationController
   layout "manage"
   before_action :set_trusted_app, only: [:show, :edit, :update, :destroy]
+  before_action :get_permissions, only: [:show, :edit, :index]
 
   # GET /trusted_apps
   # GET /trusted_apps.json
@@ -75,5 +76,9 @@ class Manage::TrustedAppsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def trusted_app_params
       params.require(:trusted_app).permit(:app_name, :description, :sha_hash)
+    end
+
+    def get_permissions
+      @permissions = Permission.all
     end
 end
