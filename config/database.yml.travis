@@ -1,0 +1,6 @@
+test:
+  adapter: postgresql
+  database: db/travis_ci_test
+  pool: 5
+  timeout: 5000
+  username: postgres
