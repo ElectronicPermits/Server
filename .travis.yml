@@ -6,6 +6,14 @@ env: RAILS_ENV=test SECRET_KEY_BASE="$(bundle exec rake secret)"
 notifications:
   email:
   - brian.broll@gmail.com
+before_script:
+  - cp config/database.yml.travis config/database.yml
+  - psql -c 'create database travis_ci_test;' -U postgres
+  - bundle exec rake db:create db:migrate
+script:
+  - bundle exec rake test
+addons:
+      postgresql: "9.3"
 deploy:
   provider: heroku
   api_key:
@@ -13,9 +21,3 @@ deploy:
   app: electronic-permits
   on:
     repo: ElectronicPermits/Server
-before_script:
-  - cp config/database.yml.travis config/database.yml
-  - psql -c 'create database travis_ci_test;' -U postgres
-  - bundle exec rake db:create db:migrate
-addons:
-      postgresql: "9.3"
