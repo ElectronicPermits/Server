@@ -24,7 +24,8 @@ OpenPermits::Application.routes.draw do
   
   #API routes
   #API has access to all but permissions and trusted_apps
-  namespace :api, :path => "", :constraints => { :subdomain => "api" }, :defaults => {:format => :json} do 
+  # namespace :api, :path => "", :constraints => { :subdomain => "api" }, :defaults => {:format => :json} do 
+  namespace :api, :defaults => {:format => :json} do 
     namespace :v1, :defaults => {:format => :json} do
       #Create or read
       resources :ratings, only: [:create, :index, :show]
