@@ -8,12 +8,9 @@ notifications:
   - brian.broll@gmail.com
 before_script:
   - cp config/database.yml.travis config/database.yml
-  - psql -c 'create database travis_ci_test;' -U postgres
   - bundle exec rake db:create db:migrate
 script:
   - bundle exec rake test
-addons:
-      postgresql: "9.3"
 deploy:
   provider: heroku
   api_key:
