@@ -11,7 +11,7 @@ class ApiTest < ActionDispatch::IntegrationTest
   setup do 
     https!
     assert https?
-    host! "api.vcap.me"  # Reflects back to localhost
+    host! "vcap.me"  # Reflects back to localhost
 
     @signature = "APP"
     @app = TrustedApp.create(app_name: "APP", 
@@ -71,7 +71,7 @@ end
 
     # Also check that the consumer is created
     assert Consumer.where(:unique_user_id => "BRIANBROLL").first.nil?
-    post "/v1/ratings", rating: { rating: 4 }, consumer_id: "BRIANBROLL",
+    post "/api/v1/ratings", rating: { rating: 4 }, consumer_id: "BRIANBROLL",
                         permit_beacon_id: permit_beacon_id, app_signature: @signature
 
     assert(@response.code == "201", "Unable to create rating (#{@response.code})")
@@ -82,7 +82,7 @@ end
     permit = Permit.where(:service_type_id => @service_type.id).last
     permit_beacon_id = permit.beacon_id
 
-    post "/v1/ratings", rating: { rating: 4 }, 
+    post "/api/v1/ratings", rating: { rating: 4 }, 
                         permit_beacon_id: permit_beacon_id, app_signature: @signature
 
     assert(@response.code == "403", "Created rating without consumer id (#{@response.code})")
@@ -91,7 +91,7 @@ end
   test "app can't record service without perms" do
     permit = Permit.last
     permit_beacon_id = permit.beacon_id
-    post "/v1/services", service: { start_latitude: 4, end_latitude:5, 
+    post "/api/v1/services", service: { start_latitude: 4, end_latitude:5, 
                                     start_longitude: 1, end_longitude: 1 }, consumer_id: "BRIANBROLL",
                         permit_beacon_id: permit_beacon_id, app_signature: @signature
     assert_response(403)
@@ -114,7 +114,7 @@ end
     permit = Permit.where(:service_type_id => @service_type.id).last
     permit_beacon_id = permit.beacon_id
 
-    post "/v1/services", service: { start_latitude: 4, end_latitude:5, 
+    post "/api/v1/services", service: { start_latitude: 4, end_latitude:5, 
                                     start_longitude: 1, end_longitude: 1 }, consumer_id: "BRIANBROLL",
                         permit_beacon_id: permit_beacon_id, app_signature: @signature
 
@@ -126,7 +126,7 @@ end
     permit = Permit.where(:service_type_id => @service_type.id).last
     permit_beacon_id = permit.beacon_id
 
-    post "/v1/services", service: { start_latitude: 4, end_latitude:5, 
+    post "/api/v1/services", service: { start_latitude: 4, end_latitude:5, 
                                     start_longitude: 1, end_longitude: 1 }, consumer_id: "BRIANBROLL",
                         permit_beacon_id: permit_beacon_id, app_signature: @signature
 
@@ -139,7 +139,7 @@ end
     permit = Permit.where(:service_type_id => @service_type.id).last
     permit_beacon_id = permit.beacon_id
 
-    post "/v1/violations", service: { name: "Speeding", ordinance: "..." }, consumer_id: "BRIANBROLL",
+    post "/api/v1/violations", service: { name: "Speeding", ordinance: "..." }, consumer_id: "BRIANBROLL",
                         permit_beacon_id: permit_beacon_id, app_signature: @signature
 
     assert(@response.code == "403", "Issued violation without permissions (#{@response.body.inspect})")
@@ -594,21 +594,21 @@ end
   def submit_post (url, msg)
     msg[:consumer_id] = "BRIANBROLL"
     msg[:app_signature] = @signature
-    post "/v1#{url}", msg
+    post "/api/v1#{url}", msg
   end
 
   def submit_patch (url, msg)
     msg[:consumer_id] = "BRIANBROLL"
     msg[:app_signature] = @signature
 
-    patch "/v1#{url}", msg
+    patch "/api/v1#{url}", msg
   end
 
   def submit_destroy (url)
     msg = {consumer_id: "BRIANBROLL",
            app_signature: @signature}
 
-    delete "/v1#{url}", msg
+    delete "/api/v1#{url}", msg
   end
 
   def add_permission (permissions)
