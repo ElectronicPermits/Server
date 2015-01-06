@@ -12,6 +12,9 @@
     </div> <!--/ .container -->
 </div><!--/ #headerwrap -->
 
+<% if @trusted_apps.length > 10 %>
+    <%= render partial: "table", locals: {trusted_apps: @trusted_apps} %>
+<% else %>
 <% rowLength = 4 %>
 <% itemNumber = 0 %>
 <% totalItemCount = @trusted_apps.length %>
@@ -29,6 +32,7 @@
     <% itemNumber += 1 %>
 <% end %>
 </div>
+<% end %>
 
 <div class="text-center">
 <%= link_to "Add App", new_manage_trusted_app_path, id: "add_new_app", class: "btn btn-success" %>

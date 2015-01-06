@@ -12,6 +12,9 @@
 	    </div> <!--/ .container -->
 	</div><!--/ #headerwrap -->
 
+<% if @users.length > 10 %>
+    <%= render partial: "table", locals: {users: @users} %>
+<% else %>
 <% rowLength = 4 %>
 <% itemNumber = 0 %>
 <% totalItemCount = @users.length %>
@@ -30,6 +33,7 @@
 
 <% end %>
 </div>
+<% end %>
 
 <div class="text-center">
     <%= link_to "Add User", new_manage_user_path, id: "add_new_user", class: "btn btn-success" %>
