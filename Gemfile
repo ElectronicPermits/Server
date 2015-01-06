@@ -6,7 +6,7 @@ gem 'rails', '4.1.1'
 gem 'rake', '10.4.0'
 
 # Use sqlite3 as the database for Active Record
-#gem 'sqlite3'
+gem 'sqlite3'
 gem 'pg'
 gem 'rails_12factor'
 

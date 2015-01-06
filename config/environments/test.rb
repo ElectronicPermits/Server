@@ -36,4 +36,9 @@ OpenPermits::Application.configure do
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
+
+  # Remove SQL logging
+  config.after_initialize do
+    ActiveRecord::Base.logger = nil
+  end
 end
