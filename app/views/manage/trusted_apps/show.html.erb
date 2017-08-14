@@ -12,5 +12,7 @@
   <%= @trusted_app.description %>
 </p>
 
-<%= link_to 'Edit', edit_manage_trusted_app_path(@trusted_app) %> |
-<%= link_to 'Back', manage_trusted_apps_path %>
+<!-- Show Permissions? -->
+
+<%= link_to 'Back', manage_trusted_apps_path, class: "btn btn-default" %>
+<%= link_to 'Edit', edit_manage_trusted_app_path(@trusted_app), class: "btn btn-info" %>

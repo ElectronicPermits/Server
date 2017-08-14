@@ -1,5 +1,6 @@
-<h1>New trusted_app</h1>
+<%= render partial: "shared/title", locals: {title: "Register Trusted App", 
+                                             subtitle: "Allow recording/rating functionality for app"} %>
 
 <%= render 'form' %>
 
-<%= link_to 'Back', manage_trusted_apps_path %>
+<%= link_to 'Back', manage_trusted_apps_path, class: "btn btn-default" %>

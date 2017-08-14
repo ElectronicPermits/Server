@@ -80,5 +80,6 @@ class Manage::TrustedAppsController < ApplicationController
 
     def get_permissions
       @permissions = Permission.all
+      @static_permissions = StaticPermission.all
     end
 end

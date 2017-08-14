@@ -13,7 +13,7 @@ StaticPermission.targets.each do |target, target_value|
   end
 end
 
-#User Permissions
+# User Permissions
 super_permissions = []
 UserPermission.actions.each do |key, action|
   UserPermission.targets.each do |key2, target|
@@ -25,7 +25,7 @@ UserPermission.actions.each do |key, action|
   end
 end
 
-#Initial admin user
+# Initial admin user
 admin = User.create({ email: "admin@admin.com", password: "password", 
               password_confirmation: "password" })
 
@@ -42,6 +42,11 @@ web_interface.save
 taxi = ServiceType.new({ name: "Taxi" })
 taxi.trusted_app = web_interface
 taxi.save
+
+# TrustedApp Permissions for the Taxi
+Permission.permission_types.each do |perm_type, perm_type_value|
+  Permission.create({ service_type: taxi, permission_type: perm_type_value })
+end
 
 # If in development, create a trusted_app w/ all permissions
 if Rails.env == 'development'
@@ -161,5 +166,7 @@ if Rails.env == 'development'
       puts "Adding People Errors:\n#{company.errors.full_messages}"
     end
   end
+
+  # TODO Add Permit and stuff
 
 end

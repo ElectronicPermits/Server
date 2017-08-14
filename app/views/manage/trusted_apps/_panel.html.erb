@@ -7,7 +7,7 @@
             <table class="table">
                 <tbody>
                     <tr>
-                        <td>Description</td>
+                        <td><b>Description</b></td>
                         <% if trusted_app.description.nil? then %>
                             <td><i>None Provided</i></td>
                         <% else %>
@@ -15,7 +15,7 @@
                         <% end %>
                     </tr>
                     <tr>
-                        <td>Contact Name</td>
+                        <td><b>Contact Name</b></td>
                         <% if trusted_app.contact_name.nil? then %>
                             <td><i>None Provided</i></td>
                         <% else %>
@@ -23,7 +23,7 @@
                         <% end %>
                     </tr>
                     <tr>
-                        <td>Email</td>
+                        <td><b>Email</b></td>
                         <% if trusted_app.contact_email.nil? then %>
                             <td><i>None Provided</i></td>
                         <% else %>
@@ -31,30 +31,54 @@
                         <% end %>
                     </tr>
                     <tr>
-                        <td>Permissions</td>
-                        <td>
+                        <% permissions_by_service = {} %>
                         <% @permissions.each do |permission| %>
-                            <% label_style = "label-default" %>
-                            <% label_text = permission.permission_type.gsub('_', ' ').capitalize %>
-                            <% if trusted_app.permissions.include? permission %>
-                                <% label_style = "label-info" %>
+                            <% if permissions_by_service[permission.service_type.name].nil? %>
+                                <% permissions_by_service[permission.service_type.name] = [] %>
                             <% end %>
-                            <span class="label <%= label_style %>"><%= label_text %></span>
+                            <% permissions_by_service[permission.service_type.name] << permission %>
                         <% end %>
-                    </td>
 
-                </tr>
-            </tbody>
-        </table>
+                        <% static_permissions_by_target = {} %>
+                        <% @permissions.each do |permission| %>
+                            <% if static_permissions_by_target [permission.service_type.name].nil? %>
+                                <% static_permissions_by_target [permission.service_type.name] = [] %>
+                            <% end %>
+                            <% static_permissions_by_target [permission.service_type.name] << permission %>
+                        <% end %>
+                        <!-- Static Permissions -->
+                        <% permissions_by_service.each do |key, value| %>
 
-    </div>
-    <div class="panel-footer clearfix">
-        <div class="pull-right">
-            <%= link_to "Edit", edit_manage_trusted_app_path(trusted_app.id), id: "edit_#{trusted_app.id}", class: "btn btn-default" %>
-            <%= link_to 'Remove', manage_trusted_app_path(trusted_app), id: "delete_trusted_app_#{trusted_app.id.to_s}", method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default" %>
+                        <!-- Service Type Permissions -->
+                        <% permissions_by_service.each do |key, value| %>
+                        <td><b><%= key.capitalize %> Permissions</b></td>
+                        <td>
+                                <% value.each do |permission| %>
+                                    <% label_style = "label-default" %>
+                                    <% label_text = permission.permission_type.gsub('_', ' ').capitalize %>
+                                    <% if trusted_app.permissions.include? permission %>
+                                        <% label_style = "label-info" %>
+                                    <% end %>
+                                    <span class="label <%= label_style %>"><%= label_text %></span>
+                                <% end %>
+                                <br/>
+
+                        </td>
+                            <% end %>
+
+
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <div class="panel-footer clearfix">
+            <div class="pull-right">
+                <%= link_to "Edit", edit_manage_trusted_app_path(trusted_app.id), id: "edit_#{trusted_app.id}", class: "btn btn-default" %>
+                <%= link_to 'Remove', manage_trusted_app_path(trusted_app), id: "delete_trusted_app_#{trusted_app.id.to_s}", method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default" %>
+            </div>
         </div>
     </div>
-</div>
 </div>
 
 

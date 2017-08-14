@@ -1,19 +1,35 @@
 <%= form_for [:manage, @user] do |f| %>
-  <%= devise_error_messages! %>
+    <%= devise_error_messages! %>
 
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email, autofocus: true %></div>
+    <div class="form-horizontal center-block">
+        <div class="form-group"><div class="col-sm-3 center-block">
+                <%= f.label :email %><br />
+                <%= f.email_field :email, autofocus: true, class: "form-control" %>
+            </div>
+        </div>
 
-  <% if devise_mapping.confirmable? && @user.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= @user.unconfirmed_email %></div>
-  <% end %>
+        <% if devise_mapping.confirmable? && @user.pending_reconfirmation? %>
+            <div>Currently waiting confirmation for: <%= @user.unconfirmed_email %></div>
+        <% end %>
 
-  <div><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "off" %></div>
+        <div class="form-horizontal center-block">
+            <div class="form-group"><div class="col-sm-3 center-block">
+                    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+                    <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+                </div>
+            </div>
 
-  <div><%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %></div>
+            <div class="form-horizontal center-block">
+                <div class="form-group"><div class="col-sm-3 center-block">
+                        <%= f.label :password_confirmation %><br />
+                        <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
+                    </div>
+                </div>
 
-  <div><%= f.submit "Submit" %></div>
-<% end %>
+                <div>
+                    <%= link_to "Back", :back, class: "btn btn-default" %>
+                    <%= f.submit "Submit", class: "btn btn-primary" %>
+                </div>
+            </div>
+        <% end %>
 

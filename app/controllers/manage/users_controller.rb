@@ -3,6 +3,7 @@ class Manage::UsersController < Devise::RegistrationsController
   prepend_before_filter :require_no_authentication, only: []
   prepend_before_filter :authenticate_scope!, only: [ :new, :edit, :update, :index, :destroy ]
   before_action :set_user, only: [ :update, :edit, :show, :destroy ]
+  before_action :get_permissions, only: [:show, :edit, :index]
   # This controller is for managing the user accounts
   #  + creation
   #  + editing
@@ -70,4 +71,7 @@ class Manage::UsersController < Devise::RegistrationsController
     @user = User.find(params[:id])
   end
 
+  def get_permissions
+    @permissions = UserPermission.all
+  end
 end

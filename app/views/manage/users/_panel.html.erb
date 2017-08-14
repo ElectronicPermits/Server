@@ -16,8 +16,30 @@
                         <td><%= user.last_sign_in_at %></td>
                     </tr>
                     <tr> <!-- Permissions TODO-->
-                        <td>Permissions</td>
-                        <td><%= user.last_sign_in_at %></td>
+                        <td><b>Permissions</b></td>
+                        <% permissions_by_target = {} %>
+                        <% @permissions.each do |permission| %>
+                            <% if permissions_by_target[permission.target].nil? %>
+                                <% permissions_by_target[permission.target] = [] %>
+                            <% end %>
+                            <% permissions_by_target[permission.target] << permission %>
+                        <% end %>
+
+                        <td>
+                        <% permissions_by_target.each do |key, value| %>
+                            <%= key.pluralize.gsub('_', ' ').capitalize %>:
+                                <% value.each do |permission| %>
+                                    <% label_style = "label-default" %>
+                                    <% label_text = permission.action.gsub('_', ' ').capitalize %>
+                                    <% if user.user_permissions.include? permission %>
+                                        <% label_style = "label-info" %>
+                                    <% end %>
+                                    <span class="label <%= label_style %>"><%= label_text %></span>
+                                <% end %>
+                                <br/>
+
+                            <% end %>
+                        </td>
                     </tr>
                 </tbody>
             </table>
